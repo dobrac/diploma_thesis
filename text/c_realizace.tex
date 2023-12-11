@@ -1,0 +1,193 @@
+\section{Výběr technologií}
+%Hlavními rozhodujícími faktory pro výběr technologií jsou grafické uživatelské rozhraní, komunikace se systémem Syllabus Plus přes COM rozhraní a s tím se přímo váže i podpora operačního systému Windows.
+%Potřebuji tak vybrat programovací jazyk, framework pro tvorbu uživatelského rozhraní a knihovnu umožňující potřebnou komunikaci se softwarem Syllabus Plus.
+
+\subsection{Programovací jazyk}
+%Jako jazykové možnosti pro vývoj aplikace jsem zvolil Java, Kotlin a JavaScript (případně TypeScript).
+%Jsou to jazyky, které znám a se kterými jsem již v minulosti pracoval na tvorbě uživatelského rozhraní.
+%
+%Nejzajímavější uživatelská rozhraní se mi povedla v minulosti vytvořit pomocí programovacího jazyka JavaScript ve spojení s HTML a CSS\@.
+%Ačkoliv bych rád tyto technologie využil i v této práci, tak bohužel kvůli potřebám těsné provázanosti s operačním systémem by mohly vznikat zbytečné komplikace při práci se systémovými soubory nebo při snaze o komunikaci přes COM rozhraní.
+%Proto jsem tento jazyk nezvolil pro implementaci aplikace.
+%
+%Java nebo Kotlin se tak staly hlavními kandidáty.
+%Pro jazyk Kotlin se mi podařilo najít framework pro tvorbu uživatelských rozhraní Compose for Desktop.
+%Tato knihovna mi přišla zajímavá, protože využívá podobných principů reaktivity, jako některé webové frameworky, a pomocí syntaxe jazyka Kotlin odstraňuje potřebu psát uživatelská rozhraní pomocí XML~\cite{compose-ui-desktop}.
+%Navíc Kotlin je open-source staticky typovaný programovací jazyk, který dokáže být přeložen na JVM nebo nativní aplikaci~\cite{kotlin-faq}.
+%Oproti jazyku Java je bezpečnější při práci s datovými typy díky podpoře typů s nulovou hodnotou a aplikace jsou tak méně náchylné na chyby s tím spojené~\cite{kotlin-faq}.
+%
+%Co mě dále zaujalo, je kompletní kompatibilita s programovacím jazykem Java~\cite{kotlin-faq}.
+%To znamená, že kód napsaný v jazyce Kotlin se dá zavolat z jazyka Java a obráceně~\cite{kotlin-faq}.
+%Kompatibilita na této úrovni není samozřejmostí, například kód napsaný v jazyce Scala jde sice také volat z jazyka Java, ale existují oblasti, ve kterých nastávají komplikace~\cite{scala-faq}.
+%Těmi jsou funkcionality, které nemají na úrovni kódu ekvivalent v jazyce Java, jako například \textit{trait}~\cite{scala-faq}.
+%
+%Protože jazyk Kotlin je ale mladý jazyk od společnosti JetBrains s první verzí z roku 2016, potřebuji najít způsob, pomocí kterého dokáži komunikovat přes COM rozhraní~\cite{kotlin-faq}.
+%Jelikož je ale COM rozhraní poměrně staré, tak se mi nepovedlo dohledat žádnou dostupnou knihovnu.
+%To však vůbec nevadí, protože mohu využít jakoukoli knihovnu pro JVM\@, konkrétně jsem se zaměřil na knihovny pro jazyk Java, pro který se mi jich několik podařilo nalézt.
+%
+%Protože Compose for Desktop plní požadavek na framework pro tvorbu uživatelského rozhraní a povedlo se mi najít několik knihoven pro práci s rozhraním COM (více v podkapitole~\ref{subsec:pristup-ke-com-rozhrani} o COM knihovnách), rozhodl jsem se pro jazyk Kotlin.
+%Navíc díky kompatibilitě se mi nestane, že bych přišel o případnou funkcionalitu, která je v jazyce Java dostupná, a budu moct využívat nové koncepty syntaxe.
+%Mohu využít například generátor kódu, který existuje pouze pro jazyk Java, a poté volat vygenerovaný kód z jazyka Kotlin (více v podkapitole~\ref{subsec:pristup-ke-com-rozhrani} o COM knihovnách).
+
+\subsection{Knihovna Coroutines}
+
+
+\subsection{Další knihovny}
+%Kromě dříve uvedených a základních knihoven jazyka Kotlin jsem se rozhodl, že by se mi ještě hodila knihovna pro Dependency Injection, dále knihovna pro vytvoření HTTP spojení, knihovna pro přeložení XML a JSON, a knihovna pro jednodušší práci s datumy a časy.
+%
+%Pro Dependency Injection se mi podařilo najít několik knihoven, nicméně můj záměr byl, aby podporovala v nějaké formě framework Compose for Desktop.
+%Vybral jsem si tak knihovnu s názvem Koin\footnote{\url{https://insert-koin.io/}}, která by ho dle dokumentace měla podporovat.
+%Její použití je zároveň dostatečně jednoduché.
+%Ve výsledku jsem ale zjistil, že podpora není taková, jakou bych si představoval.
+%Nedařilo se mi dle dokumentace zprovoznit získávání třídy pomocí metody \textit{get}.
+%Nakonec jsem si implementoval tuto metodu sám pomocí využití zpětné kompatibility frameworku s třídami v jazyce Java, a tím jsem problém vyřešil.
+%
+%Na vytvoření HTTP spojení jsem využil knihovnu Ktor\footnote{\url{https://ktor.io/}}.
+%Jedná se o oficiální knihovnu a framework od společnosti JetBrains pro rychlou a jednoduchou tvorbu webových aplikací, HTTP služeb~\cite{ktor-introduction}.
+%Ktor využívá abstrakce asynchronních procesů pomocí Coroutines, které jsou součástí jazyka Kotlin~\cite{ktor-introduction}.
+%Framework obsahuje i server, třeba pro tvorbu webových aplikací, nicméně pro mé využití mi postačí pouze klient.
+%U klienta budu potřebovat dvě knihovny pro zpracování dotazů ve dvou různých formátech.
+%Jednou je knihovna pro JSON formát.
+%Ta je součástí Ktor knihovny a je možné ji získat jako volitelný balíček.
+%Pro XML využiji knihovnu Jackson, která je také součástí knihovny Ktor, v kombinaci s XML parser\footnote{\url{https://github.com/FasterXML/jackson-dataformat-xml}}.
+%
+%Na závěr ještě využiji drobnou knihovnu pro práci s datumy a časy.
+%Usnadní mi primárně konverze mezi minutami, hodinami nebo třeba sekundami.
+%Jedná se o knihovnu opět od společnosti JetBrains kotlinx-datetime\footnote{\url{https://github.com/Kotlin/kotlinx-datetime}}.
+%Je tak plně kompatibilní s jazykem Kotlin.
+
+
+\section{Nastavení projektu}
+%Jako nástroj pro kompilaci, vývoj a správu modulů je použitý nástroj Gradle\footnote{\url{https://github.com/gradle/gradle}}.
+%Projekt aplikace se pak skládá ze čtyř modulů.
+%Těmi jsou:
+%\begin{itemize}
+%    \item com (modul pro přístup ke COM rozhraní včetně pomocných metod),
+%    \item models (definice tříd systémů a jejich vlastnosti),
+%    \item services (služby pro práci s modely a daty z obou systémů),
+%    \item ui (uživatelské rozhraní aplikace).
+%\end{itemize}
+%Návaznosti mezi moduly jsou znázorněny na obrázku~\ref{fig:moduly}.
+
+%\begin{figure}[hbt!]
+%    \centering
+%    \captionsetup{justification=centering}
+%    \includegraphics[width=0.9\textwidth]{projekt-moduly}
+%    \caption{Moduly projektu}
+%    \label{fig:moduly}
+%\end{figure}
+
+%Dále je vytvořen ještě modul s názvem \textit{buildSrc}.
+%Tento modul je předdefinovaný pro komplikovanější nastavení více modulů v rámci nástroje Gradle~\cite{gradle-buildsrc}.
+%Mé využití je pro sdílení proměnných, které pak mohu využívat v souborech \textit{build.gradle.kts} (jedná se o soubory sloužící pro nastavení kompilace jednotlivých modulů).
+%Definuji zde verzi jednotlivých knihoven a verzi cíle pro JVM\@.
+%Samotný modul se ale nijak nepropisuje do funkčnosti aplikace, proto ho v diagramu neuvádím.
+
+\subsection{Kompilace}
+%Jelikož je aplikace napsaná v jazycích Kotlin a Java, její výstup je v základu ve formátu .jar, což je spustitelný soubor na JVM\@.
+%Tento soubor lze získat pomocí spuštění Gradle úkolu \textit{packageUberJarForCurrentOS}.
+%Potřebná verze nainstalovaného prostředí jazyka Java je 15.
+%
+%Compose for Desktop ale umožňuje i lepší distribuci, než tento soubor~\cite{compose-compile}.
+%Tou je kompilace do binárních souborů různých formátů (.dmg, .deb, .msi, .exe), mě zajímá nejvíce formát .exe~\cite{compose-compile}.
+%V rámci konfigurace kompilace nastavím informace o spustitelné třídě a cílovém formátu a poté spustím Gradle úkol \textit{packageExe}.
+%Vytvoří se soubor, který končí příponou exe.
+%Tento soubor obsahuje všechny potřebné soubory aplikace včetně prostředí jazyka Java pro samotný běh.
+%Jedná se o instalátor, který při instalaci nakopíruje potřebné soubory do uživatelem definovaného umístění~\cite{compose-compile}.
+%V případě odinstalace pak může uživatel postupovat stejně jako u většiny programů na systému Windows.
+%V rámci ovládacího panelu si najde aplikaci a vybere odinstalaci.
+%
+%Může nastat ale i situace, kdy se vyplatí více použít balíček JAR, kvůli úspoře místa na disku.
+%Údaje o velikostech zobrazuje tabulka~\ref{tab:instalator}.
+%\begin{table}[hbt!]
+%    \centering
+%    \captionsetup{justification=centering}
+%    \begin{tabular}{|l|l|l|}
+%        \hline
+%        & Instalátor .exe & Balíček JAR           \\ \hline
+%        Distribuovaná aplikace              & 82 MB           & 34 MB                 \\ \hline
+%        Nainstalovaná aplikace              & 170 MB          & ---                   \\ \hline
+%        Běhové prostředí                    & ---             & 72 MB~\cite{jre-size} \\ \hline
+%        \textbf{Výsledná velikost na disku} & \textbf{170 MB} & \textbf{106 MB}       \\ \hline
+%    \end{tabular}
+%    \caption{Tabulka porovnání velikostí jednotlivých verzí}
+%    \label{tab:instalator}
+%\end{table}
+%
+%Vzhledem k přidaným funkcím, nezávislosti na nainstalovaném prostředí jazyka Java a kapacitě dnešních disků pohybující se v jednotkách terabytů, jsem se rozhodl pro použití instalátoru místo balíčku JAR\@.
+%
+%Uživatel dostane jeden soubor, který obsahuje instalátor.
+%Ten spustí, vybere si umístění a aplikaci nainstaluje.
+%Po prvním spuštění se ve složce \textit{\%appdata\%\textbackslash{}SPlusKOS} vytvoří soubor pro nastavení a předdefinovaný seznam skupin místností.
+%V souboru pro nastavení upraví uživatel potřebné údaje (\textit{KOSAPIClientId} a \textit{KOSAPIClientSecret}, viz podkapitola~\ref{subsec:kos-api}) a aplikaci restartuje.
+%Po dokončení by mělo vše plně fungovat.
+
+
+
+\section{Uživatelské rozhraní}
+%Uživatelské rozhraní je založeno na jedné hlavní obrazovce a třech pohledech, které se skládají ze sloupců.
+%Pro zachování posledního načteného stavu je implementováno řešení, které ponechává všechny pohledy v paměti, i když nejsou zrovna viditelné.
+%To zaručuje, že se uživatel může přepínat mezi jednotlivými pohledy bez ztráty vybraných dat nebo pozice ve scrollování.
+%
+%V horní části se nachází hlavičky jednotlivých systémů, výběrová tlačítka pro specifické funkce (výběr semestru, nastavení spojení) a ukazatel průběhu načítání/aktualizace dat.
+%Po načtení dat je místo ukazatele zobrazen čas poslední aktualizace a doba, kterou poslední aktualizace zabrala.
+%Funkcionalita této lišty se nachází v komponentě \textit{Toolbar}.
+
+\section{Známé problémy}
+
+
+\section{Licence}
+Pro vývoj jsem použil knihovny, které využívají licenci \textit{BSD 2-Clause\ "Simplified"\ License\footnote{\url{https://choosealicense.com/licenses/bsd-2-clause/}}} nebo \textit{Apache 2.0\footnote{\url{https://choosealicense.com/licenses/apache-2.0/}}}.
+Seznam knihoven a jejich licencí je zachycen v tabulce~\ref{tab:libraries-licenses}.
+Jejich práva a omezení potom zobrazuje tabulka~\ref{tab:licenses}.
+
+\begin{table}
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        & BSD 2-Clause\ "Simplified"\ License & Apache 2.0 \\ \hline
+        \textbf{Povoluje}         &                                     &            \\ \hline
+        Komerční použití          & \checkmark                          & \checkmark \\ \hline
+        Modifikace                & \checkmark                          & \checkmark \\ \hline
+        Distribuce                & \checkmark                          & \checkmark \\ \hline
+        Použití pro patent        & x                                   & \checkmark \\ \hline
+        Soukromé použití          & \checkmark                          & \checkmark \\ \hline
+        &                                     &            \\ \hline
+        \textbf{Omezuje}          &                                     &            \\ \hline
+        Používání ochranné známky & \checkmark                          & x          \\ \hline
+        Odpovědnost               & \checkmark                          & \checkmark \\ \hline
+        Záruka                    & \checkmark                          & \checkmark \\ \hline
+    \end{tabular}
+    \caption{Přehled licencí a jejich omezení}
+    \label{tab:licenses}
+\end{table}
+
+Obě licence umožňují jak soukromé, tak komerční využití, včetně distribuce a případných modifikací.
+Jejich jediným požadavkem je zachování upozornění na licenci a autorská práva v rámci samotných knihoven.
+Použité knihovny včetně jejich licencí jdou zobrazit v samotné aplikaci pod položkou \enquote{O aplikaci} v levé horní nabídce.
+
+Protože jsem požadavky licencí splnil a zároveň mi jejich omezení umožňují bezplatné využití bez nutnosti zveřejnění zdrojových kódů nebo zachování licencí, mohu knihovny pro mou práci využít.
+
+\begin{table}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Knihovna}                                 & \textbf{Licence}                                                                                                          \\ \hline
+        com4j                                             & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/kohsuke/com4j/blob/master/LICENSE.txt}}         \\ \hline
+        com4j -- oprava chyb a využití try-with-resources & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/archiecobbs/com4j/blob/master/LICENSE.txt}}     \\ \hline
+        com4j -- úprava pro podporu referencí             & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/jasperkrijgsman/com4j/blob/master/LICENSE.txt}} \\ \hline
+        Kotlin                                            & Apache 2.0\tablefootnote{\url{https://github.com/JetBrains/kotlin/blob/master/license/README.md}}                         \\ \hline
+        Kotlin Coroutines                                 & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/kotlinx.coroutines/blob/master/LICENSE.txt}}                      \\ \hline
+        KotlinX DateTime                                  & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/kotlinx-datetime/blob/master/LICENSE.txt}}                        \\ \hline
+        Compose for Desktop                               & Apache 2.0\tablefootnote{\url{https://github.com/JetBrains/compose-jb/blob/master/LICENSE.txt}}                           \\ \hline
+        Koin                                              & Apache 2.0\tablefootnote{\url{https://github.com/InsertKoinIO/koin/blob/master/LICENSE}}                                  \\ \hline
+        Ktor, HTTP Client, JSON                           & Apache 2.0\tablefootnote{\url{https://github.com/ktorio/ktor/blob/main/LICENSE}}                                          \\ \hline
+        Jackson (XML)                                     & Apache 2.0\tablefootnote{\url{https://github.com/FasterXML/jackson-dataformat-xml/blob/master/LICENSE}}                   \\ \hline
+        Gradle                                            & Apache 2.0\tablefootnote{\url{https://github.com/gradle/gradle/blob/master/LICENSE}}                                      \\ \hline
+        Dokka -- generátor dokumentace                    & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/dokka/blob/master/LICENSE}}                                       \\ \hline
+    \end{tabular}
+    \caption{Seznam knihoven a jejich licencí}
+    \label{tab:libraries-licenses}
+\end{table}

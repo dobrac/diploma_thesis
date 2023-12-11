@@ -1,0 +1,78 @@
+\section{Uživatelské testování}
+%Jako cíl testování jsem zvolil zjištění intuitivnosti a přehlednosti používání aplikace, funkcionalitu aplikace v prostředí, ve kterém bude software používaný, a případné odhalení chyb.
+%Jako uživatele pro testování jsem zvolil aktuálního fakultního rozvrháře Daniela Dombka (dále jen \enquote{tester}).
+%Jedná se o jediného uživatele, který by s touto aplikací měl po dokončení pracovat, má nejbližší vztah k tvorbě rozvrhu a rozumí jeho problémům a požadavkům.
+%
+%Pro uživatelské testování jsem vytvořil následující scénáře:
+%\begin{itemize}
+%    \item Instalace programu
+%    \item Inicializace obrazu a navázání spojení se softwarem Syllabus Plus
+%    \item Převod všech časových lístků do softwaru Syllabus Plus
+%    \item Export všech časových lístků ze softwaru Syllabus Plus
+%    \item Oprava informací časového lístku ze systému KOS
+%    \item Oprava smazaného náhodného časového lístku v softwaru Syllabus Plus
+%    \item Vyhledání chybějícího učitele a jeho následný import do softwaru Syllabus Plus
+%\end{itemize}
+%
+%
+%Jedná se o jiné scénáře než pro otestování funkčnosti aplikace a zároveň nepokrývají celou funkcionalitu, protože cílem uživatelského testování je primárně intuitivnost a přehlednost aplikace. (Například z pohledu používání není potřeba testovat import všech dat pro jednotlivé pohledy, protože se vždy jedná o tu samou posloupnost kroků.)
+%
+%Protože tester je dostatečně seznámen s problematikou tvorby rozvrhu, nemusel jsem vysvětlovat smysl a účel aplikace.
+
+%\subsection{Instalace programu}
+%Testerovi byl zaslán instalační soubor s aplikací a údaje k nastavení spojení s KOS API\@.
+%
+%Poté byly zadány instrukce:
+%\begin{enumerate}
+%    \item Spusťte instalační soubor
+%    \item Projděte pomocníkem pro instalaci
+%    \item Spusťte aplikaci
+%    \item V levém horním menu zvolte \enquote{Nastavení}
+%    \item Nastavte v souboru \enquote{settings.properties} zaslané údaje
+%    \item Restartujte aplikaci
+%\end{enumerate}
+%
+%Tester aplikaci pomocí těchto pokynů nainstaloval a nastavil spojení s KOS API\@.
+%Během scénáře se nevyskytly žádné chyby ani nejasnosti.
+
+
+\subsection{Zjištěné problémy a jejich řešení}\label{subsec:zjistene-problemy-a-jejich-reseni}
+%\begin{itemize}
+%    \item Pro vyřešení problému s nepřehledností vybraného semestru jsem do dialogového okna s informacemi o inicializaci semestru přidal stejný výběr semestru, jako v hlavním okně aplikace.
+%    \item Při převodu časových lístků (včetně rozvrhu) nepovoluji vznik kolizí, i když to v softwaru Syllabus Plus lze.
+%    Nicméně bylo mi řečeno, že je lepší, pokud se vyhodí výjimka (tak jako nyní), než aby program ignoroval omezení a potom vznikly nechtěné kolize.
+%    \item Tlačítka pro aktualizaci dat jednotlivých systémů byla hledána spíše v horní části programu, proto jsem je přesunul pod tlačítko s načtením všech dat.
+%    \item Pro zpřehlednění původu časového lístku jsem přidal do dialogového okna další text s informací o systému (nenachází se nadále pouze v hlavičce).
+%    \item Během testování bylo lehké zmatení mezi označenými položkami pro převod a otevřenými položkami pro zobrazení ve sloupcích.
+%    Dle zpětné vazby není jasné, kolik položek je označených.
+%    Jako řešení jsem navrhl přesunout informaci o počtu vybraných položek mimo tlačítko pro migraci.
+%    Změna je zachycena na obrázku~\ref{fig:ui-migrate-diff}.
+%    \item Během testování vyhledání učitele bylo zjištěno zmatení s prázdným sloupcem s učiteli při nevybrání kategorie.
+%    Navrhl jsem proto řešení, které v případě nevybrané kategorie sloupec znepřístupní a zobrazí text s instrukcí pro jeho aktivaci (pokyn k vybrání položky v nadřazené kategorii).
+%    Změna je zachycena na obrázku~\ref{fig:ui-column-diff}.
+%    \item Akce sbalení sloupce není jednoduše dohledatelná, nicméně při nahodilém klikání na ni přišel.
+%    Jako řešení jsem navrhl podtrhávání textu názvu sloupce při najetí.
+%\end{itemize}
+%
+%\bigskip
+%
+%Další poznámky, které se netýkaly přímo testovacích scénářů, ale v rámci práce na ně bylo poukázáno:
+%\begin{itemize}
+%    \item zobrazení tlačítka pro vybrání všech položek ve sloupci, i když v daném sloupci lze vybrat maximálně jednu položku,
+%    \item chybějící zobrazení místností a učitelů, kteří nejsou přiřazeni do žádné skupiny,
+%    \item zaškrtávací políčko pro schování předmětů s prázdnými časovými lístky bylo v menší velikosti okna zablokováno jinými prvky (změna zaškrtávacího políčka je zachycena na obrázku~\ref{fig:ui-column-diff}).
+%\end{itemize}
+
+\subsection{Zhodnocení testování}
+%Všechny akce uživatelského testování kromě zjištěných problémů byly na základě zpětné vazby intuitivní a dostatečně přehledné.
+%Dále bylo během převodu oceněno okamžité propsání změn v softwaru Syllabus Plus.
+%
+%Testování ukázalo, že výsledná aplikace je přehledná, funkční v prostředí, ve kterém bude software používaný, a neobsahuje chyby ovlivňující funkcionalitu.
+%Po opravení zjištěných problémů (viz podkapitola~\ref{subsec:zjistene-problemy-a-jejich-reseni}) je intuitivnost aplikace splněna.
+%
+%Jako nápad na vylepšení byla zmíněna možnost zobrazení detailu časových lístků pro více předmětů najednou a možnost výběru více položek pomocí klávesové zkratky \enquote{ctrl + shift}.
+%Na základě krátké konverzace ale nebylo zřejmé, zda by to mělo reálné použití v tvorbě rozvrhu, proto bych nechal tento nápad spíše do případného vylepšení aplikace.
+%
+%Manuální scénáře potvrdily splnění a funkčnost všech požadavků aplikace.
+%Otestování správného výpisu jednotlivých položek s exportem časových lístků bylo provedeno odděleně s několika ukázkovými záznamy, kdy exportovaná data měla správný formát a patřičné změny se korektně provedly.
+%

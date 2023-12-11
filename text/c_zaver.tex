@@ -1,0 +1,40 @@
+%V práci jsem se zabýval analýzou procesu tvorby rozvrhu, návrhem, implementací a testováním aplikace.
+%
+%V rámci analýzy jsem zjistil, jak funguje proces tvorby rozvrhu na Fakultě informačních technologií.
+%V procesu jsem se potom zaměřil na část s převody dat mezi systémem KOS a softwarem Syllabus Plus.
+%Zjistil jsem, jak funguje aktuální řešení a analyzoval jeho problémy.
+%Těmi hlavními jsou částečné opakované převody, přehlednost operací pro fakultního rozvrháře a uživatelské rozhraní.
+%Na základě zjištěných informací jsem pak sestavil požadavky a případy užití.
+%
+%V další kapitole jsem se zabýval návrhem řešení.
+%Během návrhu jsem přišel na to, že nejlepší možností je mít všechna data v jedné aplikaci a umožnit uživateli rozhodnout, co s daty udělá, na základě vizualizace se zobrazením rozdílů položek jednotlivých systémů.
+%Uživatel tak může identifikovat případné další nekonzistence, které mohly při práci vzniknout, a předcházet zbytečným chybám.
+%Díky tomu také odpadá nutnost poznamenávání úprav stranou při doplnění nových informací do systému KOS\@.
+%Povedlo se mi ale také vylepšit připojení k softwaru Syllabus Plus.
+%Místo využití pomocné databáze se má aplikace umí připojit k softwaru Syllabus Plus na přímo.
+%To mi umožnilo zjednodušit celý proces o jeden krok a zároveň jsem díky tomu získal více možností (například naplánování časového lístku).
+%
+%V implementaci jsem pak dal návrhy dohromady a za použití několika knihoven jsem sestavil grafické rozhraní a plně funkční aplikaci.
+%Bohužel, během této cesty jsem narazil na několik problémů.
+%Většinu se mi podařilo vyřešit, ale dva v aplikaci zůstaly.
+%Naštěstí jeden bude pravděpodobně opraven s aktualizací knihovny pro vykreslování uživatelského rozhraní a druhý se téměř neprojevuje a případně nemá zásadní dopad na funkčnost aplikace.
+%
+%V rámci testování jsem sestavil scénáře, které pokrývají veškeré funkcionality a slouží pro otestování samotné aplikace.
+%Dále jsem provedl uživatelské testování s fakultním rozvrhářem, které odhalilo několik drobnějších chyb.
+%Jejich vyřešením jsem odstranil překážky v intuitivnosti.
+%
+%Vytvořená aplikace splňuje všechny požadavky, řeší problémy aktuálního řešení a rozšiřuje možnosti při tvorbě rozvrhu.
+
+
+\section{Možnosti rozšíření do budoucna}
+%V rámci dalšího vývoje by se dala aplikace rozšířit o dvě nové sekce.
+%Jednou jsou studijní plány a druhou kruhy studentů prvních ročníků.
+%Tyto informace jsou aktuálně manuálně definovány fakultním rozvrhářem v softwaru Syllabus Plus.
+%Díky návrhu aplikace by mělo být možné případnou funkcionalitu vytvořit přidáním pohledů a zpracováním nových dat.
+%
+%Dalším vylepšením by mohlo být převedení studentů a jejich zapsaných předmětů v daném semestru.
+%Fakultní rozvrhář by tak mohl zahrnout do tvorby rozvrhu nové informace, které by mohly mít za důsledek zlepšení výsledné podoby rozvrhu.
+%Například by se v případě vzniklých kolizí více časových lístků dalo zredukovat množství situací, kdy si zapsaní studenti nemohou sestavit nekolizní rozvrh.
+%
+%Na závěr dodám nápad na drobné vylepšení ovládání samotné aplikace, který byl vznesen během uživatelského testování.
+%Jedná se o komplexnější práci s jednotlivými sloupci, kdy by mohlo být možné zobrazit například časové lístky pro více předmětů najednou.
