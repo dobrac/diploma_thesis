@@ -14,13 +14,13 @@ jobs:
       image: texlive/texlive:latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Compile Document
         run: latexmk -pdfxe ctufit-thesis.tex
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: Thesis
+          name: thesis-dobryjak
           path: out/ctufit-thesis.pdf
