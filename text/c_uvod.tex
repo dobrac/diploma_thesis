@@ -1,30 +1,78 @@
-%Na Fakultě informačních technologií (FIT) je potřeba každý semestr vytvořit nový rozvrh.
-%Na to je nutné zjistit například, jaké předměty budou vyučované, kolik paralelek je potřeba vypsat a kdo bude tyto předměty učit.
-%Většina informací je zadávána do Studijního informačního systému KOS\@.
-%Pro následné vytvoření rozvrhu je používána rozvrhovací aplikace Syllabus Plus.
-%Je proto potřeba umožnit převádět data mezi těmito dvěma systémy.
+%The aim of the work is to design and implement a static web presentation generator for gRPC API documentation. The input files are proto files that carry a description of services, calls and types. The output is an HTML page with documentation and the ability to call the API (provided that the API supports gRPC-web).
+%1. Research existing solutions for Protocol Buffers and compare features with similar tools for GraphQL or RESTful APIs.
+%2. Design and implement a documentation generator with the ability to call an existing gRPC-web API.
+%3. Discuss and possibly implement an alternative data source using gRPC reflection.
+%4. Test the application with automated tests and perform user testing.
+
+
+%Having a client implementation and documentation for a server API helps with testing and development.
+%But implementing the client takes time and effort.
+%For this reason there are generic clients used for that.
+%In the RESTful API world, Swagger is a popular choice.
+%In the GraphQL world, popular might be GraphiQL\@.
+%Therefore, it is desired to have a similar tool for gRPC\@.
 %
-%Aby fakultní rozvrhář nemusel vše dělat ručně, existuje aktuálně řešení, které umí data jednorázově převést.
-%Bohužel není dostatečně flexibilní a neumožňuje pokrýt velkou část požadavků.
-%Kromě toho současné technické řešení není uživatelsky přívětivé, tedy rozvrhář neví, jaké konkrétní změny nastanou a jestli se mu neztratí již provedené úpravy.
-%I proto řešení vyžaduje asistenci pro samotný běh.
+%The tools for gRPC exists, but they lack user-friendliness compared the ones for REST or GraphQL\@.
+%They require separate server to be run, and they don't always support documenting of services, calls and types.
 %
-%Toto téma jsem si zvolil, protože si myslím, že jsem schopný nabídnout řešení, které odstraní hlavní problémy a celkově usnadní tvorbu rozvrhu.
-%Nový program tak ušetří čas a starosti fakultnímu rozvrháři.
+%The aim of the work is to design and implement a static web presentation generator for gRPC API documentation.
+%The input files are Protobuf Buffer files that carry a description of services, calls and types.
+%The output is a static HTML page with documentation and the ability to call the API (provided that the API supports gRPC-web).
 %
-%Práce je rozdělena na čtyři hlavní části, začíná analýzou, pokračuje návrhem a realizací a končí testováním.
+%I've chosen this topic because I believe I can offer a solution that will solve the troubles having documentation for gRPC services.
+%This applies especially for developers who are creating mainly RESTful APIs\@.
 %
-%V první části se zabývám analýzou procesu tvorby rozvrhu a poté sběrem problémů a případných požadavků od fakultního rozvrháře.
-%Na základě získaných informací sestavím výsledné požadavky na aplikaci a případy užití.
+%The thesis is split into four main parts.
+%The first part is the analysis of existing solutions.
+%The following parts are design, implementation and testing.
 %
-%V kapitole návrhu představuji nové řešení pomocí grafické aplikace, která dokáže data, ať už kompletní stav nebo jejich část, opakovaně převádět.
-%Pro pohodlí uživatele, jednodušší převody a celkovou průhlednost fungování umí i přehledně vizualizovat data z jednotlivých systémů.
-%Uživatel si tak dokáže lépe představit, která data se kde nachází a jaký převod potřebuje provést.
-%Dále v této části popisuji vliv nového řešení na proces tvorby rozvrhu, strukturu dat systému KOS a softwaru Syllabus Plus a rozebírám možnosti práce s jednotlivými systémy.
 %
-%V kapitole realizace se zabývám výběrem vhodné technologie, implementací navrženého řešení a popisu architektury.
-%Zabývám se zde i vzniklými problémy během implementace a jejich řešením.
-%Kapitola končí rozborem použitých licencí jednotlivých knihoven.
+%In the first part, I analyze the features in existing solutions for gRPC and compare them with similar tools for RESTful and GraphQL APIs.
+%Based on the gained knowledge, I define the requirements and use cases for the website.
 %
-%Testování řeším pomocí manuálních scénářů, které pokrývají požadavky aplikace a scénáře použití.
-%Pro ověření pohodlnosti a efektivnosti práce s výslednou aplikací provádím uživatelské testování, které se zaměřuje na právě tento požadavek.
+%In the design chapter, I present a new solution using a static web page and tools for conversion between gRPC API definition and the web page understood format.
+%I also discuss the options and limitations of using gRPC vs gRPC-web.
+%Finally, I discuss and design the possibility of getting the gRPC API definition using the gRPC reflection.
+%
+%In the implementation chapter, I discuss the choice of technology, the implementation of the designed solution and the architecture of the application.
+%I also discuss the problems that occurred during the implementation and their solutions.
+%The chapter ends with a discussion of the licenses of the used libraries.
+%
+%The testing chapter is about manual and automated testing.
+%The automated testing is done using unit tests.
+%The manual testing is done using user testing, which focuses on the user-friendliness of the application.
+
+Having a readily available client implementation and clear documentation for a server API significantly aids in testing and development.
+However, implementing clients can be a time-consuming effort.
+To address this, generic clients are often employed.
+Swagger is a popular choice for RESTful APIs, while GraphiQL often serves this purpose in the GraphQL world.
+There's an evident need for a similarly streamlined tool within the gRPC ecosystem.
+
+While gRPC documentation tools exist, they often lack the user-friendliness found in their REST or GraphQL counterparts.
+These solutions may require separate servers and sometimes have limited support for comprehensively documenting services, calls, and types.
+
+The central aim of this work is to design and implement a static web presentation generator focused on user-friendly gRPC API documentation.
+Input will consist of Protobuf Buffer files that describe the services, calls, and types.
+The desired output is a static HTML page that provides clear documentation and the ability to directly execute gRPC-web API calls (assuming the API supports gRPC-web).
+
+I've chosen this topic because I believe I can offer a solution that will alleviate the challenges associated with documenting gRPC services.
+This is particularly relevant for developers who primarily work with RESTful APIs.
+
+The thesis is divided into four main parts.
+The first part focuses on analyzing existing solutions.
+Subsequent parts cover design, implementation, and testing.
+
+In the analysis phase, I will examine the features present in existing gRPC documentation solutions and compare them to similar tools designed for RESTful and GraphQL APIs.
+Based on the insights gained, I will define the specific requirements and use cases for the static web presentation generator.
+
+In the design chapter, I will present a solution that leverages a static web page and tools for converting gRPC API definitions into a format readily understood by the web page.
+I will also delve into the options and potential limitations of using gRPC vs gRPC-web.
+Additionally, I will explore and design a mechanism to obtain a gRPC API definition using gRPC reflection.
+
+The implementation chapter will address the selection of an appropriate technology stack, the implementation of the designed solution, and the overall architecture of the application.
+I will discuss any challenges encountered during implementation and the solutions devised.
+This chapter will conclude with a review of the licenses associated with any external libraries used.
+
+Finally, the testing chapter will cover both manual and automated testing strategies.
+Automated testing will be conducted utilizing unit tests.
+Manual testing will be performed through user testing, with a strong emphasis on evaluating the user-friendliness of the application.
