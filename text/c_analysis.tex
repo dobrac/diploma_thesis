@@ -1,27 +1,46 @@
-\section{Struktura dat a pojmy}
+In this section I'm going to first introduce what Protocol Buffers are.
+Then, I'm going to analyze existing solutions of website documentations with the ability to call APIs for Protocol Buffers, GraphQL and RESTful APIs.
+I'll start with Protocol Buffers, then I'll move and explore the solutions to GraphQL and finally I'll analyze RESTful API.
 
-\subsection{Problémy}
+
+\section{Protocol Buffers}
+
+\subsection{Types}
+
+\subsection{Types}
 
 
-\section{Požadavky}
+\section{Website Documentation}
 
-Na základě předem popsaných problémů a hlavních požadavků jsem sestavil funkční a nefunkční požadavky pokrývající požadovanou funkcionalitu aplikace.
+\subsection{Protocol Buffers}
 
-\subsection{Funkční}
+\subsection{GraphQL}
+
+\subsection{RESTful API}
+
+\subsection{Summary}
+
+\subsection{Issues}
+
+
+\section{Requirements}
+On the basis of the previously described problems and main requirements, I have compiled functional and non-functional requirements covering the required functionality of the static web generator.
+
+\subsection{Functional}
 % Co má systém umět
 
 %\subsubsection{F1 -- Pomocník pro inicializaci obrazu softwaru Syllabus Plus}
 %Pro inicializaci obrazu softwaru Syllabus Plus a další práci s daty je potřeba zadat informace o daném semestru.
 %Správné nastavení je klíčové pro korektní plánování časových lístků.
 
-
-\subsection{Nefunkční}
+\subsection{Non-Functional}
 
 %\subsubsection{N1 -- Aplikace s grafickým uživatelským rozhraním}
 %Aplikace by měla mít grafické uživatelské rozhraní pro práci s daty.
 %Uživatel by tak měl být schopen obsluhovat aplikaci sám bez pomoci další osoby.
 
-\section{Případy užití}
+
+\section{Use Cases}
 
 
 %\begin{figure}
@@ -42,16 +61,16 @@ Na základě předem popsaných problémů a hlavních požadavků jsem sestavil
 %Jinak je inicializace úspěšně dokončena.
 
 
-\section{Mapování požadavků na případy užití}
-Sestavil jsem tabulku mapování požadavků a případu užití (viz tabulka~\ref{tab:use_cases}), abych si ověřil, že všechny požadavky jsou pokryty alespoň jedním případem užití a zároveň že žádný případ užití není zbytečný.
-Tabulka ukazuje, že jsou všechny požadavky pokryty.
+\section{Requirements to Use Cases Mapping}
+I have compiled a table of requirements and use cases mapping (see table~\ref{tab:use_cases}) to verify that all requirements are covered by at least one use case and that no use case is unnecessary.
+The table shows that all requirements are covered.
 
 \begin{table}[hbt!]
     \centering
     \captionsetup{justification=centering}
     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
         \hline
-        & \multicolumn{15}{c|}{Případy užití} \\ \hline
+        & \multicolumn{15}{c|}{Use Cases} \\ \hline
         & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \hline
         F1  & x &   &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
         F2  &   &   & x &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
@@ -73,6 +92,6 @@ Tabulka ukazuje, že jsou všechny požadavky pokryty.
         F18 &   &   &   &   &   & x &   &   &   & x  &    &    &    & x  &    \\ \hline
         F19 & x &   &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
     \end{tabular}
-    \caption{Mapování požadavků a případů užití}
+    \caption{Requirements to Use Cases Mapping}
     \label{tab:use_cases}
 \end{table}
