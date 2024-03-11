@@ -1,13 +1,71 @@
 In this section I'm going to first introduce what Protocol Buffers are.
 Then, I'm going to analyze existing solutions of website documentations with the ability to call APIs for Protocol Buffers, GraphQL and RESTful APIs.
-I'll start with Protocol Buffers, then I'll move and explore the solutions to GraphQL and finally I'll analyze RESTful API.
+I'll start with Protocol Buffers, then I'll move and explore the solutions to GraphQL and finally I'll analyze RESTful API\@.
 
 
 \section{Protocol Buffers}
+Protocol Buffers are a mechanism for serializing structured data.
+The are language-neutral and platform-neutral.
+They encompass:
+\begin{itemize}
+    \item definition language,
+    \item compiler-generated code,
+    \item language-specific runtime libraries,
+    \item serialization format.
+\end{itemize}
+The definition language is used to define data structures, expressed in .proto files.
+The compiler-generated code is used to enable interaction with the defined data structures in a specific programming language.
+The language-specific runtime libraries are used to facilitate the serialization and deserialization of data according to the Protocol Buffer format.
+The serialization format is a compact binary format used for storing Protocol Buffer data in files or transmitting it across network connections.
+\cite{protobuf-overview}
+
+The mechanism of typical workflow is described in the figure~\ref{fig:protobuf-mechanism}.
+For the purpose of this work, my main focus will be on generating the code from the .proto files and using the generated code to interact with the final APIs.
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/protocol-buffers-concepts.png}
+    \caption{Protocol Buffers Workflow~\cite{protobuf-overview}}
+    \label{fig:protobuf-mechanism}
+\end{figure}
+
+There are two language versions of Protocol Buffers, version 2 and version 3.
+The versions share the same basic concepts, use the same syntax, but version 3 improves on version 2 in several ways~\cite{protobuf-proto3}.
+As this work is focused on the latest technologies, I will be focusing on version 3 of Protocol Buffers.
+If no specific version is mentioned, it is assumed that version 3 is used.
 
 \subsection{Types}
+The basic keywords in Protocol Buffers are \textit{message}, \textit{enum}, \textit{service}, \textit{method} and \textit{package}.
+The \textit{message} is used to define a data structure.
+The \textit{enum} is used to define a set of named constants.
+The \textit{service} is set of \textit{methods} that can be called remotely.
+And, the \textit{package} type is used to define a namespace for the defined \textit{messages}, \textit{enums} and \textit{services}.
+\cite{protobuf-proto3}
 
-\subsection{Types}
+\subsubsection{Message}
+Messages are used to define data structures.
+They are defined using the \textit{message} keyword followed by the name of the message and a block of fields.
+Each field has a name, a type and a unique number (it doesn't have to be defined manually).
+The type of a field can be a scalar type or another message type.
+
+% The scalar types are described in the table~\ref{tab:protobuf-scalar-types}.
+
+% Numbering
+% Repeated
+% Map
+% Optional
+% One Of
+% Options
+
+\cite{protobuf-proto3}
+
+\subsubsection{Enum}
+
+\subsubsection{Method}
+
+\subsection{Comments}
+
+\subsection{Code Generation}
 
 
 \section{Website Documentation}
