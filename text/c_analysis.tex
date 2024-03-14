@@ -1,6 +1,6 @@
-In this section I'm going to first introduce what Protocol Buffers are.
-Then, I'm going to analyze existing solutions of website documentations with the ability to call APIs for Protocol Buffers, GraphQL and RESTful APIs.
-I'll start with Protocol Buffers, then I'll move and explore the solutions to GraphQL and finally I'll analyze RESTful API\@.
+In this section I am going to first introduce what Protocol Buffers are.
+Then, I am going to analyze existing solutions of website documentations with the ability to call APIs for Protocol Buffers, GraphQL and RESTful APIs.
+I will start with Protocol Buffers, then I will move and explore the solutions to GraphQL and finally I will analyze RESTful API\@.
 
 
 \section{Protocol Buffers}
@@ -34,7 +34,7 @@ The versions share the same basic concepts, use the same syntax, but version 3 i
 As this work is focused on the latest technologies, I will be focusing on version 3 of Protocol Buffers.
 If no specific version is mentioned, it is assumed that version 3 is used.
 
-\subsection{Types}
+\subsection{Structures}
 The basic keywords in Protocol Buffers are \textit{message}, \textit{enum}, \textit{service}, \textit{method} and \textit{package}.
 The \textit{message} is used to define a data structure.
 The \textit{enum} is used to define a set of named constants.
@@ -45,10 +45,39 @@ And, the \textit{package} type is used to define a namespace for the defined \te
 \subsubsection{Message}
 Messages are used to define data structures.
 They are defined using the \textit{message} keyword followed by the name of the message and a block of fields.
-Each field has a name, a type and a unique number (it doesn't have to be defined manually).
-The type of a field can be a scalar type or another message type.
+Each field has a name, a type and a unique number across all fields in the \textit{message}.
+The type of a field can be a scalar type or another \textit{message} type.
+The possible scalar types are described in the table~\ref{tab:protobuf-scalar-types} with their C++ counterparts.
+The unique number is used to identify the field in the binary encoding.
+Reusing the same number for different fields is therefore highly discouraged.
+To avoid this, there is a \textit{reserved} keyword which I will describe later.
+\cite{protobuf-proto3}
 
-% The scalar types are described in the table~\ref{tab:protobuf-scalar-types}.
+\begin{table}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|}
+        \hline
+        .proto   & C++    \\ \hline
+        double   & double \\ \hline
+        float    & float  \\ \hline
+        int32    & int32  \\ \hline
+        int64    & int64  \\ \hline
+        uint32   & uint32 \\ \hline
+        uint64   & uint64 \\ \hline
+        sint32   & int32  \\ \hline
+        sint64   & int64  \\ \hline
+        fixed32  & uint32 \\ \hline
+        fixed64  & uint64 \\ \hline
+        sfixed32 & int32  \\ \hline
+        sfixed64 & int64  \\ \hline
+        bool     & bool   \\ \hline
+        string   & string \\ \hline
+        bytes    & string \\ \hline
+    \end{tabular}
+    \caption{Scalar Types in Protocol Buffers~\cite{protobuf-proto3}}
+    \label{tab:protobuf-scalar-types}
+\end{table}
 
 % Numbering
 % Repeated
@@ -56,19 +85,57 @@ The type of a field can be a scalar type or another message type.
 % Optional
 % One Of
 % Options
+% reserved
 
+Additional properties can be added to fields or types to alter their behaviour.
+The possibilities are \textit{reserved}, \textit{optional}, \textit{repeated}, \textit{map}, and \textit{oneof}.
+\cite{protobuf-proto3}
+
+The \textit{reserved} keyword is used to reserve a field number, preventing it from being used in the future.
+This is useful when a field is removed from a message and the field number should not be reused.
+You can specify a single field number, a range of field numbers, or a list of field numbers and ranges.
+\cite{protobuf-proto3}
+
+In Protocol Buffers version 3, fields are inherently optional, with omitted fields assuming their default values.
+This can create ambiguity when differentiating between a missing field and one explicitly set to its default.
+The \textit{optional} keyword resolves this by providing a mechanism to explicitly mark fields as optional and track whether they have been set, even if the value is the default.
+\cite{protobuf-proto3}
+
+The \textit{repeated} keyword is used to define fields that can hold multiple values of the same type.
+This is analogous to arrays or lists in common programming languages.
+A repeated field allows you to represent collections of data within your message structure.
+For example, a \textit{message} representing an order might have a \textit{repeated} field for line items, allowing multiple products within a single order.
+Protocol Buffers offer efficient encoding mechanisms for repeated fields, making them suitable for representing ordered lists of data.
+\cite{protobuf-proto3}
+
+The \textit{map} keyword is employed to define fields encompassing key-value pairs, akin to dictionaries or hashmaps in programming contexts.
+A \textit{map} field allows the flexible association of related data without the constraints of a rigid structure.
+For instance, a product attribute message could leverage a \textit{map} field where keys denote attribute names (``color'', ``size'') and their corresponding values provide the descriptions (``red'', ``large'').
+\cite{protobuf-proto3}
+
+And finally, the \textit{oneof} keyword provides a mechanism to define a message field where only one of several sub-fields can be set at a time.
+This is valuable when the \textit{message} needs to represent mutually exclusive data variations.
+For example, a payment\_method field within a \textit{message} could use a \textit{oneof} to support different payment types like credit\_card, debit\_card, or paypal.
+Setting one of these sub-fields automatically clears any previously set values within the \textit{oneof}.
+This helps conserve memory and enforces a clear structure for alternative data representations.
 \cite{protobuf-proto3}
 
 \subsubsection{Enum}
 
 \subsubsection{Method}
 
+\subsubsection{Packages}
+% nested types
+% java_option
+
 \subsection{Comments}
 
 \subsection{Code Generation}
 
+\subsection{HTTP Framing And gRPC-Web}
 
-\section{Website Documentation}
+
+\section{Documentation Websites}
 
 \subsection{Protocol Buffers}
 
