@@ -20,7 +20,7 @@ The serialization format is a compact binary format used for storing Protocol Bu
 \cite{protobuf-overview}
 
 The mechanism of typical workflow is described in the figure~\ref{fig:protobuf-mechanism}.
-For the purpose of this work, my main focus will be on generating the code from the .proto files and using the generated code to interact with the final APIs.
+For the purpose of this work, my main focus will be on generating the code (and website documentation) from the .proto files and using the generated code to interact with the final APIs.
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
@@ -121,21 +121,73 @@ This helps conserve memory and enforces a clear structure for alternative data r
 \cite{protobuf-proto3}
 
 \subsubsection{Enum}
+Another type of structure is \textit{enum}.
+It is used to define a set of named constants.
+The constants are defined using the \textit{enum} keyword followed by the name of the \textit{enum} and a block of constants with their numeric values.
+The special numeric value 0 is used as the default value.
+Therefore, it is necessary, that the first constant has the value 0.
+\cite{protobuf-proto3}
 
-\subsubsection{Method}
+The \textit{enum} has a special option called \textit{allow\_alias} which allows having the same numeric values for multiple names.
+This is useful when the same value is used in different contexts.
+\cite{protobuf-proto3}
+
+\subsubsection{Service and Method}
+The \textit{service} is used to define a set of \textit{methods} that can be called remotely.
+It is defined using the \textit{service} keyword followed by the name of the \textit{service} and a block of \textit{methods}.
+Each \textit{method} has a name, request and response \textit{message} type.
+The \textit{method} can also have a \textit{stream} keyword to define a streaming of request, response or both.
+\cite{protobuf-proto3}
+
+Streaming is a feature that allows the client and server to send a sequence of \textit{messages} back and forth until the stream is closed.
+This is useful when the client or server needs to send a large number of \textit{messages} and does not know the exact number of \textit{messages} in advance.
+\cite{protobuf-proto3}
 
 \subsubsection{Packages}
-% nested types
-% java_option
+The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums} and \textit{services} in the .proto file.
+It is present at the beginning of the file using the \textit{package} keyword followed by the name of the \textit{package}.
+For the code generation, the \textit{package} may not be considered.
+This is especially true for the Java.
+Because of that, there is a \textit{java\_package} option that can be used to define the package for the generated code.
+This option is defined at the file level.
+\cite{protobuf-proto3}
+
+The other option to differentiate \textit{messages} names is using nested types.
+The \textit{message} can be defined inside another \textit{message}.
+This is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only with the parent \textit{message} context.
+\cite{protobuf-proto3}
+
+Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between name.
 
 \subsection{Comments}
+The .proto files can contain comments.
+The comments can be single-line or multi-line.
+The single-line comments are started with the \textit{//} characters.
+The multi-line comments are started with the \textit{/*} characters and ended with the \textit{*/} characters.
+The comments can be used to describe the purpose of the \textit{message}, \textit{enum}, \textit{service}, \textit{method} or \textit{field}.
+The comments can also be used to describe the purpose of the \textit{package} or the whole file.
+\cite{protobuf-proto3}
 
 \subsection{Code Generation}
+The .proto files are used to generate the code for the specific programming language.
+The code generation can be done using various tools, the recommended one is the Protocol Compiler (protoc).
+It is used to generate the code for the C++, C\#, Dart, Go, Java, Python, Ruby, and JavaScript.
+An example usage is described in the code snippet~\ref{code:protobuf-protoc}.
+Required classes and types are then generated and the gRPC APIs can be called without any extra coding work.
+\cite{protobuf-proto3}
 
-\subsection{HTTP Framing And gRPC-Web}
+\begin{lstlisting}[language=bash, caption={Protocol Buffers Code Generation~\cite{protobuf-proto3}}, label={code:protobuf-protoc}]
+protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
+\end{lstlisting}
+
+\subsection{gRPC-web}
 
 
 \section{Documentation Websites}
+In this section I well explore the most popular solutions for creating documentation websites for gRPC, GraphQL and RESTful APIs.
+For each solution I will evaluate their features and issues.
+I will start with gRPC, then I will move to GraphQL and finally I will analyze RESTful APIs.
+At the end, I will summarize the findings, discuss the issues and propose a solution for the static web generator.
 
 \subsection{Protocol Buffers}
 
