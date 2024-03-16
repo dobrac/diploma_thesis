@@ -143,6 +143,13 @@ Streaming is a feature that allows the client and server to send a sequence of \
 This is useful when the client or server needs to send a large number of \textit{messages} and does not know the exact number of \textit{messages} in advance.
 \cite{protobuf-proto3}
 
+There are four types of gRPC calls.
+When no streaming is involved, it is called \textit{unary} call.
+When the request is streamed, it is called \textit{client-streaming} call.
+When the response is streamed, it is called \textit{server-streaming} call.
+And when both request and response are streamed, it is called \textit{bidirectional-streaming} call.
+\cite{grpc-core-concept}
+
 \subsubsection{Packages}
 The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums} and \textit{services} in the .proto file.
 It is present at the beginning of the file using the \textit{package} keyword followed by the name of the \textit{package}.
@@ -181,6 +188,35 @@ protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
 \end{lstlisting}
 
 \subsection{gRPC-web}
+The gRPC is built on HTTP/2, using features like HTTP/2 framing~\cite{grpc-protocol-http2}.
+As the HTTP/2 framing is not, and probably never be, directly exposed by any browser, the gRPC-Web protocol exists~\cite{grpc-protocol-web}.
+
+The design goals of the gRPC-Web are:
+\begin{itemize}
+    \item adopt the same framing as gRPC whenever possible,
+    \item decouple from HTTP/2 framing,
+    \item support text stream for cross-browser support~\cite{grpc-protocol-web}.
+\end{itemize}
+
+The gRPC-Web is adding a proxy in between the server and the browser.
+The communication works as follows.
+The browser sends a request to the proxy using the gRPC-Web protocol.
+The proxy translates the gRPC-Web protocol to the gRPC protocol and sends the request to the server.
+The server processes the request and sends the response back to the proxy.
+The proxy translates the gRPC protocol to the gRPC-Web protocol and sends the response back to the browser.
+The browser processes the response and the communication is done.
+\cite{grpc-protocol-web}
+
+The default proxy implementation is the Envoy\footnote{\url{https://www.envoyproxy.io/}} proxy.
+It supports the gRPC-Web protocol out of the box.
+Other options are, but not only, gRPC-web Go proxy\footnote{\url{https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy}}, APISIX\footnote{\url{https://apisix.apache.org/blog/2022/01/25/apisix-grpc-web-integration/}}, and Nginx\footnote{\url{https://www.nginx.com/}}.
+
+
+Because of the proxy and browser implementation, there are few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
+The main and the most important one is the streaming support.
+At this point in time, the gRPC-Web does not support client-side streaming (and effectively bi-directional streaming).
+It supports only unary calls and server-side streaming.
+The client-side streaming is planned for the future, based on the streaming roadmap in year 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
 
 
 \section{Documentation Websites}
