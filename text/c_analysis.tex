@@ -1,11 +1,11 @@
-In this section I am going to first introduce what Protocol Buffers are.
-Then, I am going to analyze existing solutions of website documentations with the ability to call APIs for Protocol Buffers, GraphQL and RESTful APIs.
-I will start with Protocol Buffers, then I will move and explore the solutions to GraphQL and finally I will analyze RESTful API\@.
+In this section, I am going to introduce Protocol Buffers.
+Then, I will analyze existing solutions for website documentation with the ability to call APIs for Protocol Buffers, GraphQL, and RESTful APIs.
+I will start with Protocol Buffers, then move and explore the solutions to GraphQL, and finally analyze RESTful API\@.
 
 
 \section{Protocol Buffers}
 Protocol Buffers are a mechanism for serializing structured data.
-The are language-neutral and platform-neutral.
+They are language-neutral and platform-neutral.
 They encompass:
 \begin{itemize}
     \item definition language,
@@ -13,14 +13,14 @@ They encompass:
     \item language-specific runtime libraries,
     \item serialization format.
 \end{itemize}
-The definition language is used to define data structures, expressed in .proto files.
-The compiler-generated code is used to enable interaction with the defined data structures in a specific programming language.
-The language-specific runtime libraries are used to facilitate the serialization and deserialization of data according to the Protocol Buffer format.
-The serialization format is a compact binary format used for storing Protocol Buffer data in files or transmitting it across network connections.
+The definition language defines data structures expressed in .proto files.
+The compiler-generated code enables interaction with the defined data structures in a specific programming language.
+The language-specific runtime libraries facilitate the serialization and deserialization of data according to the Protocol Buffer format.
+The serialization format is a compact binary format for storing Protocol Buffer data in files or transmitting it across network connections.
 \cite{protobuf-overview}
 
-The mechanism of typical workflow is described in the figure~\ref{fig:protobuf-mechanism}.
-For the purpose of this work, my main focus will be on generating the code (and website documentation) from the .proto files and using the generated code to interact with the final APIs.
+The mechanism of typical workflow is described in figure~\ref{fig:protobuf-mechanism}.
+For this work, my main focus will be generating the code (and website documentation) from the .proto files and using the generated code to interact with the final APIs.
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
@@ -30,27 +30,27 @@ For the purpose of this work, my main focus will be on generating the code (and 
 \end{figure}
 
 There are two language versions of Protocol Buffers, version 2 and version 3.
-The versions share the same basic concepts, use the same syntax, but version 3 improves on version 2 in several ways~\cite{protobuf-proto3}.
-As this work is focused on the latest technologies, I will be focusing on version 3 of Protocol Buffers.
+The versions share the same basic concepts using the same syntax, but version 3 improves version 2 in several ways~\cite{protobuf-proto3}.
+As this work focuses on the latest technologies, I will focus on version 3 of Protocol Buffers.
 If no specific version is mentioned, it is assumed that version 3 is used.
 
 \subsection{Structures}
-The basic keywords in Protocol Buffers are \textit{message}, \textit{enum}, \textit{service}, \textit{method} and \textit{package}.
+The primary keywords in Protocol Buffers are \textit{message}, \textit{enum}, \textit{service}, \textit{method}, and \textit{package}.
 The \textit{message} is used to define a data structure.
-The \textit{enum} is used to define a set of named constants.
-The \textit{service} is set of \textit{methods} that can be called remotely.
-And, the \textit{package} type is used to define a namespace for the defined \textit{messages}, \textit{enums} and \textit{services}.
+The \textit{enum} defines a set of named constants.
+The \textit{service} is a set of \textit{methods} that can be called remotely.
+And, the \textit{package} type is used to define a namespace for the defined \textit{messages}, \textit{enums}, and \textit{services}.
 \cite{protobuf-proto3}
 
 \subsubsection{Message}
 Messages are used to define data structures.
 They are defined using the \textit{message} keyword followed by the name of the message and a block of fields.
-Each field has a name, a type and a unique number across all fields in the \textit{message}.
+Each field has a name, a type, and a unique number across all fields in the \textit{message}.
 The type of a field can be a scalar type or another \textit{message} type.
-The possible scalar types are described in the table~\ref{tab:protobuf-scalar-types} with their C++ counterparts.
+The possible scalar types are described in table~\ref{tab:protobuf-scalar-types} with their C++ counterparts.
 The unique number is used to identify the field in the binary encoding.
 Reusing the same number for different fields is therefore highly discouraged.
-To avoid this, there is a \textit{reserved} keyword which I will describe later.
+To avoid this, there is a \textit{reserved} keyword, which I will describe later.
 \cite{protobuf-proto3}
 
 \begin{table}[hbt!]
@@ -87,12 +87,12 @@ To avoid this, there is a \textit{reserved} keyword which I will describe later.
 % Options
 % reserved
 
-Additional properties can be added to fields or types to alter their behaviour.
+Additional properties can be added to fields or types to alter their behavior.
 The possibilities are \textit{reserved}, \textit{optional}, \textit{repeated}, \textit{map}, and \textit{oneof}.
 \cite{protobuf-proto3}
 
 The \textit{reserved} keyword is used to reserve a field number, preventing it from being used in the future.
-This is useful when a field is removed from a message and the field number should not be reused.
+This is useful when a field is removed from a message, and the field number should not be reused.
 You can specify a single field number, a range of field numbers, or a list of field numbers and ranges.
 \cite{protobuf-proto3}
 
@@ -105,7 +105,7 @@ The \textit{repeated} keyword is used to define fields that can hold multiple va
 This is analogous to arrays or lists in common programming languages.
 A repeated field allows you to represent collections of data within your message structure.
 For example, a \textit{message} representing an order might have a \textit{repeated} field for line items, allowing multiple products within a single order.
-Protocol Buffers offer efficient encoding mechanisms for repeated fields, making them suitable for representing ordered lists of data.
+Protocol Buffers offer efficient encoding mechanisms for repeated fields, making them suitable for representing ordered data lists.
 \cite{protobuf-proto3}
 
 The \textit{map} keyword is employed to define fields encompassing key-value pairs, akin to dictionaries or hashmaps in programming contexts.
@@ -113,9 +113,9 @@ A \textit{map} field allows the flexible association of related data without the
 For instance, a product attribute message could leverage a \textit{map} field where keys denote attribute names (``color'', ``size'') and their corresponding values provide the descriptions (``red'', ``large'').
 \cite{protobuf-proto3}
 
-And finally, the \textit{oneof} keyword provides a mechanism to define a message field where only one of several sub-fields can be set at a time.
+Finally, the \textit{oneof} keyword provides a mechanism to define a message field where only one of several sub-fields can be set at a time.
 This is valuable when the \textit{message} needs to represent mutually exclusive data variations.
-For example, a payment\_method field within a \textit{message} could use a \textit{oneof} to support different payment types like credit\_card, debit\_card, or paypal.
+For example, a payment\_method field within a \textit{message} could use a \textit{oneof} to support different payment types like credit\_card, debit\_card, or PayPal.
 Setting one of these sub-fields automatically clears any previously set values within the \textit{oneof}.
 This helps conserve memory and enforces a clear structure for alternative data representations.
 \cite{protobuf-proto3}
@@ -125,18 +125,18 @@ Another type of structure is \textit{enum}.
 It is used to define a set of named constants.
 The constants are defined using the \textit{enum} keyword followed by the name of the \textit{enum} and a block of constants with their numeric values.
 The special numeric value 0 is used as the default value.
-Therefore, it is necessary, that the first constant has the value 0.
+Therefore, the first constant must have the value 0.
 \cite{protobuf-proto3}
 
-The \textit{enum} has a special option called \textit{allow\_alias} which allows having the same numeric values for multiple names.
+The \textit{enum} has a special option called \textit{allow\_alias}, which allows having the same numeric values for multiple names.
 This is useful when the same value is used in different contexts.
 \cite{protobuf-proto3}
 
 \subsubsection{Service and Method}
-The \textit{service} is used to define a set of \textit{methods} that can be called remotely.
+The \textit{service} defines a set of \textit{methods} that can be called remotely.
 It is defined using the \textit{service} keyword followed by the name of the \textit{service} and a block of \textit{methods}.
-Each \textit{method} has a name, request and response \textit{message} type.
-The \textit{method} can also have a \textit{stream} keyword to define a streaming of request, response or both.
+Each \textit{method} has a name, request, and response \textit{message} type.
+The \textit{method} can also have a \textit{stream} keyword to define streaming of request, response, or both.
 \cite{protobuf-proto3}
 
 Streaming is a feature that allows the client and server to send a sequence of \textit{messages} back and forth until the stream is closed.
@@ -151,36 +151,36 @@ And when both request and response are streamed, it is called \textit{bidirectio
 \cite{grpc-core-concept}
 
 \subsubsection{Packages}
-The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums} and \textit{services} in the .proto file.
+The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums}, and \textit{services} in the .proto file.
 It is present at the beginning of the file using the \textit{package} keyword followed by the name of the \textit{package}.
-For the code generation, the \textit{package} may not be considered.
-This is especially true for the Java.
-Because of that, there is a \textit{java\_package} option that can be used to define the package for the generated code.
+The \textit{package} may not be considered for the code generation.
+This is especially true for Java.
+Because of that, a \textit{java\_package} option can be used to define the package for the generated code.
 This option is defined at the file level.
 \cite{protobuf-proto3}
 
 The other option to differentiate \textit{messages} names is using nested types.
 The \textit{message} can be defined inside another \textit{message}.
-This is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only with the parent \textit{message} context.
+This is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only in the parent \textit{message} context.
 \cite{protobuf-proto3}
 
-Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between name.
+Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between names.
 
 \subsection{Comments}
 The .proto files can contain comments.
 The comments can be single-line or multi-line.
 The single-line comments are started with the \textit{//} characters.
-The multi-line comments are started with the \textit{/*} characters and ended with the \textit{*/} characters.
+The multi-line comments start with the \textit{/*} characters and end with the \textit{*/} characters.
 The comments can be used to describe the purpose of the \textit{message}, \textit{enum}, \textit{service}, \textit{method} or \textit{field}.
-The comments can also be used to describe the purpose of the \textit{package} or the whole file.
+The comments can also describe the purpose of the \textit{package} or the whole file.
 \cite{protobuf-proto3}
 
 \subsection{Code Generation}
-The .proto files are used to generate the code for the specific programming language.
-The code generation can be done using various tools, the recommended one is the Protocol Compiler (protoc).
-It is used to generate the code for the C++, C\#, Dart, Go, Java, Python, Ruby, and JavaScript.
+The .proto files generate the code for the specific programming language.
+Code generation can be done using various tools, the recommended one being the Protocol Compiler (protoc).
+It is used to generate the C++, C\#, Dart, Go, Java, Python, Ruby, and JavaScript code.
 An example usage is described in the code snippet~\ref{code:protobuf-protoc}.
-Required classes and types are then generated and the gRPC APIs can be called without any extra coding work.
+Required classes and types are then generated, and the gRPC APIs can be called without extra coding work.
 \cite{protobuf-proto3}
 
 \begin{lstlisting}[language=bash, caption={Protocol Buffers Code Generation~\cite{protobuf-proto3}}, label={code:protobuf-protoc}]
@@ -193,18 +193,18 @@ As the HTTP/2 framing is not, and probably never be, directly exposed by any bro
 
 The design goals of the gRPC-Web are:
 \begin{itemize}
-    \item adopt the same framing as gRPC whenever possible,
+    \item to adopt the same framing as gRPC whenever possible,
     \item decouple from HTTP/2 framing,
     \item support text stream for cross-browser support~\cite{grpc-protocol-web}.
 \end{itemize}
 
-The gRPC-Web is adding a proxy in between the server and the browser.
+The gRPC-Web is adding a proxy between the server and the browser.
 The communication works as follows.
 The browser sends a request to the proxy using the gRPC-Web protocol.
 The proxy translates the gRPC-Web protocol to the gRPC protocol and sends the request to the server.
 The server processes the request and sends the response back to the proxy.
 The proxy translates the gRPC protocol to the gRPC-Web protocol and sends the response back to the browser.
-The browser processes the response and the communication is done.
+The browser processes the response, and the communication is complete.
 \cite{grpc-protocol-web}
 
 The default proxy implementation is the Envoy\footnote{\url{https://www.envoyproxy.io/}} proxy.
@@ -212,29 +212,30 @@ It supports the gRPC-Web protocol out of the box.
 Other options are, but not only, gRPC-web Go proxy\footnote{\url{https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy}}, APISIX\footnote{\url{https://apisix.apache.org/blog/2022/01/25/apisix-grpc-web-integration/}}, and Nginx\footnote{\url{https://www.nginx.com/}}.
 
 
-Because of the proxy and browser implementation, there are few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
-The main and the most important one is the streaming support.
-At this point in time, the gRPC-Web does not support client-side streaming (and effectively bi-directional streaming).
+Because of the proxy and browser implementation, there are a few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
+The most important one is streaming support.
+Currently, the gRPC-Web does not support client-side streaming (and effectively bi-directional streaming).
 It supports only unary calls and server-side streaming.
-The client-side streaming is planned for the future, based on the streaming roadmap in year 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
+Based on the streaming roadmap, the client-side streaming is planned for the future. 
+It is planned for 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
 
 \subsection{gRPC Reflection}
 The gRPC protocol uses binary encoding.
-Therefore, it is not possible to query the server without knowing the protobuf definition of the service and both request and response messages prior of the request.
-The gRPC reflection is a way to get this information using standardized gRPC service that allows other clients to query the server for the protobuf-defined APIs.
-It includes all necessary information about the services, methods, enums and messages.
-This information can be used to encode requests, query the server, and decode responses.
+Therefore, it is impossible to query the server without knowing the protobuf definition of the service and both request and response messages before the request.
+The gRPC reflection is a way to get this information using a standardized gRPC service that allows other clients to query the server for the protobuf-defined APIs.
+It includes all necessary information about the services, methods, enums, and messages.
+This information can encode requests, query the server, and decode responses.
 It is used by debugging tools such as grpcurl\footnote{\url{https://github.com/fullstorydev/grpcurl}}.
-The gRPC reflection service is not exposed by default, so it has to be enabled in the server configuration explicitly.
+The gRPC reflection service is not exposed by default, so it must be explicitly enabled in the server configuration.
 The support for it varies across different gRPC implementations in different programming languages.
 \cite{grpc-reflection}
 
 
 \section{Documentation Websites}
-In this section I well explore the most popular solutions for creating documentation websites for gRPC, GraphQL and RESTful APIs.
-For each solution I will evaluate their features and issues.
-I will start with gRPC, then I will move to GraphQL and finally I will analyze RESTful APIs.
-At the end, I will summarize the findings, discuss the issues and propose a solution for the static web generator.
+In this section, I will explore the most popular solutions for creating documentation websites for gRPC, GraphQL, and RESTful APIs.
+I will evaluate each solution's features and issues.
+I will start with gRPC, then move to GraphQL, and finally analyze RESTful APIs.
+Finally, I will summarize the findings, discuss the issues, and propose a solution for the static web generator.
 
 \subsection{Protocol Buffers}
 
@@ -276,7 +277,7 @@ At the end, I will summarize the findings, discuss the issues and propose a solu
 
 
 \section{Requirements}
-On the basis of the previously described problems and main requirements, I have compiled functional and non-functional requirements covering the required functionality of the static web generator.
+Based on the problems and primary requirements described previously, I have compiled functional and non-functional requirements covering the required functionality of the static web generator.
 
 \subsection{Functional}
 % Co má systém umět
