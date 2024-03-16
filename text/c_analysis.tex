@@ -219,7 +219,15 @@ It supports only unary calls and server-side streaming.
 The client-side streaming is planned for the future, based on the streaming roadmap in year 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
 
 \subsection{gRPC Reflection}
-% TODO: What is that
+The gRPC protocol uses binary encoding.
+Therefore, it is not possible to query the server without knowing the protobuf definition of the service and both request and response messages prior of the request.
+The gRPC reflection is a way to get this information using standardized gRPC service that allows other clients to query the server for the protobuf-defined APIs.
+It includes all necessary information about the services, methods, enums and messages.
+This information can be used to encode requests, query the server, and decode responses.
+It is used by debugging tools such as grpcurl\footnote{\url{https://github.com/fullstorydev/grpcurl}}.
+The gRPC reflection service is not exposed by default, so it has to be enabled in the server configuration explicitly.
+The support for it varies across different gRPC implementations in different programming languages.
+\cite{grpc-reflection}
 
 
 \section{Documentation Websites}
