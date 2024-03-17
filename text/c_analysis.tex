@@ -187,6 +187,29 @@ Required classes and types are then generated, and the gRPC APIs can be called w
 protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
 \end{lstlisting}
 
+\subsection{Metadata}
+Metadata are key-value pairs sent with initial or final request or response.
+They are used to provide additional information, such as authentication or tracing information.
+Two types of metadata are used, headers and trailers.
+
+Headers are sent before the initial client request and before the initial response from the server.
+This applies only for the first message of the client and servery.
+The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecycle.
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc-metadata.pdf}
+    \caption{gRPC Metadata}
+    \label{fig:grpc-metadata}
+\end{figure}
+
+Trailers are sent after the final response from the server.
+They are used to provide additional information about the response, such as the utilization or query cost.
+The figure~\ref{fig:grpc-metadata} shows the gRPC trailers in the response lifecycle.
+
+\cite{grpc-metadata}
+
 \subsection{gRPC-web}
 The gRPC is built on HTTP/2, using features like HTTP/2 framing~\cite{grpc-protocol-http2}.
 As the HTTP/2 framing is not, and probably never be, directly exposed by any browser, the gRPC-Web protocol exists~\cite{grpc-protocol-web}.
@@ -211,12 +234,11 @@ The default proxy implementation is the Envoy\footnote{\url{https://www.envoypro
 It supports the gRPC-Web protocol out of the box.
 Other options are, but not only, gRPC-web Go proxy\footnote{\url{https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy}}, APISIX\footnote{\url{https://apisix.apache.org/blog/2022/01/25/apisix-grpc-web-integration/}}, and Nginx\footnote{\url{https://www.nginx.com/}}.
 
-
 Because of the proxy and browser implementation, there are a few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
 The most important one is streaming support.
 Currently, the gRPC-Web does not support client-side streaming (and effectively bi-directional streaming).
 It supports only unary calls and server-side streaming.
-Based on the streaming roadmap, the client-side streaming is planned for the future. 
+Based on the streaming roadmap, the client-side streaming is planned for the future.
 It is planned for 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
 
 \subsection{gRPC Reflection}
@@ -232,14 +254,48 @@ The support for it varies across different gRPC implementations in different pro
 
 
 \section{Documentation Websites}
-In this section, I will explore the most popular solutions for creating documentation websites for gRPC, GraphQL, and RESTful APIs.
-I will evaluate each solution's features and issues.
-I will start with gRPC, then move to GraphQL, and finally analyze RESTful APIs.
-Finally, I will summarize the findings, discuss the issues, and propose a solution for the static web generator.
+This section examines popular tools for documenting gRPC, GraphQL, and RESTful APIs.
+I'll assess the capabilities and shortcomings of each solution, addressing gRPC first, then GraphQL, and lastly RESTful APIs.
+The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static web generator.
 
 \subsection{Protocol Buffers}
 
 \subsubsection{Wombat}
+Wombat is a cross platform gRPC desktop app client.
+The UI is in the figure~\ref{fig:grpc-wombat}.
+It is used to call gRPC services and inspect the responses.
+\cite{grpc-wombat}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc/wombat.png}
+    \caption{Wombat GUI~\cite{grpc-wombat}}
+    \label{fig:grpc-wombat}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item automatic parsing of proto definitions to render services and input messages,
+    \item configuration of TLS,
+    \item input form generation for all scalar types, nested messages, enums, repeated, oneof and map,
+    \item request metadata,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item pending request cancellation,
+    \item sending EOF for client streaming,
+    \item view response messages,
+    \item view gRPC header and trailer,
+    \item view RPC statistics,
+    \item determine gRPC schema via reflection,
+    \item support for Google Well Known Types,
+    \item multiple workspace support~\cite{grpc-wombat}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item desktop application (not a website),
+    \item no support for documentation comments~\cite{grpc-wombat}.
+\end{itemize}
 
 \subsubsection{bloomrpc}
 
