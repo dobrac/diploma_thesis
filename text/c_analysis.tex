@@ -199,7 +199,7 @@ The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecyc
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=0.8\textwidth]{images/grpc-metadata.pdf}
+    \includegraphics[width=0.4\textwidth]{images/grpc-metadata}
     \caption{gRPC Metadata}
     \label{fig:grpc-metadata}
 \end{figure}
@@ -259,6 +259,9 @@ I'll assess the capabilities and shortcomings of each solution, addressing gRPC 
 The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static web generator.
 
 \subsection{Protocol Buffers}
+In the Protocol Buffers world, there are several tools for generating documentation or interactive call from the .proto files.
+The most popular ones, that I have found, are described in the following subsections.
+% TODO: Write something more here
 
 \subsubsection{Wombat}
 Wombat is a cross platform gRPC desktop app client.
@@ -269,7 +272,7 @@ It is used to call gRPC services and inspect the responses.
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=0.8\textwidth]{images/grpc/wombat.png}
+    \includegraphics[width=0.8\textwidth]{images/grpc/wombat}
     \caption{Wombat GUI~\cite{grpc-wombat}}
     \label{fig:grpc-wombat}
 \end{figure}
@@ -294,12 +297,80 @@ The main features are:
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item desktop application (not a website),
-    \item no support for documentation comments~\cite{grpc-wombat}.
+    \item no support for documentation comments,
+    \item last update 3 years ago~\cite{grpc-wombat}.
 \end{itemize}
 
-\subsubsection{bloomrpc}
+% Bugs: it doesn't remember the responses when you switch methods, UI is unfamiliar, lot of errors even if you work with the software in valid way
 
-\subsubsection{GenDocu and grpc-docs}
+\subsubsection{BloomRPC}
+BloomRPC is a cross platform gRPC desktop app client.
+The UI is in the figure~\ref{fig:grpc-bloomrpc}.
+It is used to call gRPC services and inspect the responses.
+\cite{grpc-bloomrpc}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc/bloomrpc}
+    \caption{BloomRPC GUI~\cite{grpc-bloomrpc}}
+    \label{fig:grpc-bloomrpc}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item automatic parsing of proto definitions to list services and example messages,
+    \item configuration of TLS,
+    \item request metadata,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item pending request cancellation,
+    \item sending EOF for client streaming,
+    \item view response messages~\cite{grpc-bloomrpc}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item desktop application (not a website),
+    \item no support for documentation comments,
+    \item missing determine gRPC schema via reflection,
+    \item missing gRPC headers and trailers preview,
+    \item archived in 2023, usage is no longer recommended~\cite{grpc-bloomrpc}.
+\end{itemize}
+
+\subsubsection{gRPC Docs and GenDocu}
+The gRPC Docs is a website API documentation generator by GenDocu.
+It provides RPC calls documentation for gRPC services.
+There is no option of calling the services.
+This documentation is generated from the .proto files using protoc-gen-doc\footnote{\url{https://github.com/pseudomuto/protoc-gen-doc}} utility with it's custom format output as JSON\@.
+The example web UI is in the figure~\ref{fig:grpc-gendocu}.
+\cite{grpc-gendocu}
+
+GenDocu is a hosted gRPC Docs version.
+This version is able to call the gRPC services.
+But, at the time of writing, the GenDocu website is not working anymore and the project looks to be abandoned (with the last commit more than a year ago).
+\cite{grpc-gendocu}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc/gendocu}
+    \caption{GenDocu Web UI~\cite{grpc-gendocu}}
+    \label{fig:grpc-gendocu}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item .proto files parsing and services, messages, enums generation,
+    \item support for documentation comments,
+    \item generation using common JSON format with ability to change the source without redeploying the website~\cite{grpc-gendocu}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item missing determine gRPC schema via reflection,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item inactive and looks to be abandoned with no external websites working~\cite{grpc-gendocu}.
+\end{itemize}
 
 \subsubsection{grpcui}
 
