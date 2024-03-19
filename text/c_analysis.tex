@@ -394,7 +394,7 @@ The main features are:
     \item listing services and methods,
     \item ability to construct messages with forms or raw JSON,
     \item execution of unary, server streaming, client streaming, bidirectional requests,
-    \item request metadata and headers and trailers,
+    \item request metadata, headers and trailers,
     \item configuration of TLS,
     \item rich support for well-known types,
     \item view response messages,
@@ -404,11 +404,43 @@ The main features are:
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item requires a server to run (not a static website),
-    \item even though forms are powerful, they can be annoying to use, especially with complex requests,
     \item it requires you to construct the entire stream of request messages all at once and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)~\cite{grpc-grpcui}.
 \end{itemize}
 
 \subsubsection{letmegrpc}
+The gRPC UI is a website with support of calling gRPC services.
+It allows service methods calling using forms, where each method has it's separate url (\url{http://localhost:8080/ServiceName/MethodName}).
+It is constructed from .proto file.
+The UI is in the figure~\ref{fig:grpc-letmegrpc}.
+\cite{grpc-letmegrpc}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc/letmegrpc}
+    \caption{letmegrpc UI~\cite{grpc-letmegrpc}}
+    \label{fig:grpc-letmegrpc}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item comments to fields are in tooltips,
+    \item ability to construct messages with forms,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item view response messages~\cite{grpc-letmegrpc}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item requires setup with manual go package downloads,
+    \item no listing of services and methods,
+    \item requires a server to run (not a static website),
+    \item even though forms are powerful, they can be annoying to use, especially with complex requests,
+    \item no support for request metadata, headers and trailers,
+    \item no direct support for gRPC reflection,
+    \item custom proto file parser, which does not have implemented all language features (\cite{grpc-letmegrpc-issue44}),
+    \item inactive, last update 5 years ago~\cite{grpc-letmegrpc}.
+\end{itemize}
 
 \subsubsection{grpc-swagger}
 
@@ -418,16 +450,12 @@ The AsciiDoc format can be then parsed by many tools.
 One of these tools can be a static website.
 The main disadvantage is that it is not a website itself or application, but only the documentation file.
 Therefore, it does not allow calling the gRPC services at all.
-Also, it looks to be abandoned with the last commit more than 2 years ago.
+Another disadvantage is a requirement of special comment blocks formatting, which is different from usual comments in proto files.
+And finally, it looks to be abandoned with the last commit more than 2 years ago.
 \cite{grpc-proto2asciidoc}
 
 \subsubsection{protoc-gen-doc}
-The proto2asciidoc is a plugin for protoc tool that generates AsciiDoc documentation.
-The AsciiDoc format can be then parsed by many tools.
-One of these tools can be a static website.
-The main disadvantage is that it is not a website itself or application, but only the documentation file.
-Therefore, it does not allow calling the gRPC services at all.
-Also, it looks to be abandoned with the last commit more than 2 years ago.
+% TODO: Write something here
 \cite{grpc-protoc-gen-doc}
 
 \subsubsection{grpc-gateway}
