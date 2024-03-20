@@ -692,10 +692,86 @@ In the RESTful API world, there are several tools for generating documentation o
 One of the most popular one is Swagger UI, which I will mainly cover and compare the gRPC options to.
 
 \subsubsection{ReDoc}
+ReDoc is a tool for generating documentation from OpenAPI definition.
+It is a static website with responsive layout.
+It is used to preview documentation comments with example requests and responses, and to show implementation examples.
+The UI is in the figure~\ref{fig:rest-redoc}.
+\cite{rest-redoc}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/rest/redoc}
+    \caption{ReDoc UI~\cite{rest-redoc}}
+    \label{fig:rest-redoc}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item static website,
+    \item responsive layout,
+    \item documentation with comments,
+    \item preview example requests and responses,
+    \item implementation examples~\cite{rest-redoc}.
+\end{itemize}
+
+The main disadvantage (compared to my task) is no option of calling the endpoints~\cite{rest-redoc}.
 
 \subsubsection{RapiDoc}
+RapiDoc is interactive API documentation with OpenAPI definition.
+It is a static website, supporting documentation comments, and allows calling the endpoints.
+The UI is in the figure~\ref{fig:rest-rapidoc}.
+\cite{rest-rapidoc}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/rest/rapidoc}
+    \caption{RapiDoc UI~\cite{rest-rapidoc}}
+    \label{fig:rest-rapidoc}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item static website,
+    \item documentation with comments,
+    \item preview example requests and responses,
+    \item implementation examples,
+    \item ability to call endpoints,
+    \item support for metadata,
+    \item support for authentication mechanisms~\cite{rest-rapidoc}.
+\end{itemize}
+
+I have not found any main disadvantages of RapiDoc.
 
 \subsubsection{Swagger UI}
+Swagger UI is one of the most popular choice for RESTful API documentation.
+The parent project is OpenAPI, which is a specification for building HTTP APIs in general.
+This tool is used to generate documentation from OpenAPI definition.
+It is a static website with support for comments and interactive endpoints calling.
+The UI is in the figure~\ref{fig:rest-swagger-ui}.
+\cite{rest-swagger-ui}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/rest/swagger-ui}
+    \caption{Swagger UI~\cite{rest-swagger-ui}}
+    \label{fig:rest-swagger-ui}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item static website,
+    \item documentation with comments,
+    \item preview example requests and responses,
+    \item implementation examples,
+    \item ability to call endpoints,
+    \item support for metadata,
+    \item support for authentication mechanisms~\cite{rest-swagger-ui}.
+\end{itemize}
+
+I have not found any main disadvantages of Swagger UI\@.
 
 \subsection{Comparison and Summary}
 
