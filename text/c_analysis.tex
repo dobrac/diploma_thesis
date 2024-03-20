@@ -596,10 +596,96 @@ In the GraphQL world, there are several tools for generating documentation or in
 The most popular ones, that I have found, are described in the following subsections.
 
 \subsubsection{graphdoc}
+GraphDoc is a static website generator for GraphQL schemas.
+It supports live endpoint and .graphql definition files.
+The generated website contains the documentation of the queries, mutations, and types.
+They are shown in a file like structure with interactive type definition links.
+The UI is in the figure~\ref{fig:graphql-graphdoc}.
+\cite{graphql-graphdoc}
 
-\subsubsection{graphql-playground}
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/graphql/graphdoc}
+    \caption{GraphDoc UI~\cite{graphql-graphdoc}}
+    \label{fig:graphql-graphdoc}
+\end{figure}
 
-\subsubsection{graphiql}
+The main features are:
+\begin{itemize}
+    \item static website,
+    \item listing of queries, mutations, and types,
+    \item generation from live endpoint and .graphql definition files,
+    \item documenting comments~\cite{graphql-graphdoc}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item no requests execution,
+    \item not actively maintained (last commit 3 years ago)~\cite{graphql-graphql-playground}.
+\end{itemize}
+
+\subsubsection{GraphQL Playground}
+GraphQL Playground is an application for desktop and web with the ability of calling GraphQL services.
+It allows developers to build and test GraphQL queries and mutations, explore an APIs schema, and view real-time results.
+GraphQL Playground offers features like automatic schema documentation, query history, and support for GraphQL subscriptions.
+It uses live endpoint and can be hosted as static website.
+The UI is in the figure~\ref{fig:graphql-graphql-playground}.
+\cite{graphql-graphql-playground}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/graphql/graphql-playground}
+    \caption{GraphQL Playground UI~\cite{graphql-graphql-playground}}
+    \label{fig:graphql-graphql-playground}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item context-aware autocompletion,
+    \item listing of queries, mutations, and types,
+    \item real-time GraphQL subscriptions,
+    \item multiple projects and endpoints support,
+    \item can be static website~\cite{graphql-graphql-playground}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item no documenting comments,
+    \item not actively maintained (last commit 2 years ago, last release in 2019)~\cite{graphql-graphql-playground}.
+\end{itemize}
+
+\subsubsection{GraphiQL}
+GraphiQL is a interactive in-browser IDE\@.
+It allows GraphQL API documentation exploring as well as the ability to execute queries and mutations.
+It takes an endpoint and generates a static website.
+The UI is in the figure~\ref{fig:graphql-graphiql}.
+\cite{graphql-graphiql}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/graphql/graphiql}
+    \caption{GraphiQL UI~\cite{graphql-graphiql}}
+    \label{fig:graphql-graphiql}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item static website,
+    \item documentation with comments,
+    \item listing of queries, mutations, and types,
+    \item execution of queries and mutations,
+    \item autocompletion,
+    \item metadata support~\cite{graphql-graphiql}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item disconnection between documentation and query execution,
+    \item requires manual implementation - library usage~\cite{graphql-graphiql}.
+\end{itemize}
 
 \subsection{RESTful API}
 In the RESTful API world, there are several tools for generating documentation or interactive calls.
