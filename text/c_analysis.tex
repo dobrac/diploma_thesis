@@ -179,11 +179,11 @@ The comments can also describe the purpose of the \textit{package} or the whole 
 The .proto files generate the code for the specific programming language.
 Code generation can be done using various tools, the recommended one being the Protocol Compiler (protoc).
 It is used to generate the C++, C\#, Dart, Go, Java, Python, Ruby, and JavaScript code.
-An example usage is described in the code snippet~\ref{code:protobuf-protoc}.
+An example usage is described in the code snippet~\ref{lst:protobuf-protoc}.
 Required classes and types are then generated, and the gRPC APIs can be called without extra coding work.
 \cite{protobuf-proto3}
 
-\begin{lstlisting}[language=bash, caption={Protocol Buffers Code Generation~\cite{protobuf-proto3}}, label={code:protobuf-protoc}]
+\begin{lstlisting}[language=bash, caption={Protocol Buffers Code Generation~\cite{protobuf-proto3}}, label={lst:protobuf-protoc}]
 protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
 \end{lstlisting}
 
@@ -438,11 +438,108 @@ The main disadvantages (compared to my task) are:
     \item even though forms are powerful, they can be annoying to use, especially with complex requests,
     \item no support for request metadata, headers and trailers,
     \item no direct support for gRPC reflection,
+    % TODO: Correct citation?
     \item custom proto file parser, which does not have implemented all language features (\cite{grpc-letmegrpc-issue44}),
     \item inactive, last update 5 years ago~\cite{grpc-letmegrpc}.
 \end{itemize}
 
-\subsubsection{grpc-swagger}
+\subsubsection{gRPC-swagger}
+The gRPC Swagger is a website.
+It is based on gRPC reflection and can be used to list and call gRPC services.
+It is using Swagger UI design language (copy of the Swagger UI), but it is not a part of the official Swagger.
+The UI is in the figure~\ref{fig:grpc-swagger}.
+The architecture is done using it's own server as a proxy.
+Website's server forwards all requests to the gRPC server and then back to the website.
+\cite{grpc-letmegrpc}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/grpc/swagger-1}
+    \includegraphics[width=0.8\textwidth]{images/grpc/swagger-2}
+    \caption{gRPC Swagger UI~\cite{grpc-swagger}}
+    \label{fig:grpc-swagger}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item listing of services and methods,
+    \item familiar UI to the Swagger UI,
+    \item support for request metadata, headers and trailers,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item view response messages~\cite{grpc-swagger}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item requires reflection enabled,
+    \item no support for comments,
+    \item requires a server to run (not a static website),
+    \item it requires to construct the entire stream of request messages all at once and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)
+    \item request data are only in the form of JSON,
+    \item inactive, last update 2 years ago, last release in 2020~\cite{grpc-swagger}.
+\end{itemize}
+
+\subsubsection{gRPC-Gateway}
+The gRPC-Gateway is a protoc compiler plugin.
+It generates a reverse-proxy server which translates a RESTful JSON API into gRPC\@.
+So, it is a reverse proxy server and not a documentation website, nor a client for calling gRPC\@.
+It can also generate OpenAPI definitions using protoc-gen-openapiv2, which can be then used with tools like Swagger UI\@.
+\cite{grpc-letmegrpc}
+
+It is using annotations in the service definitions or a configuration file.
+An example of annotation is in the code snippet~\ref{lst:grpc-gateway-annotations},
+and an example of configuration file is in the code snippet~\ref{lst:grpc-gateway-configuration}.
+\cite{grpc-letmegrpc}
+
+
+\begin{lstlisting}[language=protobuf, caption={gRPC-Gateway Annotations~\cite{grpc-gateway}}, label={lst:grpc-gateway-annotations}]
+import "google/api/annotations.proto";
+
+rpc Echo(StringMessage) returns (StringMessage) {
+  option (google.api.http) = {
+    post: "/v1/example/echo"
+    body: "*"
+  };
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=yaml, caption={gRPC-Gateway Configuration File~\cite{grpc-gateway}}, label={lst:grpc-gateway-configuration}]
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: your.service.v1.YourService.Echo
+      post: /v1/example/echo
+      body: "*"
+\end{lstlisting}
+
+The main features are:
+\begin{itemize}
+    \item support for request metadata, headers,
+    \item ability to create OpenAPI definitions,
+    \item execution of unary, server streaming, client streaming, bidirectional requests, but in a batched manner,
+    \item and lot more regards the specifics of the reverse-proxy layer~\cite{grpc-gateway}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item dependent on OpenAPI/HTTP API - is not just a gRPC client, but much more,
+    \item OpenAPI definitions do not have to reflect the gRPC service definitions,
+    \item no support for trailers,
+    \item no support for true bi-directional streaming,
+    \item requires the underline gRPC service definitions,
+    \item no support for reflection,
+    \item no support for documentation/comments,
+    \item requires a server to run (not a static website)~\cite{grpc-gateway}.
+\end{itemize}
+
+\subsubsection{Postman}
+- can call gRPC requests
+- doesn’t include pregenerated web documentation
+- application, not website
+- Loads services using gRPC server reflection
 
 \subsubsection{proto2asciidoc}
 The proto2asciidoc is a plugin for protoc tool that generates AsciiDoc documentation.
@@ -457,10 +554,6 @@ And finally, it looks to be abandoned with the last commit more than 2 years ago
 \subsubsection{protoc-gen-doc}
 % TODO: Write something here
 \cite{grpc-protoc-gen-doc}
-
-\subsubsection{grpc-gateway}
-
-\subsubsection{Postman}
 
 \subsection{GraphQL}
 
