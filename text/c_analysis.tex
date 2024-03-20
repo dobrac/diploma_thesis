@@ -493,7 +493,7 @@ and an example of configuration file is in the code snippet~\ref{lst:grpc-gatewa
 \cite{grpc-letmegrpc}
 
 
-\begin{lstlisting}[language=protobuf, caption={gRPC-Gateway Annotations~\cite{grpc-gateway}}, label={lst:grpc-gateway-annotations}]
+\begin{lstlisting}[language=protobuf2, style=protobuf, caption={gRPC-Gateway Annotations~\cite{grpc-gateway}}, label={lst:grpc-gateway-annotations}]
 import "google/api/annotations.proto";
 
 rpc Echo(StringMessage) returns (StringMessage) {
@@ -504,7 +504,7 @@ rpc Echo(StringMessage) returns (StringMessage) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=yaml, caption={gRPC-Gateway Configuration File~\cite{grpc-gateway}}, label={lst:grpc-gateway-configuration}]
+\begin{lstlisting}[style=yaml, caption={gRPC-Gateway Configuration File~\cite{grpc-gateway}}, label={lst:grpc-gateway-configuration}]
 type: google.api.Service
 config_version: 3
 

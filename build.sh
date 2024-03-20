@@ -1,1 +1,1 @@
- latexmk -pdfxe ctufit-thesis.tex
+latexmk -pdfxe ctufit-thesis.tex

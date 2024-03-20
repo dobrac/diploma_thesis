@@ -97,6 +97,18 @@
 \usepackage[style=iso-numeric]{biblatex}
 \addbibresource{text/bib-database.bib}
 \usepackage{listings} % typesetting of sources
+% Source: https://github.com/aytchell/latex-listings-protobuf
+\usepackage{protobuf/lang}  % include language definition for protobuf
+\usepackage{protobuf/style} % include custom style for proto declarations.
+\lstdefinestyle{yaml}{
+    basicstyle=\color{blue}\footnotesize,
+    rulecolor=\color{black},
+    string=[s]{'}{'},
+    stringstyle=\color{blue},
+    comment=[l]{:},
+    commentstyle=\color{black},
+    morecomment=[l]{-}
+}
 %\usepackage[newfloat]{minted}\captionsetup[listing]{position=top} % typesetting of sources
 
 %theorems, definitions, etc.
