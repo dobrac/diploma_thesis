@@ -2,7 +2,7 @@
 %Hlavními rozhodujícími faktory pro výběr technologií jsou grafické uživatelské rozhraní, komunikace se systémem Syllabus Plus přes COM rozhraní a s tím se přímo váže i podpora operačního systému Windows.
 %Potřebuji tak vybrat programovací jazyk, framework pro tvorbu uživatelského rozhraní a knihovnu umožňující potřebnou komunikaci se softwarem Syllabus Plus.
 
-\subsection{Programovací jazyk}
+\subsection{Programming Language}
 %Jako jazykové možnosti pro vývoj aplikace jsem zvolil Java, Kotlin a JavaScript (případně TypeScript).
 %Jsou to jazyky, které znám a se kterými jsem již v minulosti pracoval na tvorbě uživatelského rozhraní.
 %
@@ -31,8 +31,7 @@
 
 \subsection{Knihovna Coroutines}
 
-
-\subsection{Další knihovny}
+\subsection{Other Libraries}
 %Kromě dříve uvedených a základních knihoven jazyka Kotlin jsem se rozhodl, že by se mi ještě hodila knihovna pro Dependency Injection, dále knihovna pro vytvoření HTTP spojení, knihovna pro přeložení XML a JSON, a knihovna pro jednodušší práci s datumy a časy.
 %
 %Pro Dependency Injection se mi podařilo najít několik knihoven, nicméně můj záměr byl, aby podporovala v nějaké formě framework Compose for Desktop.
@@ -57,7 +56,7 @@
 %Je tak plně kompatibilní s jazykem Kotlin.
 
 
-\section{Nastavení projektu}
+\section{Project Settings}
 %Jako nástroj pro kompilaci, vývoj a správu modulů je použitý nástroj Gradle\footnote{\url{https://github.com/gradle/gradle}}.
 %Projekt aplikace se pak skládá ze čtyř modulů.
 %Těmi jsou:
@@ -83,7 +82,7 @@
 %Definuji zde verzi jednotlivých knihoven a verzi cíle pro JVM\@.
 %Samotný modul se ale nijak nepropisuje do funkčnosti aplikace, proto ho v diagramu neuvádím.
 
-\subsection{Kompilace}
+\subsection{Compilation}
 %Jelikož je aplikace napsaná v jazycích Kotlin a Java, její výstup je v základu ve formátu .jar, což je spustitelný soubor na JVM\@.
 %Tento soubor lze získat pomocí spuštění Gradle úkolu \textit{packageUberJarForCurrentOS}.
 %Potřebná verze nainstalovaného prostředí jazyka Java je 15.
@@ -123,8 +122,7 @@
 %Po dokončení by mělo vše plně fungovat.
 
 
-
-\section{Uživatelské rozhraní}
+\section{User Interface}
 %Uživatelské rozhraní je založeno na jedné hlavní obrazovce a třech pohledech, které se skládají ze sloupců.
 %Pro zachování posledního načteného stavu je implementováno řešení, které ponechává všechny pohledy v paměti, i když nejsou zrovna viditelné.
 %To zaručuje, že se uživatel může přepínat mezi jednotlivými pohledy bez ztráty vybraných dat nebo pozice ve scrollování.
@@ -133,10 +131,11 @@
 %Po načtení dat je místo ukazatele zobrazen čas poslední aktualizace a doba, kterou poslední aktualizace zabrala.
 %Funkcionalita této lišty se nachází v komponentě \textit{Toolbar}.
 
-\section{Známé problémy}
+
+\section{Known Issues}
 
 
-\section{Licence}
+\section{Licensing}
 Pro vývoj jsem použil knihovny, které využívají licenci \textit{BSD 2-Clause\ "Simplified"\ License\footnote{\url{https://choosealicense.com/licenses/bsd-2-clause/}}} nebo \textit{Apache 2.0\footnote{\url{https://choosealicense.com/licenses/apache-2.0/}}}.
 Seznam knihoven a jejich licencí je zachycen v tabulce~\ref{tab:libraries-licenses}.
 Jejich práva a omezení potom zobrazuje tabulka~\ref{tab:licenses}.

@@ -536,10 +536,39 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{Postman}
-- can call gRPC requests
-- doesn’t include pregenerated web documentation
-- application, not website
-- Loads services using gRPC server reflection
+Postman is one of the most popular application for API calling.
+It supports lot of different types of APIs (e.g.\ HTTP API, WebSockets, GraphQL), but including also gRPC\@.
+Upon loading .proto files or using gRPC reflection, it can understand the gRPC API and use the information for calls.
+It can do much more than just calling the gRPC services, but it is not a website for documentation, so I will focus on it's gRPC capabilities.
+The UI is in the figure~\ref{fig:postman}.
+\cite{postman}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/postman}
+    \caption{Postman UI~\cite{postman}}
+    \label{fig:postman}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item listing of services and methods,
+    \item execution of unary, server streaming, client streaming, bidirectional requests,
+    \item broad range of features for API calling, including automating tests,
+    \item support for request metadata, headers and trailers,
+    \item supports gRPC reflection,
+    \item messages autocompletion,
+    \item messages validation,
+    \item view response messages with full support for streaming~\cite{postman}.
+\end{itemize}
+
+The main disadvantages (compared to my task) are:
+\begin{itemize}
+    \item it is an application, not a static website,
+    \item no support for comments,
+    \item request data are only in the form of JSON~\cite{postman}.
+\end{itemize}
 
 \subsubsection{proto2asciidoc}
 The proto2asciidoc is a plugin for protoc tool that generates AsciiDoc documentation.
@@ -552,8 +581,15 @@ And finally, it looks to be abandoned with the last commit more than 2 years ago
 \cite{grpc-proto2asciidoc}
 
 \subsubsection{protoc-gen-doc}
-% TODO: Write something here
+A documentation generator for protoc compiler tool.
+It can generate HTML, JSON, DocBook, and Markdown documentation from comments in .proto files.
+The main advantages are that it can take comments from the .proto files and generate a static documentation website or JSON, keeping the original structure of the input .proto files.
+The website contains the documentation of the services, methods, and messages.
+The JSON can be then used to create a custom website, for example GenDocu mentioned earlier uses it.
+The disadvantage is that it does not allow calling the gRPC services at all.
 \cite{grpc-protoc-gen-doc}
+
+% Example website: https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
 
 \subsection{GraphQL}
 
@@ -567,7 +603,7 @@ And finally, it looks to be abandoned with the last commit more than 2 years ago
 
 \subsubsection{Swagger UI}
 
-\subsection{Summary}
+\subsection{Comparison and Summary}
 
 \subsubsection{Issues}
 
