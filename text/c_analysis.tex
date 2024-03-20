@@ -188,12 +188,12 @@ protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
 \end{lstlisting}
 
 \subsection{Metadata}
-Metadata are key-value pairs sent with initial or final request or response.
+Metadata are key-value pairs sent with the initial or final request or response.
 They are used to provide additional information, such as authentication or tracing information.
-Two types of metadata are used, headers and trailers.
+Two types of metadata are used: headers and trailers.
 
 Headers are sent before the initial client request and before the initial response from the server.
-This applies only for the first message of the client and servery.
+This applies only to the first message of the client and server.
 The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecycle.
 
 \begin{figure}[hbt!]
@@ -204,8 +204,8 @@ The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecyc
     \label{fig:grpc-metadata}
 \end{figure}
 
-Trailers are sent after the final response from the server.
-They are used to provide additional information about the response, such as the utilization or query cost.
+Trailers are sent after the server gives the final response.
+They provide additional information about the response, such as the utilization or query cost.
 The figure~\ref{fig:grpc-metadata} shows the gRPC trailers in the response lifecycle.
 
 \cite{grpc-metadata}
@@ -236,7 +236,7 @@ Other options are, but not only, gRPC-web Go proxy\footnote{\url{https://github.
 
 Because of the proxy and browser implementation, there are a few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
 The most important one is streaming support.
-Currently, the gRPC-Web does not support client-side streaming (and effectively bi-directional streaming).
+Currently, the gRPC-Web does not support client-side streaming (effectively bi-directional streaming).
 It supports only unary calls and server-side streaming.
 Based on the streaming roadmap, the client-side streaming is planned for the future.
 It is planned for 2023+, but it has not been implemented yet~\cite{grpc-web-streaming-roadmap}.
@@ -255,16 +255,16 @@ The support for it varies across different gRPC implementations in different pro
 
 \section{Documentation Websites}
 This section examines popular tools for documenting gRPC, GraphQL, and RESTful APIs.
-I'll assess the capabilities and shortcomings of each solution, addressing gRPC first, then GraphQL, and lastly RESTful APIs.
+I'll assess the capabilities and shortcomings of each solution, addressing gRPC first, then GraphQL, and lastly, RESTful APIs.
 The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static web generator.
 
 \subsection{Protocol Buffers}
-In the Protocol Buffers world, there are several tools for generating documentation or interactive call from the .proto files.
-The most popular ones, that I have found, are described in the following subsections.
+In the Protocol Buffers world, there are several tools for generating documentation or interactive calls from the .proto files.
+The most popular ones I have found are described in the following subsections.
 % TODO: Write something more here
 
 \subsubsection{Wombat}
-Wombat is a cross platform gRPC desktop app client.
+Wombat is a cross-platform gRPC desktop app client.
 The UI is in the figure~\ref{fig:grpc-wombat}.
 It is used to call gRPC services and inspect the responses.
 \cite{grpc-wombat}
@@ -281,7 +281,7 @@ The main features are:
 \begin{itemize}
     \item automatic parsing of proto definitions to render services and input messages,
     \item configuration of TLS,
-    \item input form generation for all scalar types, nested messages, enums, repeated, oneof and map,
+    \item input form generation for all scalar types, nested messages, enums, repeated, oneof, and map,
     \item request metadata,
     \item execution of unary, server streaming, client streaming, bidirectional requests,
     \item pending request cancellation,
@@ -301,10 +301,10 @@ The main disadvantages (compared to my task) are:
     \item last update 3 years ago~\cite{grpc-wombat}.
 \end{itemize}
 
-% Bugs: it doesn't remember the responses when you switch methods, UI is unfamiliar, lot of errors even if you work with the software in valid way
+% Bugs: it doesn't remember the responses when you switch methods, UI is unfamiliar, a lot of errors even if you work with the software in a valid way
 
 \subsubsection{BloomRPC}
-BloomRPC is a cross platform gRPC desktop app client.
+BloomRPC is a cross-platform gRPC desktop app client.
 The UI is in the figure~\ref{fig:grpc-bloomrpc}.
 It is used to call gRPC services and inspect the responses.
 \cite{grpc-bloomrpc}
@@ -341,14 +341,14 @@ The main disadvantages (compared to my task) are:
 \subsubsection{gRPC Docs and GenDocu}
 The gRPC Docs is a website API documentation generator by GenDocu.
 It provides RPC calls documentation for gRPC services.
-There is no option of calling the services.
-This documentation is generated from the .proto files using protoc-gen-doc\footnote{\url{https://github.com/pseudomuto/protoc-gen-doc}} utility with it's custom format output as JSON\@.
+There is no option to call the services.
+This documentation is generated from the .proto files using protoc-gen-doc\footnote{\url{https://github.com/pseudomuto/protoc-gen-doc}} utility with its custom format output as JSON\@.
 The example web UI is in the figure~\ref{fig:grpc-gendocu}.
 \cite{grpc-gendocu}
 
 GenDocu is a hosted gRPC Docs version.
-This version is able to call the gRPC services.
-But, at the time of writing, the GenDocu website is not working anymore and the project looks to be abandoned (with the last commit more than a year ago).
+This version can call the gRPC services.
+But, at the time of writing, the GenDocu website is not working anymore, and the project looks abandoned (with the last commit being more than a year ago).
 \cite{grpc-gendocu}
 
 \begin{figure}[hbt!]
@@ -363,21 +363,21 @@ The main features are:
 \begin{itemize}
     \item .proto files parsing and services, messages, enums generation,
     \item support for documentation comments,
-    \item generation using common JSON format with ability to change the source without redeploying the website~\cite{grpc-gendocu}.
+    \item generation using common JSON format with the ability to change the source without redeploying the website~\cite{grpc-gendocu}.
 \end{itemize}
 
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item missing determine gRPC schema via reflection,
     \item execution of unary, server streaming, client streaming, bidirectional requests,
-    \item inactive and looks to be abandoned with no external websites working~\cite{grpc-gendocu}.
+    \item inactive and looks abandoned with no external websites working~\cite{grpc-gendocu}.
 \end{itemize}
 
 \subsubsection{gRPC UI}
-The gRPC UI is a website with support of calling gRPC services.
-With this tool you can browse the schema, which is presented as a list of available endpoints.
-The schema can be constructed by querying a server that supports server reflection, by reading proto source files, or by loading a compiled `protoset' file (files that contain encoded file descriptor protos).
-The protoset file can be created using the protoc tool, used by the gRPC tooling for client's code generation.
+The gRPC UI is a website that supports calling gRPC services.
+With this tool, you can browse the schema, which is presented as a list of available endpoints.
+The schema can be constructed by querying a server that supports server reflection, reading proto source files, or loading a compiled `protoset' file (files containing an encoded file descriptor protos).
+The protoset file can be created using the protoc tool, which is used by the gRPC tooling for the client's code generation.
 The UI is in the figure~\ref{fig:grpc-grpcui}.
 \cite{grpc-grpcui}
 
@@ -404,13 +404,13 @@ The main features are:
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item requires a server to run (not a static website),
-    \item it requires you to construct the entire stream of request messages all at once and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)~\cite{grpc-grpcui}.
+    \item requires you to construct the entire stream of request messages all at once, and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)~\cite{grpc-grpcui}.
 \end{itemize}
 
 \subsubsection{letmegrpc}
-The gRPC UI is a website with support of calling gRPC services.
-It allows service methods calling using forms, where each method has it's separate url (\url{http://localhost:8080/ServiceName/MethodName}).
-It is constructed from .proto file.
+The gRPC UI is a website that supports for calling gRPC services.
+It allows service methods call using forms, where each method has its separate URL (\url{http://localhost:8080/ServiceName/MethodName}).
+It is constructed from a .proto file.
 The UI is in the figure~\ref{fig:grpc-letmegrpc}.
 \cite{grpc-letmegrpc}
 
@@ -436,20 +436,20 @@ The main disadvantages (compared to my task) are:
     \item no listing of services and methods,
     \item requires a server to run (not a static website),
     \item even though forms are powerful, they can be annoying to use, especially with complex requests,
-    \item no support for request metadata, headers and trailers,
+    \item no support for request metadata, headers, and trailers,
     \item no direct support for gRPC reflection,
     % TODO: Correct citation?
     \item custom proto file parser, which does not have implemented all language features (\cite{grpc-letmegrpc-issue44}),
-    \item inactive, last update 5 years ago~\cite{grpc-letmegrpc}.
+    \item inactive, last update was five years ago~\cite{grpc-letmegrpc}.
 \end{itemize}
 
 \subsubsection{gRPC-swagger}
 The gRPC Swagger is a website.
-It is based on gRPC reflection and can be used to list and call gRPC services.
-It is using Swagger UI design language (copy of the Swagger UI), but it is not a part of the official Swagger.
+It is based on gRPC reflection and can list and call gRPC services.
+It uses Swagger UI design language (copy of the Swagger UI) but is not a part of the official Swagger.
 The UI is in the figure~\ref{fig:grpc-swagger}.
-The architecture is done using it's own server as a proxy.
-Website's server forwards all requests to the gRPC server and then back to the website.
+The architecture is done using its server as a proxy.
+The website's server forwards all requests to the gRPC server and then back to the website.
 \cite{grpc-letmegrpc}
 
 \begin{figure}[hbt!]
@@ -465,7 +465,7 @@ The main features are:
 \begin{itemize}
     \item listing of services and methods,
     \item familiar UI to the Swagger UI,
-    \item support for request metadata, headers and trailers,
+    \item support for request metadata, headers, and trailers,
     \item execution of unary, server streaming, client streaming, bidirectional requests,
     \item view response messages~\cite{grpc-swagger}.
 \end{itemize}
@@ -475,21 +475,21 @@ The main disadvantages (compared to my task) are:
     \item requires reflection enabled,
     \item no support for comments,
     \item requires a server to run (not a static website),
-    \item it requires to construct the entire stream of request messages all at once and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)
+    \item it requires to construct the entire stream of request messages all at once, and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)
     \item request data are only in the form of JSON,
-    \item inactive, last update 2 years ago, last release in 2020~\cite{grpc-swagger}.
+    \item inactive, last update two years ago, last release in 2020~\cite{grpc-swagger}.
 \end{itemize}
 
 \subsubsection{gRPC-Gateway}
 The gRPC-Gateway is a protoc compiler plugin.
-It generates a reverse-proxy server which translates a RESTful JSON API into gRPC\@.
-So, it is a reverse proxy server and not a documentation website, nor a client for calling gRPC\@.
-It can also generate OpenAPI definitions using protoc-gen-openapiv2, which can be then used with tools like Swagger UI\@.
+It generates a reverse proxy server, translating a RESTful JSON API into gRPC\@.
+So, it is a reverse proxy server, not a documentation website, nor a client for calling gRPC\@.
+It can also generate OpenAPI definitions using protoc-gen-openapiv2, which can be used with tools like Swagger UI\@.
 \cite{grpc-letmegrpc}
 
-It is using annotations in the service definitions or a configuration file.
+It uses annotations in the service definitions or a configuration file.
 An example of annotation is in the code snippet~\ref{lst:grpc-gateway-annotations},
-and an example of configuration file is in the code snippet~\ref{lst:grpc-gateway-configuration}.
+and an example of the configuration file is in the code snippet~\ref{lst:grpc-gateway-configuration}.
 \cite{grpc-letmegrpc}
 
 
@@ -520,7 +520,7 @@ The main features are:
     \item support for request metadata, headers,
     \item ability to create OpenAPI definitions,
     \item execution of unary, server streaming, client streaming, bidirectional requests, but in a batched manner,
-    \item and lot more regards the specifics of the reverse-proxy layer~\cite{grpc-gateway}.
+    \item and ua lot more regards the specifics of the reverse-proxy layer~\cite{grpc-gateway}.
 \end{itemize}
 
 The main disadvantages (compared to my task) are:
@@ -536,10 +536,11 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{Postman}
-Postman is one of the most popular application for API calling.
-It supports lot of different types of APIs (e.g.\ HTTP API, WebSockets, GraphQL), but including also gRPC\@.
+Postman is one of the most popular applications for API calling.
+It supports many different API types (e.g.,\ HTTP API, WebSockets, GraphQL) but also includes gRPC\@.
 Upon loading .proto files or using gRPC reflection, it can understand the gRPC API and use the information for calls.
-It can do much more than just calling the gRPC services, but it is not a website for documentation, so I will focus on it's gRPC capabilities.
+It can do more than call the gRPC services, but it is not a documentation website.
+So, I will focus on its gRPC capabilities.
 The UI is in the figure~\ref{fig:postman}.
 \cite{postman}
 
@@ -555,8 +556,8 @@ The main features are:
 \begin{itemize}
     \item listing of services and methods,
     \item execution of unary, server streaming, client streaming, bidirectional requests,
-    \item broad range of features for API calling, including automating tests,
-    \item support for request metadata, headers and trailers,
+    \item broad range of features for API calls, including automated tests,
+    \item support for request metadata, headers, and trailers,
     \item supports gRPC reflection,
     \item messages autocompletion,
     \item messages validation,
@@ -571,35 +572,35 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{proto2asciidoc}
-The proto2asciidoc is a plugin for protoc tool that generates AsciiDoc documentation.
-The AsciiDoc format can be then parsed by many tools.
+The proto2asciidoc is a plugin for the protoc tool that generates AsciiDoc documentation.
+Many tools can then parse the AsciiDoc format.
 One of these tools can be a static website.
-The main disadvantage is that it is not a website itself or application, but only the documentation file.
+The main disadvantage is that it is not a website or application but a documentation file.
 Therefore, it does not allow calling the gRPC services at all.
-Another disadvantage is a requirement of special comment blocks formatting, which is different from usual comments in proto files.
-And finally, it looks to be abandoned with the last commit more than 2 years ago.
+Another disadvantage is the requirement of special comment block formatting, which differs from usual comments in proto files.
+And finally, it looks to be abandoned with the last commit more than two years ago.
 \cite{grpc-proto2asciidoc}
 
 \subsubsection{protoc-gen-doc}
-A documentation generator for protoc compiler tool.
+A documentation generator for the protoc compiler tool.
 It can generate HTML, JSON, DocBook, and Markdown documentation from comments in .proto files.
 The main advantages are that it can take comments from the .proto files and generate a static documentation website or JSON, keeping the original structure of the input .proto files.
 The website contains the documentation of the services, methods, and messages.
-The JSON can be then used to create a custom website, for example GenDocu mentioned earlier uses it.
-The disadvantage is that it does not allow calling the gRPC services at all.
+The JSON can then be used to create a custom website. For example, GenDocu mentioned earlier uses it.
+The disadvantage is that it does not allow the gRPC services to be called.
 \cite{grpc-protoc-gen-doc}
 
 % Example website: https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
 
 \subsection{GraphQL}
 In the GraphQL world, there are several tools for generating documentation or interactive calls.
-The most popular ones, that I have found, are described in the following subsections.
+The most popular ones I have found are described in the following subsections.
 
 \subsubsection{graphdoc}
 GraphDoc is a static website generator for GraphQL schemas.
 It supports live endpoint and .graphql definition files.
 The generated website contains the documentation of the queries, mutations, and types.
-They are shown in a file like structure with interactive type definition links.
+They are shown in a file-like structure with interactive-type definition links.
 The UI is in the figure~\ref{fig:graphql-graphdoc}.
 \cite{graphql-graphdoc}
 
@@ -615,21 +616,21 @@ The main features are:
 \begin{itemize}
     \item static website,
     \item listing of queries, mutations, and types,
-    \item generation from live endpoint and .graphql definition files,
+    \item generation from the live endpoint and .graphql definition files,
     \item documenting comments~\cite{graphql-graphdoc}.
 \end{itemize}
 
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item no requests execution,
-    \item not actively maintained (last commit 3 years ago)~\cite{graphql-graphql-playground}.
+    \item not actively maintained (last commit three years ago)~\cite{graphql-graphql-playground}.
 \end{itemize}
 
 \subsubsection{GraphQL Playground}
-GraphQL Playground is an application for desktop and web with the ability of calling GraphQL services.
-It allows developers to build and test GraphQL queries and mutations, explore an APIs schema, and view real-time results.
+GraphQL Playground is an application for desktop and web.
+It allows developers to build and test GraphQL queries and mutations, explore an API schema, and view real-time results.
 GraphQL Playground offers features like automatic schema documentation, query history, and support for GraphQL subscriptions.
-It uses live endpoint and can be hosted as static website.
+It uses a live endpoint and can be hosted as static website.
 The UI is in the figure~\ref{fig:graphql-graphql-playground}.
 \cite{graphql-graphql-playground}
 
@@ -653,12 +654,12 @@ The main features are:
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item no documenting comments,
-    \item not actively maintained (last commit 2 years ago, last release in 2019)~\cite{graphql-graphql-playground}.
+    \item not actively maintained (last commit two years ago, the last release in 2019)~\cite{graphql-graphql-playground}.
 \end{itemize}
 
 \subsubsection{GraphiQL}
-GraphiQL is a interactive in-browser IDE\@.
-It allows GraphQL API documentation exploring as well as the ability to execute queries and mutations.
+GraphiQL is an interactive in-browser IDE\@.
+It allows GraphQL API documentation exploring and the ability to execute queries and mutations.
 It takes an endpoint and generates a static website.
 The UI is in the figure~\ref{fig:graphql-graphiql}.
 \cite{graphql-graphiql}
@@ -689,12 +690,12 @@ The main disadvantages (compared to my task) are:
 
 \subsection{RESTful API}
 In the RESTful API world, there are several tools for generating documentation or interactive calls.
-One of the most popular one is Swagger UI, which I will mainly cover and compare the gRPC options to.
+Swagger UI is one of the most popular ones, which I will mainly cover and compare with the gRPC options.
 
 \subsubsection{ReDoc}
-ReDoc is a tool for generating documentation from OpenAPI definition.
-It is a static website with responsive layout.
-It is used to preview documentation comments with example requests and responses, and to show implementation examples.
+ReDoc is a tool for generating documentation based on the definition of OpenAPI.
+It is a static website with a responsive layout.
+It is used to preview documentation comments with example requests and responses and to show implementation examples.
 The UI is in the figure~\ref{fig:rest-redoc}.
 \cite{rest-redoc}
 
@@ -719,7 +720,7 @@ The main disadvantage (compared to my task) is no option of calling the endpoint
 
 \subsubsection{RapiDoc}
 RapiDoc is interactive API documentation with OpenAPI definition.
-It is a static website, supporting documentation comments, and allows calling the endpoints.
+It is a static website, supports documentation comments, and allows calling the endpoints.
 The UI is in the figure~\ref{fig:rest-rapidoc}.
 \cite{rest-rapidoc}
 
@@ -745,10 +746,10 @@ The main features are:
 I have not found any main disadvantages of RapiDoc.
 
 \subsubsection{Swagger UI}
-Swagger UI is one of the most popular choice for RESTful API documentation.
-The parent project is OpenAPI, which is a specification for building HTTP APIs in general.
-This tool is used to generate documentation from OpenAPI definition.
-It is a static website with support for comments and interactive endpoints calling.
+Swagger UI is one of the most popular choices for RESTful API documentation.
+The parent project is OpenAPI, a specification for general building HTTP APIs.
+This tool is used to generate documentation from the OpenAPI definition.
+It is a static website with support for comments and interactive endpoint calling.
 The UI is in the figure~\ref{fig:rest-swagger-ui}.
 \cite{rest-swagger-ui}
 
