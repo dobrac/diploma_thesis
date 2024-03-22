@@ -404,6 +404,7 @@ The main features are:
 The main disadvantages (compared to my task) are:
 \begin{itemize}
     \item requires a server to run (not a static website),
+    \item no support for documentation comments,
     \item requires you to construct the entire stream of request messages all at once, and then it shows the entire resulting stream of response messages all at once (so you can't interact with any streams interactively)~\cite{grpc-grpcui}.
 \end{itemize}
 
@@ -774,13 +775,79 @@ The main features are:
 
 I have not found any main disadvantages of Swagger UI\@.
 
-\subsection{Comparison and Summary}
+\subsection{Summary}
+I have compiled main tools for documenting and interacting with Protocol Buffers, GraphQL, and RESTful APIs.
+For each tool I have described the overall image and the main features and disadvantages.
+While lots of them excel in certain areas, they often fall short in providing a experience that combines documentation rendering and interactive API exploration.
+The comparison of the main features of the Protocol Buffers tools is in the table~\ref{tab:grpc-comparison-table}.
 
-\subsubsection{Issues}
+\begin{landscape}
+    \begin{table}[]
+        \centering
+        \resizebox{\columnwidth}{!}{%
+            \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+                \hline
+                & \textbf{Wombat} & \textbf{BloomRPC} & \textbf{gRPC Docs} & \textbf{gRPC UI} & \textbf{letmegrpc} & \textbf{gRPC-swagger} & \textbf{gRPC-Gateway} & \textbf{Postman} & \textbf{proto2asciidoc} & \textbf{protoc-gen-doc} \\ \hline
+                Type                                 & Desktop App     & Desktop App       & Static Web         & Website          & Website              & Website               & Proxy                 & Desktop App & AsciiDoc & Static Web, JSON \\ \hline
+                Listing of services \& methods       & x               & x                 & x                  & x                &                      & x                     &                       & x                & x                       & x                       \\ \hline
+                Input as form                        & x               &                   &                    & x                & x                    &                       &                       &                  &                         &                         \\ \hline
+                Input as JSON                        &                 & x                 &                    & x                &                      & x                     &                       & x                &                         &                         \\ \hline
+                Request metadata                     & x               & x                 &                    & x                &                      & x                     & x                     & x                &                         &                         \\ \hline
+                Headers \& Trailers                  & x               &                   &                    & x                &                      & x                     & x                     & x                &                         &                         \\ \hline
+                Execution of requests                & x               & x                 &                    & x                & x                    & x                     & x                     & x                &                         &                         \\ \hline
+                Determine schema via gRPC reflection & x               &                   &                    & x                &                      & x                     & x                     & x                & ? (not specified)       & ? (not specified)       \\ \hline
+                Schema from .proto files             & x               & x                 & x                  & x                & x                    &                       & x                     & x                &                         &                         \\ \hline
+                Documentation comments               &                 &                   &                    &                  & $\sim$ (in tooltips) &                       &                       &                  & x                       & x                       \\ \hline
+                Maintained                           &                 &                   &                    & x                &                      &                       & x                     & x                &                         & x                       \\ \hline
+            \end{tabular}%
+        }
+        \caption{Protocol Buffers Comparison Table}
+        \label{tab:grpc-comparison-table}
+    \end{table}
+\end{landscape}
+
+For Protocol Buffers, the most dominant are desktop applications like Wombat, BloomRPC, and Postman, which facilitate the browsing and calling of gRPC services.
+However, these applications generally lack support for rendering documentation comments, or being able to determine gRPC schema via reflection.
+Web-based solutions like gRPC Docs, gRPC UI, letmegrpc, and gRPC-swagger offer interactive gRPC calling capabilities.
+Still, they frequently encounter limitations like interactive streaming support, documentation comments integration, or requirement for a special server setup.
+This means developers must set up and maintain a server infrastructure specifically for API documentation and interaction.
+Additionally, static documentation generators like proto2asciidoc or protoc-gen-doc can render comments from .proto files as markup, but they do not allow for direct interaction with the services.
+The gRPC-Gateway is a unique tool that generates a reverse proxy server for translating HTTP JSON APIs into gRPC\@.
+While it is not directly comparable to the other tools, it is worth mentioning due to its ability to generate OpenAPI definitions, which can be used with existing tools for HTTP APIs.
+Also, I think it is important to point out, that maintenance of the tools is generally not good, with most of them being inactive for more than a year.
+Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
+Overall, the combination of having a static website with documenting comments and being able to interactively call specific service methods is lacking in current gRPC tools.
+
+In the GraphQL realm, a documentation-focused tool graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
+However, this tool lacks the ability to execute queries and mutations, limiting its usefulness for interactive API exploration.
+On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs which do not require specific server to be running and excel in executing queries and mutations.
+Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments, but is not able to connect them with the queries directly.
+As a result, none of the most popular tools I have found combines comprehensive documentation rendering with fully interactive query capabilities in a static website format.
+
+In contrast, the RESTful API ecosystem is in vastly different state.
+The ReDoc tool is a static website generator that does rendering documentation from OpenAPI definitions, providing a view of the available endpoints, request/response examples, and implementation examples.
+It does not support interactive API execution, though.
+On the other hand, solutions like Swagger UI and RapiDoc render documentation from OpenAPI definitions while allowing interactive API execution.
+These tools provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities, while being able to run as a static website.
+For neither of these tools, I have found any significant disadvantages.
+
+\subsection{Comparison}
+
+\subsection{Issues}
+Despite the strengths of existing tools for Protocol Buffers, there remains a notable gap for an integrated solution that can cater to a unified static web generator that can provide a cohesive experience by combining documentation and fully interactive request/response capabilities with support for features like streaming, headers and trailers metadata.
+This website generator should be able to create the static website from .proto files or gRPC reflection.
+
+The main issues I will be addressing are:
+\begin{itemize}
+    \item documentation comments,
+    \item interactive streaming,
+    \item gRPC reflection,
+    \item request metadata, headers, and trailers.
+\end{itemize}
 
 
 \section{Requirements}
-Based on the problems and primary requirements described previously, I have compiled functional and non-functional requirements covering the required functionality of the static web generator.
+Based on the issues and primary features described previously in the tools, I have compiled functional and non-functional requirements covering the required functionality of the static website interactive documentation generator.
 
 \subsection{Functional}
 % Co má systém umět
