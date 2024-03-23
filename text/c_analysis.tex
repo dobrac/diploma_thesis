@@ -863,93 +863,103 @@ Based on the issues and primary features described previously in the tools, I ha
 
 \subsection{Functional}
 % What should the system do
+\newcounter{fcounter}
+\newcommand{\functional}[1]{%
+    \stepcounter{fcounter}%
+    \subsubsection{F\arabic{fcounter} -- #1}%
+}
 
-\subsubsection{F1 -- List services and methods}
+\functional{List services and methods}
 The website should list all services and methods available in the Protocol Buffers.
 
-\subsubsection{F2 -- List messages}
+\functional{List messages}
 The website should list all message types available in the Protocol Buffers.
 
-\subsubsection{F3 -- List enums}
+\functional{List enums}
 The website should list all enum types available in the Protocol Buffers.
 
-\subsubsection{F4 -- Show comments for services, methods, message types, and enum types}
+\functional{Show comments for services, methods, message types, and enum types}
 Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message and enum types.
 
-\subsubsection{F5 -- Show comments for fields}
+\functional{Show comments for fields}
 Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
 
-\subsubsection{F6 -- Execution of methods with unary requests}
+\functional{Execution of methods with unary requests}
 The website should allow for the execution of requests unary requests.
 
-\subsubsection{F7 -- Execution of methods with server streaming requests}
+\functional{Execution of methods with server streaming requests}
 The website should allow for the execution of requests for server streaming gRPC methods.
 Also, it should allow to cancel the streaming in the middle of the execution.
 
-\subsubsection{F8 -- Request body message input}
+\functional{Request body message input}
 The website should allow for input of request data as a form or JSON\@.
 It has to support all scalar types, including bytes and enums.
 The input should also contain an example of the message structure.
 
-\subsubsection{F9 -- Input form validation for the correct message structure}
+\functional{Input form validation for the correct message structure}
 The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
 
-\subsubsection{F10 -- Request metadata input}
+\functional{Request metadata input}
 The website should allow for input of request metadata.
 
-\subsubsection{F11 -- Response headers and trailers}
+\functional{Response headers and trailers}
 The website should show response headers and trailers.
 
-\subsubsection{F12 -- Response message}
+\functional{Response message}
 The website should display the response message or messages.
 
-\subsubsection{F13 -- Support for oneof fields}
+\functional{Support for oneof fields}
 The website should support oneof fields in the message types.
 They have to be supported in the input request and in the message definition.
 
-\subsubsection{F14 -- Support for map fields}
+\functional{Support for map fields}
 The website should support map fields in the message types.
 They have to be supported in the input request and in the message definition.
 
-\subsubsection{F15 -- Support for repeated fields}
+\functional{Support for repeated fields}
 The website should support repeated fields in the message types.
 They have to be supported in the input request and in the message definition.
 
-\subsubsection{F16 -- Support for nested messages}
+\functional{Support for nested messages}
 The website should support nested messages in the message types.
 They have to be supported in the input request and in the message definition.
 
-\subsubsection{F17 -- Support for well-known types}
+\functional{Support for well-known types}
 The website should support well-known types like Timestamp, Duration, FieldMask, etc.
 They have to be supported in the input request and in the message definition.
 
-\subsubsection{F18 -- Generate website from .proto files}
+\functional{Generate website from .proto files}
 The generator should be able to generate the website from .proto files.
 The .proto files can be a single file or a folder.
 
-\subsubsection{F19 -- Generate website from gRPC reflection}
+\functional{Generate website from gRPC reflection}
 The generator should be able to generate the website from gRPC reflection.
 The reflection can be from a server or a protoset definition file.
 
-\subsubsection{F20 -- Global metadata and authorization}
+\functional{Global metadata and authorization}
 The website should allow for global metadata definition and authorization metadata.
 It should be possible to set the metadata for all requests and methods.
 
-\subsubsection{F21 -- Options should be shown}
+\functional{Options should be shown}
 The website should show the options of the services and methods.
 
 \subsection{Non-Functional}
+\newcounter{nfcounter}
+\newcommand{\nonfunctional}[1]{%
+    \stepcounter{nfcounter}%
+    \subsubsection{N\arabic{nfcounter} -- #1}%
+}
 
-\subsubsection{N1 -- Static Website}
+\nonfunctional{Static Website}
 The website should be static.
 It means only combination of static files like HTML, CSS, and JavaScript, without requirement of a dynamic server to be run.
 This should allow for easy deployment and hosting on various platforms.
 
-\subsubsection{N2 -- Familiar UI}
+\nonfunctional{Familiar UI}
 The website should have a familiar UI for developers, most probably close to something already being used in the RESTful or GraphQL worlds.
 It should be easy to navigate and understand, with a clear structure and layout.
 
-\subsubsection{N3 -- Input as Form or JSON}
+\nonfunctional{Input as Form or JSON}
 The website should allow for input of request data as a form or JSON\@.
 This should allow for flexibility in how the data is entered, depending on the developer's preference.
 
@@ -969,6 +979,49 @@ The other is the API developer, who is generating the static website from the .p
     \caption{Use Case Diagram}
     \label{fig:use-case-diagram}
 \end{figure}
+
+
+\newcounter{uccounter}
+\newcommand{\usecase}[2]{%
+    \stepcounter{uccounter}%
+    \subsection{UC\arabic{uccounter} -- #1}
+}
+
+
+\usecase{Generate Website from .proto Files}
+\textbf{Primary Actor:} API Developer\\
+\textbf{Secondary Actor:} Developer\\
+\textbf{Preconditions:} The API Developer has the .proto files ready.\\
+\textbf{Postconditions:} The website is generated.\\
+\textbf{Main Scenario:}
+\begin{enumerate}
+    \item The API Developer starts the generator.
+    \item The generator reads the .proto files.
+    \item The generator generates the website.
+    \item The website is ready for the Developer.
+\end{enumerate}
+\textbf{Extensions:}
+\begin{enumerate}
+    \item[3a.] The generator fails to read the .proto files.
+    \item[3b.] The generator fails to generate the website.
+\end{enumerate}
+
+\usecase{Generate Website from gRPC Reflection}
+
+\usecase{Host the Website}
+
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
+\usecase{TODO}
 
 %\subsection{UC1 -- Inicializace obrazu softwaru Syllabus Plus}
 %Rozvrhář spustí software Syllabus Plus a začne s inicializací nového obrazu.
