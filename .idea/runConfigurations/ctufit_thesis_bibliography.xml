@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ctufit-thesis bibliography" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" activateToolWindowBeforeRun="false">
+    <texify-bibtex>
+      <compiler>BIBER</compiler>
+      <compiler-path />
+      <compiler-arguments />
+      <envs>
+        <env name="BIBINPUTS" value="$PROJECT_DIR$" />
+        <env name="BSTINPUTS" value="$PROJECT_DIR$/../diploma_thesis:" />
+      </envs>
+      <main-file>$PROJECT_DIR$/ctufit-thesis.tex</main-file>
+      <aux-dir>$PROJECT_DIR$/out</aux-dir>
+    </texify-bibtex>
+    <method v="2" />
+  </configuration>
+</component>
