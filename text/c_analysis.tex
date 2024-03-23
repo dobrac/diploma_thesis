@@ -831,9 +831,16 @@ On the other hand, solutions like Swagger UI and RapiDoc render documentation fr
 These tools provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities, while being able to run as a static website.
 For neither of these tools, I have found any significant disadvantages.
 
-\subsection{Comparison}
+\subsubsection{Comparison}
+Comparing the tools for Protocol Buffers, GraphQL, and RESTful APIs, I have found that the RESTful API tools are the most advanced in terms of combining documentation rendering with interactive API exploration.
+The tools like Swagger UI and RapiDoc provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities, while being able to run as a static website.
+They have features like listing of endpoints, input as form or JSON (in a combined way, where the form is only to a first level of hierarchy deepness), request/response metadata, execution of requests, documentation comments.
 
-\subsection{Issues}
+The GraphQL tools are also quite advanced, but they often struggle with integrating documentation comments into the interactive query execution.
+The Protocol Buffers tools are the least advanced, with most tools focusing on either documentation rendering or interactive API exploration, but not both.
+Also, the maintenance of the tools is generally not good, with most of them being inactive for more than a year.
+
+\subsubsection{Issues}
 Despite the strengths of existing tools for Protocol Buffers, there remains a notable gap for an integrated solution that can cater to a unified static web generator that can provide a cohesive experience by combining documentation and fully interactive request/response capabilities with support for features like streaming, headers and trailers metadata.
 This website generator should be able to create the static website from .proto files or gRPC reflection.
 
@@ -847,32 +854,91 @@ The main issues I will be addressing are:
 
 
 \section{Requirements}
+The main requirement is to create a static website documentation for Protocol Buffers, which supports API calls.
+The website should be able to render documentation comments, list services and methods, execute requests, and support request metadata, headers, and trailers.
+It has to understand all gRPC features like messages, services, methods, and enums.
+The website should be generated from .proto files or gRPC reflection.
+
 Based on the issues and primary features described previously in the tools, I have compiled functional and non-functional requirements covering the required functionality of the static website interactive documentation generator.
 
 \subsection{Functional}
 % Co má systém umět
 
-%\subsubsection{F1 -- Pomocník pro inicializaci obrazu softwaru Syllabus Plus}
-%Pro inicializaci obrazu softwaru Syllabus Plus a další práci s daty je potřeba zadat informace o daném semestru.
-%Správné nastavení je klíčové pro korektní plánování časových lístků.
+\subsubsection{F1 -- List services and methods}
+Pro inicializaci obrazu softwaru Syllabus Plus a další práci s daty je potřeba zadat informace o daném semestru.
+Správné nastavení je klíčové pro korektní plánování časových lístků.
+
+\subsubsection{F2 -- List messages}
+
+\subsubsection{F3 -- List enums}
+
+\subsubsection{F4 -- Show comments for services, methods, messages, and enums}
+
+\subsubsection{F5 -- Show comments for fields}
+
+\subsubsection{F6 -- Execution of methods with unary, client streaming, server streaming, and bidirectional requests}
+
+\subsubsection{F7 -- Execution of methods with server streaming requests}
+
+\subsubsection{F8 -- Request body message input}
+
+\subsubsection{F9 -- Input form validation for the correct message structure}
+
+\subsubsection{F10 -- Request metadata input}
+
+\subsubsection{F11 -- Response headers and trailers display}
+
+\subsubsection{F12 -- Response message display}
+
+\subsubsection{F13 -- Support for oneof fields}
+
+\subsubsection{F14 -- Support for map fields}
+
+\subsubsection{F15 -- Support for repeated fields}
+
+\subsubsection{F16 -- Support for nested messages}
+
+\subsubsection{F17 -- Support for well-known types}
+
+\subsubsection{F18 -- Generate website from .proto files}
+
+\subsubsection{F19 -- Generate website from gRPC reflection}
+
+\subsubsection{F20 -- Global metadata and authorization}
+
+\subsubsection{F20 -- }
 
 \subsection{Non-Functional}
 
-%\subsubsection{N1 -- Aplikace s grafickým uživatelským rozhraním}
-%Aplikace by měla mít grafické uživatelské rozhraní pro práci s daty.
-%Uživatel by tak měl být schopen obsluhovat aplikaci sám bez pomoci další osoby.
+\subsubsection{N1 -- Static Website}
+The website should be static.
+It means only combination of static files like HTML, CSS, and JavaScript, without requirement of a dynamic server to be run.
+This should allow for easy deployment and hosting on various platforms.
+
+\subsubsection{N2 -- Familiar UI}
+The website should have a familiar UI for developers, most probably close to something already being used in the RESTful or GraphQL worlds.
+It should be easy to navigate and understand, with a clear structure and layout.
+
+\subsubsection{N3 -- Input as Form or JSON}
+The website should allow for input of request data as a form or JSON\@.
+This should allow for flexibility in how the data is entered, depending on the developer's preference.
 
 
 \section{Use Cases}
+Based on the requirements and the comparison of the existing tools, I have compiled a list of use cases that the static website interactive documentation generator should support.
+The figure~\ref{fig:use-case-diagram} shows the diagram of the use cases and their relationships with the actors.
+% TODO: How many?
+In my case, I have two actors.
+One is the developer, who is using the website to explore and interact with the gRPC services.
+The other is the system itself, which is generating the static website from the .proto files or gRPC reflection.
 
-
-%\begin{figure}
-%    \centering
-%    \captionsetup{justification=centering}
-%    \includegraphics[width=1.0\textwidth]{use-case-diagram}
-%    \caption{Diagram případů užití}
-%    \label{fig:use-case-diagram}
-%\end{figure}
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{images/use-case-diagram}
+    \caption{Use Case Diagram}
+    \label{fig:use-case-diagram}
+\end{figure}
 
 %\subsection{UC1 -- Inicializace obrazu softwaru Syllabus Plus}
 %Rozvrhář spustí software Syllabus Plus a začne s inicializací nového obrazu.
