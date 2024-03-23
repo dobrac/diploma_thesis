@@ -872,10 +872,10 @@ Based on the issues and primary features described previously in the tools, I ha
 \functional{List services and methods}
 The website should list all services and methods available in the Protocol Buffers.
 
-\functional{List messages}
+\functional{List message types}
 The website should list all message types available in the Protocol Buffers.
 
-\functional{List enums}
+\functional{List enum types}
 The website should list all enum types available in the Protocol Buffers.
 
 \functional{Show comments for services, methods, message types, and enum types}
@@ -969,8 +969,8 @@ Based on the requirements and the comparison of the existing tools, I have compi
 The figure~\ref{fig:use-case-diagram} shows the diagram of the use cases and their relationships with the actors.
 % TODO: How many actors?
 In my case, I have two actors.
-One is the developer, who is using the website to explore and interact with the gRPC services.
-The other is the API developer, who is generating the static website from the .proto files or gRPC reflection.
+One is the Application Developer, who is using the website to explore and interact with the gRPC services.
+The other is the gRPC Developer, who is generating the static website from the .proto files or gRPC reflection.
 
 \begin{figure}
     \centering
@@ -989,39 +989,128 @@ The other is the API developer, who is generating the static website from the .p
 
 
 \usecase{Generate Website from .proto Files}
-\textbf{Primary Actor:} API Developer\\
-\textbf{Secondary Actor:} Developer\\
-\textbf{Preconditions:} The API Developer has the .proto files ready.\\
-\textbf{Postconditions:} The website is generated.\\
+
+\textbf{Primary Actor:} gRPC Developer\\
+\textbf{Preconditions:} The gRPC Developer has the .proto files ready.
+Either as separate files in a folder, or interlinked files using imports.\\
+\textbf{Goal:} The website is generated.\\
 \textbf{Main Scenario:}
-\begin{enumerate}
-    \item The API Developer starts the generator.
-    \item The generator reads the .proto files.
-    \item The generator generates the website.
-    \item The website is ready for the Developer.
-\end{enumerate}
-\textbf{Extensions:}
-\begin{enumerate}
-    \item[3a.] The generator fails to read the .proto files.
-    \item[3b.] The generator fails to generate the website.
-\end{enumerate}
+The gRPC Developer runs the generator.
+The generator reads the .proto files.
+The generator generates the website necessary files for these definitions.
+The website is ready for the gRPC Developer to be hosted.\\
+\textbf{Alternative Scenario 1:}
+The generator finds an error in parsing the .proto files.
+So it shows an error message to the gRPC Developer.
+The gRPC Developer has to fix the error in the .proto files and run the generator again.\\
+\textbf{Alternative Scenario 2:}
+The .proto files do not exist.
+The generator shows an error message to the gRPC Developer.
+The gRPC Developer has to provide the .proto files and run the generator again.
 
 \usecase{Generate Website from gRPC Reflection}
 
-\usecase{Host the Website}
+\textbf{Primary Actor:} gRPC Developer\\
+\textbf{Preconditions:} The gRPC Developer has the gRPC server with reflection enabled ready and running.\\
+\textbf{Goal:} The website is generated.\\
+\textbf{Main Scenario:}
+The gRPC Developer runs some tool, which will get the Protocol Buffer definitions from the target gRPC server with reflection enabled.
+After the Protocol Buffer definitions are created, the gRPC Developer runs the generator and they feed it the definitions.
+The generator reads the definitions and generates the website necessary files for them.
+The website is ready for the gRPC Developer to be hosted.\\
+\textbf{Alternative Scenario 1:}
+The generator finds an error in parsing the definitions file.
+So it shows an error message to the gRPC Developer.
+The gRPC Developer has to regenerate the definitions file and run the generator again.\\
+\textbf{Alternative Scenario 2:}
+The definition file do not exist.
+The generator shows an error message to the gRPC Developer.
+The gRPC Developer has to provide the definition file and run the generator again.
 
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
-\usecase{TODO}
+
+\usecase{Preview services and methods definitions}
+
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} The services and methods are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+The website shows the services and methods available in the Protocol Buffers definitions.
+The Application Developer can see the details of the services and methods with their relevant package paths.\\
+\textbf{Alternative Scenario 1:}
+The website does not show the services and methods.
+The Application Developer sees an error message or empty page.
+The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+
+\usecase{Preview message types}
+
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} The message types are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+The website shows the message types available in the Protocol Buffers definitions.
+The Application Developer can see the details of the message type with their fields and nested message types.\\
+\textbf{Alternative Scenario 1:}
+The website does not show the message types.
+The Application Developer sees an error message or empty page.
+The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+
+\usecase{Preview enum types}
+
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} The enum types are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+The website shows the enum types available in the Protocol Buffers definitions.
+The Application Developer can see the details of the enum type with their keys and values.\\
+\textbf{Alternative Scenario 1:}
+The website does not show the enum types.
+The Application Developer sees an error message or empty page.
+The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+
+\usecase{Preview comments for services, methods, message types, and enum types}
+
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} The comments are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+The website shows all defined comments for services, methods, message types, and enum types.
+The Application Developer can see the whole comment for each of them.\\
+\textbf{Alternative Scenario 1:}
+The website does not show the defined comments.
+The Application Developer sees an error message or no comments on the page.
+The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+
+\usecase{Preview options of the services and methods}
+
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} The options are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+The website shows all defined options for services and methods.
+The Application Developer can see last defined options for each of them.\\
+\textbf{Alternative Scenario 1:}
+The website does not show the defined options.
+The Application Developer sees an error message or no options on the page.
+The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+
+\usecase{Execute an unary request and preview response with metadata, headers and trailers}
+
+\usecase{Execute a server streaming request and preview responses with metadata, headers and trailers}
+
+\usecase{Execute an unary request with a well-known type}
+
+\usecase{Set global metadata, such as authorization}
+
+
+%\usecase{TODO}
+%\usecase{TODO}
+%\usecase{TODO}
+%\usecase{TODO}
 
 %\subsection{UC1 -- Inicializace obrazu softwaru Syllabus Plus}
 %Rozvrhář spustí software Syllabus Plus a začne s inicializací nového obrazu.
