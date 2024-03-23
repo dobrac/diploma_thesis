@@ -862,51 +862,81 @@ The website should be generated from .proto files or gRPC reflection.
 Based on the issues and primary features described previously in the tools, I have compiled functional and non-functional requirements covering the required functionality of the static website interactive documentation generator.
 
 \subsection{Functional}
-% Co má systém umět
+% What should the system do
 
 \subsubsection{F1 -- List services and methods}
-Pro inicializaci obrazu softwaru Syllabus Plus a další práci s daty je potřeba zadat informace o daném semestru.
-Správné nastavení je klíčové pro korektní plánování časových lístků.
+The website should list all services and methods available in the Protocol Buffers.
 
 \subsubsection{F2 -- List messages}
+The website should list all message types available in the Protocol Buffers.
 
 \subsubsection{F3 -- List enums}
+The website should list all enum types available in the Protocol Buffers.
 
-\subsubsection{F4 -- Show comments for services, methods, messages, and enums}
+\subsubsection{F4 -- Show comments for services, methods, message types, and enum types}
+Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message and enum types.
 
 \subsubsection{F5 -- Show comments for fields}
+Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
 
-\subsubsection{F6 -- Execution of methods with unary, client streaming, server streaming, and bidirectional requests}
+\subsubsection{F6 -- Execution of methods with unary requests}
+The website should allow for the execution of requests unary requests.
 
 \subsubsection{F7 -- Execution of methods with server streaming requests}
+The website should allow for the execution of requests for server streaming gRPC methods.
+Also, it should allow to cancel the streaming in the middle of the execution.
 
 \subsubsection{F8 -- Request body message input}
+The website should allow for input of request data as a form or JSON\@.
+It has to support all scalar types, including bytes and enums.
+The input should also contain an example of the message structure.
 
 \subsubsection{F9 -- Input form validation for the correct message structure}
+The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
 
 \subsubsection{F10 -- Request metadata input}
+The website should allow for input of request metadata.
 
-\subsubsection{F11 -- Response headers and trailers display}
+\subsubsection{F11 -- Response headers and trailers}
+The website should show response headers and trailers.
 
-\subsubsection{F12 -- Response message display}
+\subsubsection{F12 -- Response message}
+The website should display the response message or messages.
 
 \subsubsection{F13 -- Support for oneof fields}
+The website should support oneof fields in the message types.
+They have to be supported in the input request and in the message definition.
 
 \subsubsection{F14 -- Support for map fields}
+The website should support map fields in the message types.
+They have to be supported in the input request and in the message definition.
 
 \subsubsection{F15 -- Support for repeated fields}
+The website should support repeated fields in the message types.
+They have to be supported in the input request and in the message definition.
 
 \subsubsection{F16 -- Support for nested messages}
+The website should support nested messages in the message types.
+They have to be supported in the input request and in the message definition.
 
 \subsubsection{F17 -- Support for well-known types}
+The website should support well-known types like Timestamp, Duration, FieldMask, etc.
+They have to be supported in the input request and in the message definition.
 
 \subsubsection{F18 -- Generate website from .proto files}
+The generator should be able to generate the website from .proto files.
+The .proto files can be a single file or a folder.
 
 \subsubsection{F19 -- Generate website from gRPC reflection}
+The generator should be able to generate the website from gRPC reflection.
+The reflection can be from a server or a protoset definition file.
 
 \subsubsection{F20 -- Global metadata and authorization}
+The website should allow for global metadata definition and authorization metadata.
+It should be possible to set the metadata for all requests and methods.
 
-\subsubsection{F20 -- }
+\subsubsection{F21 -- Options should be shown}
+The website should show the options of the services and methods.
 
 \subsection{Non-Functional}
 
@@ -927,10 +957,10 @@ This should allow for flexibility in how the data is entered, depending on the d
 \section{Use Cases}
 Based on the requirements and the comparison of the existing tools, I have compiled a list of use cases that the static website interactive documentation generator should support.
 The figure~\ref{fig:use-case-diagram} shows the diagram of the use cases and their relationships with the actors.
-% TODO: How many?
+% TODO: How many actors?
 In my case, I have two actors.
 One is the developer, who is using the website to explore and interact with the gRPC services.
-The other is the system itself, which is generating the static website from the .proto files or gRPC reflection.
+The other is the API developer, who is generating the static website from the .proto files or gRPC reflection.
 
 \begin{figure}
     \centering
