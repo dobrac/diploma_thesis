@@ -409,8 +409,8 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{letmegrpc}
-The gRPC UI is a website that supports for calling gRPC services.
-It allows service methods call using forms, where each method has its separate URL (\url{http://localhost:8080/ServiceName/MethodName}).
+The gRPC UI is a website that supports calling gRPC services.
+It allows service methods to call using forms, where each method has its separate URL (\url{http://localhost:8080/ServiceName/MethodName}).
 It is constructed from a .proto file.
 The UI is in the figure~\ref{fig:grpc-letmegrpc}.
 \cite{grpc-letmegrpc}
@@ -441,7 +441,7 @@ The main disadvantages (compared to my task) are:
     \item no direct support for gRPC reflection,
     % TODO: Correct citation?
     \item custom proto file parser, which does not have implemented all language features (\cite{grpc-letmegrpc-issue44}),
-    \item inactive, last update was five years ago~\cite{grpc-letmegrpc}.
+    \item inactive, the last update was five years ago~\cite{grpc-letmegrpc}.
 \end{itemize}
 
 \subsubsection{gRPC-swagger}
@@ -450,7 +450,7 @@ It is based on gRPC reflection and can list and call gRPC services.
 It uses Swagger UI design language (copy of the Swagger UI) but is not a part of the official Swagger.
 The UI is in the figure~\ref{fig:grpc-swagger}.
 The architecture is done using its server as a proxy.
-The website's server forwards all requests to the gRPC server and then back to the website.
+The website's server forwards all requests to the gRPC server and back to the website.
 \cite{grpc-letmegrpc}
 
 \begin{figure}[hbt!]
@@ -521,7 +521,7 @@ The main features are:
     \item support for request metadata, headers,
     \item ability to create OpenAPI definitions,
     \item execution of unary, server streaming, client streaming, bidirectional requests, but in a batched manner,
-    \item and ua lot more regards the specifics of the reverse-proxy layer~\cite{grpc-gateway}.
+    \item and much more regards the specifics of the reverse-proxy layer~\cite{grpc-gateway}.
 \end{itemize}
 
 The main disadvantages (compared to my task) are:
@@ -578,7 +578,7 @@ Many tools can then parse the AsciiDoc format.
 One of these tools can be a static website.
 The main disadvantage is that it is not a website or application but a documentation file.
 Therefore, it does not allow calling the gRPC services at all.
-Another disadvantage is the requirement of special comment block formatting, which differs from usual comments in proto files.
+Another disadvantage is the special comment block formatting requirement, which differs from usual comments in proto files.
 And finally, it looks to be abandoned with the last commit more than two years ago.
 \cite{grpc-proto2asciidoc}
 
@@ -631,7 +631,7 @@ The main disadvantages (compared to my task) are:
 GraphQL Playground is an application for desktop and web.
 It allows developers to build and test GraphQL queries and mutations, explore an API schema, and view real-time results.
 GraphQL Playground offers features like automatic schema documentation, query history, and support for GraphQL subscriptions.
-It uses a live endpoint and can be hosted as static website.
+It uses a live endpoint and can be hosted as a static website.
 The UI is in the figure~\ref{fig:graphql-graphql-playground}.
 \cite{graphql-graphql-playground}
 
@@ -777,8 +777,8 @@ I have not found any main disadvantages of Swagger UI\@.
 
 \subsection{Summary}
 I have compiled main tools for documenting and interacting with Protocol Buffers, GraphQL, and RESTful APIs.
-For each tool I have described the overall image and the main features and disadvantages.
-While lots of them excel in certain areas, they often fall short in providing a experience that combines documentation rendering and interactive API exploration.
+For each tool, I have described the overall image and the main features and disadvantages.
+While many of them excel in certain areas, they often fail to provide an experience that combines documentation rendering and interactive API exploration.
 The comparison of the main features of the Protocol Buffers tools is in the table~\ref{tab:grpc-comparison-table}.
 
 \begin{landscape}
@@ -807,34 +807,34 @@ The comparison of the main features of the Protocol Buffers tools is in the tabl
 \end{landscape}
 
 For Protocol Buffers, the most dominant are desktop applications like Wombat, BloomRPC, and Postman, which facilitate the browsing and calling of gRPC services.
-However, these applications generally lack support for rendering documentation comments, or being able to determine gRPC schema via reflection.
+However, these applications generally lack support for rendering documentation comments or determining gRPC schema via reflection.
 Web-based solutions like gRPC Docs, gRPC UI, letmegrpc, and gRPC-swagger offer interactive gRPC calling capabilities.
-Still, they frequently encounter limitations like interactive streaming support, documentation comments integration, or requirement for a special server setup.
+Still, they frequently encounter limitations like interactive streaming support, documentation comments integration, or special server setup requirements.
 This means developers must set up and maintain a server infrastructure specifically for API documentation and interaction.
-Additionally, static documentation generators like proto2asciidoc or protoc-gen-doc can render comments from .proto files as markup, but they do not allow for direct interaction with the services.
+Additionally, static documentation generators like proto2asciidoc or protoc-gen-doc can render comments from .proto files as markup, but they do not allow direct interaction with the services.
 The gRPC-Gateway is a unique tool that generates a reverse proxy server for translating HTTP JSON APIs into gRPC\@.
 While it is not directly comparable to the other tools, it is worth mentioning due to its ability to generate OpenAPI definitions, which can be used with existing tools for HTTP APIs.
-Also, I think it is important to point out, that maintenance of the tools is generally not good, with most of them being inactive for more than a year.
+Also, I think it is important to point out that maintenance of the tools is generally not good, with most of them being inactive for more than a year.
 Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
-Overall, the combination of having a static website with documenting comments and being able to interactively call specific service methods is lacking in current gRPC tools.
+Overall, the combination of having a static website with documenting comments and being able to call specific service methods interactively is lacking in current gRPC tools.
 
-In the GraphQL realm, a documentation-focused tool graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
-However, this tool lacks the ability to execute queries and mutations, limiting its usefulness for interactive API exploration.
-On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs which do not require specific server to be running and excel in executing queries and mutations.
-Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments, but is not able to connect them with the queries directly.
-As a result, none of the most popular tools I have found combines comprehensive documentation rendering with fully interactive query capabilities in a static website format.
+In the GraphQL realm, a documentation-focused tool, graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
+However, this tool cannot execute queries and mutations, limiting its usefulness for interactive API exploration.
+On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs that do not require a specific server to be running and excel in executing queries and mutations.
+Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments but is not able to connect them with the queries directly.
+As a result, none of the most popular tools I have found combine comprehensive documentation rendering with fully interactive query capabilities in a static website format.
 
-In contrast, the RESTful API ecosystem is in vastly different state.
-The ReDoc tool is a static website generator that does rendering documentation from OpenAPI definitions, providing a view of the available endpoints, request/response examples, and implementation examples.
-It does not support interactive API execution, though.
+In contrast, the RESTful API ecosystem is in a vastly different state.
+The ReDoc tool is a static website generator that renders documentation from OpenAPI definitions, providing a view of the available endpoints, request/response examples, and implementation examples.
+However, it does not support interactive API execution.
 On the other hand, solutions like Swagger UI and RapiDoc render documentation from OpenAPI definitions while allowing interactive API execution.
-These tools provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities, while being able to run as a static website.
-For neither of these tools, I have found any significant disadvantages.
+These tools provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities while being able to run as a static website.
+I have found no significant disadvantages to either of these tools.
 
 \subsubsection{Comparison}
 Comparing the tools for Protocol Buffers, GraphQL, and RESTful APIs, I have found that the RESTful API tools are the most advanced in terms of combining documentation rendering with interactive API exploration.
-The tools like Swagger UI and RapiDoc provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities, while being able to run as a static website.
-They have features like listing of endpoints, input as form or JSON (in a combined way, where the form is only to a first level of hierarchy deepness), request/response metadata, execution of requests, documentation comments.
+Tools like Swagger UI and RapiDoc provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities while being able to run a static website.
+They have features like listing endpoints, input as form or JSON (in a combined way, where the form is only to a first level of hierarchy deepness), request/response metadata, execution of requests, and documentation comments.
 
 The GraphQL tools are also quite advanced, but they often struggle with integrating documentation comments into the interactive query execution.
 The Protocol Buffers tools are the least advanced, with most tools focusing on either documentation rendering or interactive API exploration, but not both.
@@ -879,20 +879,20 @@ The website should list all message types available in the Protocol Buffers.
 The website should list all enum types available in the Protocol Buffers.
 
 \functional{Show comments for services, methods, message types, and enum types}
-Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message and enum types.
+Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message, and enum types.
 
 \functional{Show comments for fields}
 Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
 
 \functional{Execution of methods with unary requests}
-The website should allow for the execution of requests unary requests.
+The website should allow for the execution of unary requests.
 
 \functional{Execution of methods with server streaming requests}
-The website should allow for the execution of requests for server streaming gRPC methods.
-Also, it should allow to cancel the streaming in the middle of the execution.
+The website should allow for the execution of server streaming gRPC methods requests.
+Also, streaming cancellation should be allowed in the middle of the execution.
 
 \functional{Request body message input}
-The website should allow for input of request data as a form or JSON\@.
+The website should allow request data input as a form or JSON\@.
 It has to support all scalar types, including bytes and enums.
 The input should also contain an example of the message structure.
 
@@ -909,30 +909,30 @@ The website should show response headers and trailers.
 The website should display the response message or messages.
 
 \functional{Support for oneof fields}
-The website should support oneof fields in the message types.
-They have to be supported in the input request and in the message definition.
+The website should support oneof the fields in the message types.
+They must be supported in the input request and the message definition.
 
 \functional{Support for map fields}
 The website should support map fields in the message types.
-They have to be supported in the input request and in the message definition.
+They must be supported in the input request and the message definition.
 
 \functional{Support for repeated fields}
 The website should support repeated fields in the message types.
-They have to be supported in the input request and in the message definition.
+They must be supported in the input request and the message definition.
 
 \functional{Support for nested messages}
 The website should support nested messages in the message types.
-They have to be supported in the input request and in the message definition.
+They must be supported in the input request and the message definition.
 
 \functional{Support for well-known types}
 The website should support well-known types like Timestamp, Duration, FieldMask, etc.
-They have to be supported in the input request and in the message definition.
+They must be supported in the input request and the message definition.
 
 \functional{Generate website from .proto files}
 The generator should be able to generate the website from .proto files.
 The .proto files can be a single file or a folder.
 
-\functional{Generate website from gRPC reflection}
+\functional{Generate a website from gRPC reflection}
 The generator should be able to generate the website from gRPC reflection.
 The reflection can be from a server or a protoset definition file.
 
@@ -941,7 +941,7 @@ The website should allow for global metadata definition and authorization metada
 It should be possible to set the metadata for all requests and methods.
 
 \functional{Options should be shown}
-The website should show the options of the services and methods.
+The website should show the options for services and methods.
 
 \subsection{Non-Functional}
 \newcounter{nfcounter}
@@ -952,25 +952,25 @@ The website should show the options of the services and methods.
 
 \nonfunctional{Static Website}
 The website should be static.
-It means only combination of static files like HTML, CSS, and JavaScript, without requirement of a dynamic server to be run.
+It means only a combination of static files like HTML, CSS, and JavaScript without requiring a dynamic server to be run.
 This should allow for easy deployment and hosting on various platforms.
 
 \nonfunctional{Familiar UI}
-The website should have a familiar UI for developers, most probably close to something already being used in the RESTful or GraphQL worlds.
+The website should have a familiar UI for developers, probably close to something already used in the RESTful or GraphQL worlds.
 It should be easy to navigate and understand, with a clear structure and layout.
 
-\nonfunctional{Input as Form or JSON}
-The website should allow for input of request data as a form or JSON\@.
-This should allow for flexibility in how the data is entered, depending on the developer's preference.
+\nonfunctional{Input as form or JSON}
+The website should allow request data input as a form or JSON\@.
+Depending on the developer's preference, this should allow for flexibility in how the data is entered.
 
 
 \section{Use Cases}
-Based on the requirements and the comparison of the existing tools, I have compiled a list of use cases that the static website interactive documentation generator should support.
+Based on the requirements and comparing the existing tools, I have compiled a list of use cases that the static website interactive documentation generator should support.
 The figure~\ref{fig:use-case-diagram} shows the diagram of the use cases and their relationships with the actors.
 % TODO: How many actors?
 In my case, I have two actors.
-One is the Application Developer, who is using the website to explore and interact with the gRPC services.
-The other is the gRPC Developer, who is generating the static website from the .proto files or gRPC reflection.
+One is the Application Developer, who uses the website to explore and interact with the gRPC services.
+The other is the gRPC Developer, who generates the static website from the .proto files or gRPC reflection.
 
 \begin{figure}
     \centering
@@ -992,115 +992,115 @@ The other is the gRPC Developer, who is generating the static website from the .
 
 \textbf{Primary Actor:} gRPC Developer\\
 \textbf{Preconditions:} The gRPC Developer has the .proto files ready.
-Either as separate files in a folder, or interlinked files using imports.\\
+Either as separate files in a folder or as interlinked files using imports.\\
 \textbf{Goal:} The website is generated.\\
 \textbf{Main Scenario:}
 The gRPC Developer runs the generator.
 The generator reads the .proto files.
-The generator generates the website necessary files for these definitions.
+The generator generates the website's necessary files for these definitions.
 The website is ready for the gRPC Developer to be hosted.\\
 \textbf{Alternative Scenario 1:}
-The generator finds an error in parsing the .proto files.
-So it shows an error message to the gRPC Developer.
-The gRPC Developer has to fix the error in the .proto files and run the generator again.\\
+The generator finds an error when parsing the .proto files.
+So, it shows an error message to the gRPC Developer.
+The gRPC Developer has to fix the error in the .proto files and rerun the generator.\\
 \textbf{Alternative Scenario 2:}
 The .proto files do not exist.
 The generator shows an error message to the gRPC Developer.
-The gRPC Developer has to provide the .proto files and run the generator again.
+The gRPC Developer has to provide the .proto files and rerun the generator.
 
 \usecase{Generate Website from gRPC Reflection}
 
 \textbf{Primary Actor:} gRPC Developer\\
-\textbf{Preconditions:} The gRPC Developer has the gRPC server with reflection enabled ready and running.\\
+\textbf{Preconditions:} The gRPC Developer has the gRPC server with reflection enabled, ready and running.\\
 \textbf{Goal:} The website is generated.\\
 \textbf{Main Scenario:}
-The gRPC Developer runs some tool, which will get the Protocol Buffer definitions from the target gRPC server with reflection enabled.
-After the Protocol Buffer definitions are created, the gRPC Developer runs the generator and they feed it the definitions.
-The generator reads the definitions and generates the website necessary files for them.
+With reflection enabled, the gRPC Developer runs some tools to get the Protocol Buffer definitions from the target gRPC server.
+After the Protocol Buffer definitions are created, the gRPC Developer runs the generator and feeds it the definitions.
+The generator reads the definitions and generates the website's necessary files.
 The website is ready for the gRPC Developer to be hosted.\\
 \textbf{Alternative Scenario 1:}
-The generator finds an error in parsing the definitions file.
-So it shows an error message to the gRPC Developer.
-The gRPC Developer has to regenerate the definitions file and run the generator again.\\
+The generator finds an error when parsing the definitions file.
+So, it shows an error message to the gRPC Developer.
+The gRPC Developer has to regenerate the definitions file and rerun the generator.\\
 \textbf{Alternative Scenario 2:}
-The definition file do not exist.
+The definition file does not exist.
 The generator shows an error message to the gRPC Developer.
-The gRPC Developer has to provide the definition file and run the generator again.
+The gRPC Developer has to provide the definition file and rerun the generator.
 
 
 \usecase{Preview services and methods definitions}
 
 \textbf{Primary Actor:} Application Developer\\
-\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
 \textbf{Goal:} The services and methods are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
-The website shows the services and methods available in the Protocol Buffers definitions.
+The website shows the services and methods available in the definitions of Protocol Buffers.
 The Application Developer can see the details of the services and methods with their relevant package paths.\\
 \textbf{Alternative Scenario 1:}
 The website does not show the services and methods.
 The Application Developer sees an error message or empty page.
-The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+The Application Developer has to ask the gRPC Developer to check the Protocol Buffers definitions and regenerate the website.
 
 \usecase{Preview message types}
 
 \textbf{Primary Actor:} Application Developer\\
-\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
 \textbf{Goal:} The message types are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
-The website shows the message types available in the Protocol Buffers definitions.
+The website shows the message types available in the definitions of Protocol Buffers.
 The Application Developer can see the details of the message type with their fields and nested message types.\\
 \textbf{Alternative Scenario 1:}
 The website does not show the message types.
 The Application Developer sees an error message or empty page.
-The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+The Application Developer has to ask the gRPC Developer to check the Protocol Buffers definitions and regenerate the website.
 
 \usecase{Preview enum types}
 
 \textbf{Primary Actor:} Application Developer\\
-\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
 \textbf{Goal:} The enum types are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
-The website shows the enum types available in the Protocol Buffers definitions.
+The website shows the enum types available in the definitions of Protocol Buffers.
 The Application Developer can see the details of the enum type with their keys and values.\\
 \textbf{Alternative Scenario 1:}
 The website does not show the enum types.
 The Application Developer sees an error message or empty page.
-The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+The Application Developer has to ask the gRPC Developer to check the Protocol Buffers definitions and regenerate the website.
 
 \usecase{Preview comments for services, methods, message types, and enum types}
 
 \textbf{Primary Actor:} Application Developer\\
-\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
 \textbf{Goal:} The comments are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
 The website shows all defined comments for services, methods, message types, and enum types.
-The Application Developer can see the whole comment for each of them.\\
+The Application Developer can see all the comments for each of them.\\
 \textbf{Alternative Scenario 1:}
 The website does not show the defined comments.
 The Application Developer sees an error message or no comments on the page.
-The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+The Application Developer has to ask the gRPC Developer to check the Protocol Buffers definitions and regenerate the website.
 
 \usecase{Preview options of the services and methods}
 
 \textbf{Primary Actor:} Application Developer\\
-\textbf{Preconditions:} The Application Developer has open the static website with the Protocol Buffers definition defined.\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
 \textbf{Goal:} The options are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
 The website shows all defined options for services and methods.
-The Application Developer can see last defined options for each of them.\\
+The Application Developer can see the last defined options for each of them.\\
 \textbf{Alternative Scenario 1:}
 The website does not show the defined options.
 The Application Developer sees an error message or no options on the page.
-The Application Developer has to ask the gRPC Developer check the Protocol Buffers definitions and regenerate the website.
+The Application Developer has to ask the gRPC Developer to check the Protocol Buffers definitions and regenerate the website.
 
-\usecase{Execute an unary request and preview response with metadata, headers and trailers}
+\usecase{Execute a unary request and preview response with metadata, headers, and trailers}
 
-\usecase{Execute a server streaming request and preview responses with metadata, headers and trailers}
+\usecase{Execute a server streaming request and preview responses with metadata, headers, and trailers}
 
 \usecase{Execute an unary request with a well-known type}
 
