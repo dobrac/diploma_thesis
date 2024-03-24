@@ -1100,26 +1100,66 @@ The Application Developer has to ask the gRPC Developer to check the Protocol Bu
 
 \usecase{Execute a unary request and preview response with metadata, headers, and trailers}
 
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} Execution is successful and the response is shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+First, they define the target server URL\@.
+Then, they select a service and method.
+They fill in the request data and metadata.
+They execute the request.
+The website shows headers, then the response, and finally trailers.\\
+\textbf{Alternative Scenario 1:}
+The request data are invalid.
+The website shows an error message.
+The Application Developer has to fix the request data and rerun the request.\\
+\textbf{Alternative Scenario 2:}
+The request fails for any reason.
+The website shows an error message.
+The Application Developer has to check the server status, the request data, and metadata, and rerun the request.\\
+\textbf{Alternative Scenario 3:}
+The request is taking too long.
+The Application developer can cancel the request in the middle of the execution.
+They have to check the server status, the request data, and metadata, and rerun the request.
+
 \usecase{Execute a server streaming request and preview responses with metadata, headers, and trailers}
 
-\usecase{Execute an unary request with a well-known type}
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} Execution is successful and all responses are shown.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+First, they define the target server URL\@.
+Then, they select a service and method.
+They fill in the request data and metadata.
+They execute the request.
+The website shows headers, then all responses while they are arriving from the server one by one with, and finally trailers.\\
+\textbf{Alternative Scenario 1:}
+The request data are invalid.
+The website shows an error message.
+The Application Developer has to fix the request data and rerun the request.\\
+\textbf{Alternative Scenario 2:}
+The request fails for any reason.
+The website shows an error message.
+The Application Developer has to check the server status, the request data, and metadata, and rerun the request.\\
+\textbf{Alternative Scenario 3:}
+The request is taking too long.
+The Application developer can cancel the request in the middle of the execution.
+They have to check the server status, the request data, and metadata, and rerun the request.
 
 \usecase{Set global metadata, such as authorization}
 
-
-%\usecase{TODO}
-%\usecase{TODO}
-%\usecase{TODO}
-%\usecase{TODO}
-
-%\subsection{UC1 -- Inicializace obrazu softwaru Syllabus Plus}
-%Rozvrhář spustí software Syllabus Plus a začne s inicializací nového obrazu.
-%Během inicializace se mu zobrazí dialog pro nastavení začátku semestru, vyučované dny, začátek a konec hodin, počet hodin za den a počet týdnů na semestr.
-%Rozvrhář otevře aplikaci pro převod a nastaví semestr, který se využije pro načítání dat ze systému KOS\@.
-%Zobrazí si jakým způsobem má položky nastavit, aby byla data správně reprezentována (například při plánování časových lístků).
-%Formulář vyplní podle získaných dat z aplikace a inicializuje obraz.
-%V případě, že se rozvrhář splete, musí aktuální obraz smazat a začít vytvářet nový od začátku.
-%Jinak je inicializace úspěšně dokončena.
+\textbf{Primary Actor:} Application Developer\\
+\textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
+\textbf{Goal:} Execution is successful and the global metadata are included in the request.\\
+\textbf{Main Scenario:}
+The Application Developer opens the website.
+First, they define the target server URL\@.
+Then, they select a service and method.
+They fill in the request data and metadata.
+They execute the request.
+The website shows the executed request containing the global metadata.
 
 
 \section{Requirements to Use Cases Mapping}
@@ -1129,30 +1169,32 @@ The table shows that all requirements are covered.
 \begin{table}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
         \hline
-        & \multicolumn{15}{c|}{Use Cases} \\ \hline
-        & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \hline
-        F1  & x &   &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F2  &   &   & x &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F3  &   &   &   & x &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F4  &   &   &   &   &   &   &   &   &   &    &    &    &    &    & x  \\ \hline
-        F5  &   &   &   &   & x &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F6  &   & x &   &   &   &   &   & x &   &    &    & x  & x  &    &    \\ \hline
-        F7  &   & x &   &   &   &   &   &   &   &    &    & x  &    &    &    \\ \hline
-        F8  &   &   &   &   &   &   &   &   &   &    &    &    & x  &    &    \\ \hline
-        F9  &   & x &   &   &   &   &   &   &   &    & x  &    &    &    &    \\ \hline
-        F10 &   & x &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F11 &   &   &   &   &   &   &   &   & x & x  &    &    &    &    &    \\ \hline
-        F12 &   & x &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-        F13 &   &   &   &   &   &   &   &   &   & x  &    &    &    &    &    \\ \hline
-        F14 &   &   &   &   &   &   &   & x & x & x  &    & x  & x  &    &    \\ \hline
-        F15 &   &   &   &   &   &   &   & x & x & x  &    & x  &    &    &    \\ \hline
-        F16 &   &   &   &   &   &   &   & x & x & x  &    & x  & x  &    &    \\ \hline
-        F17 &   &   &   &   &   & x & x &   &   &    &    &    &    &    &    \\ \hline
-        F18 &   &   &   &   &   & x &   &   &   & x  &    &    &    & x  &    \\ \hline
-        F19 & x &   &   &   &   &   &   &   &   &    &    &    &    &    &    \\ \hline
-    \end{tabular}
+        & \multicolumn{10}{c|}{\textbf{Use Cases}} \\ \hline
+        & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+        F1  &   &   & x &   &   &   &   &   &   &    \\ \hline
+        F2  &   &   &   & x &   &   &   &   &   &    \\ \hline
+        F3  &   &   &   &   & x &   &   &   &   &    \\ \hline
+        F4  &   &   &   &   &   & x &   &   &   &    \\ \hline
+        F5  &   &   &   &   &   & x &   &   &   &    \\ \hline
+        F6  &   &   &   &   &   &   &   &   &   &    \\ \hline
+        F7  &   &   &   &   &   &   &   &   & x &    \\ \hline
+        F8  &   &   &   &   &   &   &   & x & x &    \\ \hline
+        F9  &   &   &   &   &   &   &   & x & x &    \\ \hline
+        F10 &   &   &   &   &   &   &   & x & x &    \\ \hline
+        F11 &   &   &   &   &   &   &   & x & x &    \\ \hline
+        F12 &   &   &   &   &   &   &   & x & x &    \\ \hline
+        F13 &   &   &   & x &   &   &   & x & x &    \\ \hline
+        F14 &   &   &   & x &   &   &   & x & x &    \\ \hline
+        F15 &   &   &   & x &   &   &   & x & x &    \\ \hline
+        F16 &   &   &   & x &   &   &   & x & x &    \\ \hline
+        F17 &   &   &   & x &   &   &   &   &   &    \\ \hline
+        F18 & x &   &   &   &   &   &   &   &   &    \\ \hline
+        F19 &   & x &   &   &   &   &   &   &   &    \\ \hline
+        F20 &   &   &   &   &   &   &   &   &   & x  \\ \hline
+        F21 &   &   &   &   &   &   & x &   &   &    \\ \hline
+    \end{tabular}%
     \caption{Requirements to Use Cases Mapping}
     \label{tab:use_cases}
 \end{table}
