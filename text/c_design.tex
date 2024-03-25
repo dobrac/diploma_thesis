@@ -1,8 +1,97 @@
-\section{Návrh}
+Based on the analysis, as one of the most advanced documentation generator is Swagger UI, it will be my main inspiration.
+Also, the Swagger UI is a well-known tool in the software development community, and it is used by many companies and projects.
+The Swagger UI works in a way that the website is a static website by default and the endpoints, types, and more are defined in a definition file.
+This file is a OpenAPI YAML or JSON file, which is then parsed and displayed on the website~\cite{swagger-ui-definition-file}.
+I think this is a good approach, as it separates the data from the view.
+Thanks to this, the data can be easily changed and the website will regenerate dynamically in the browser.
+The deployment of the website is also easier, as it is just a static website, which can be hosted on any web server, and updating the definitions can be part of different deployment process.
+
+First, I will try to analyze, if I could use Swagger UI directly, or if I need to create my own website.
 
 
+\section{Swagger UI for gRPC}
+% TODO: OpenAPI, swagger UI extensions
 
-\section{Splnění požadavků}
+
+As gRPC has its specifics, and it is not based the same way as OpenAPI, I will need to create my own website.
+
+
+\section{gRPC Reflection Possibility}
+% Issue with comments in Reflection, reflection feasability
+% Discuss the options and possibilitions
+
+
+\section{gRPC-Web limitations}
+% gRPC-Web limitations, and how it affects the design
+% Possibility of full gRPC server implementation in the future, but also may-be not necessary if gRPC-Web supports it
+
+
+\section{Architecture}
+The architecture of the website will be based on the Swagger UI, but it will be adjusted to the gRPC specifics.
+The website will be a static website, which will take a gRPC definition file for showing all gRPC related parts.
+The gRPC definition file from the proto files or gRPC reflection and its format will be most probably either JSON or YAML\@.
+These formats are common in software development, and they are also used by the Swagger UI, which I take the inspiration from.
+
+I have created a diagram of the architecture of the website, which is shown in the figure~\ref{fig:grpcflair-architecture}.
+There are two places where the generation of the common format starts.
+The first one is from the .proto, the second one is from the gRPC reflection.
+Both methods will generate the same format, which will be then used by the website.
+The website will be a static website, which will be generated from the common format on the fly using JavaScript.
+The user of the website will be able to see all the methods, types, and enums, which are defined in the gRPC definition file.
+They will also be able to call the methods and see the responses in the website.
+When they invoke the request, the website will select the correct backend (gRPC-Web or other implementation) and it will the server.
+The server then returns the response, which is then displayed in the website (the responses can be shown gradually as for example the server streams responses).
+
+% The overall process description - state diagram - (with the help of the diagram I have)
+% Swagger UI JSON inspiration
+\ref{fig:grpcflair-architecture}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{images/design/grpcdoc-architecture}
+    \caption{Architecture~\cite{protobuf-overview}}
+    \label{fig:grpcflair-architecture}
+\end{figure}
+
+
+\section{Common Format}
+
+\subsection{OpenAPI}
+% Why not use OpenAPI -> It's made for REST, not gRPC, I would have to map it -> already existing solutions
+
+\subsection{grpc-protoc-gen-doc}
+
+\subsection{gnostic}
+
+\subsection{proto3-json-serializer}
+
+\subsection{protobufjs}
+% Protobufjs, protobufjs-cli
+
+\subsection{Summary}
+% Why not use my own parsing
+
+
+\section{Website Design}
+
+\subsection{Proto Files Generator}
+
+\subsection{gRPC Reflection Generator}
+% Discuss the options and possibilitions
+
+\subsection{Website Wireframe}
+% Inspiration and main focus
+% Section: Main Page
+
+\subsubsection{Method Wireframe}
+% Section: Method, and it's detail with forms, JSON, etc
+
+\subsubsection{Type and Enum Wireframe}
+% Section: Type & Enum
+
+
+\section{Fulfillment of Requirements}
 %Samotné grafické rozhraní aplikace splňuje požadavek N1.
 %Zobrazení dialogového okna s informacemi pro inicializaci obrazu softwaru Syllabus Plus splňuje požadavek F1.
 %Uspořádání dat do sloupců a rozdělení obrazovky na dvě části splňuje požadavek F16.
