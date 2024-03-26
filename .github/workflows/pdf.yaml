@@ -1,9 +1,5 @@
 name: Compile LaTeX PDF
 
-permissions:
-  issues: write
-  pull-requests: write
-
 on:
   push:
     branches: [ main ]
@@ -13,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      pull-requests: write
 
     container:
       image: texlive/texlive:latest
