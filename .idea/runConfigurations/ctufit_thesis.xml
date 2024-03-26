@@ -15,7 +15,7 @@
       <output-format>PDF</output-format>
       <latex-distribution>TEXLIVE</latex-distribution>
       <has-been-run>true</has-been-run>
-      <bib-run-config>[]</bib-run-config>
+      <bib-run-config>[BibTeX.ctufit-thesis bibliography]</bib-run-config>
       <makeindex-run-config>[]</makeindex-run-config>
     </texify>
     <method v="2" />
