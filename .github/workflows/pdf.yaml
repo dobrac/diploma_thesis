@@ -59,23 +59,23 @@ jobs:
               });
             }
 
-      - name: Fetch Artifact Download URL
-        id: fetch_artifact
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const artifactResponse = await github.rest.actions.listWorkflowRunArtifacts({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: ${{github.run_id}}
-            });
-            if (artifactResponse.data.artifacts.length > 0) {
-              const artifactUrl = artifactResponse.data.artifacts[0].archive_download_url;
-              core.setOutput('artifact_url', artifactUrl); // Set the output for later use
-            } else {
-              throw new Error('No artifacts found.');
-            }
+      #      - name: Fetch Artifact Download URL
+      #        id: fetch_artifact
+      #        uses: actions/github-script@v5
+      #        with:
+      #          github-token: ${{secrets.GITHUB_TOKEN}}
+      #          script: |
+      #            const artifactResponse = await github.rest.actions.listWorkflowRunArtifacts({
+      #              owner: context.repo.owner,
+      #              repo: context.repo.repo,
+      #              run_id: ${{github.run_id}}
+      #            });
+      #            if (artifactResponse.data.artifacts.length > 0) {
+      #              const artifactUrl = artifactResponse.data.artifacts[0].archive_download_url;
+      #              core.setOutput('artifact_url', artifactUrl); // Set the output for later use
+      #            } else {
+      #              throw new Error('No artifacts found.');
+      #            }
 
       # Step to comment the link to the artifacts on PR
       - name: Comment PR with Artifact Link
@@ -83,7 +83,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const artifactUrl = `${{steps.fetch_artifact.outputs.artifact_url}}`; // Use the output from the previous step
+            // const artifactUrl = `${{steps.fetch_artifact.outputs.artifact_url}}`; // Use the output from the previous step
+            const artifactUrl = `https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}`;
             const prComment = `The compiled PDF can be found here: [Download PDF](${artifactUrl})`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
