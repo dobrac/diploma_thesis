@@ -29,9 +29,18 @@ jobs:
           name: thesis-dobryjak
           path: out/ctufit-thesis.pdf
 
+  comment_artifact:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
       # Step to comment the link to the artifacts on PR
       - name: Comment PR with Artifact Link
-        if: github.event_name == 'pull_request'
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
