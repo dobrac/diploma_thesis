@@ -10,10 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      issues: write
-      pull-requests: write
-
     container:
       image: texlive/texlive:latest
 
@@ -35,6 +31,7 @@ jobs:
     if: github.event_name == 'pull_request'
 
     permissions:
+      contents: read
       issues: write
       pull-requests: write
 
