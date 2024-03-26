@@ -1102,14 +1102,14 @@ The Application Developer has to ask the gRPC Developer to check the Protocol Bu
 
 \textbf{Primary Actor:} Application Developer\\
 \textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
-\textbf{Goal:} Execution is successful and the response is shown.\\
+\textbf{Goal:} Execution is successful, and the response is shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
 First, they define the target server URL\@.
 Then, they select a service and method.
 They fill in the request data and metadata.
 They execute the request.
-The website shows headers, then the response, and finally trailers.\\
+The website shows headers, then the response, and finally, the trailers.\\
 \textbf{Alternative Scenario 1:}
 The request data are invalid.
 The website shows an error message.
@@ -1117,24 +1117,24 @@ The Application Developer has to fix the request data and rerun the request.\\
 \textbf{Alternative Scenario 2:}
 The request fails for any reason.
 The website shows an error message.
-The Application Developer has to check the server status, the request data, and metadata, and rerun the request.\\
+The Application Developer has to check the server status, the request data, and metadata and rerun the request.\\
 \textbf{Alternative Scenario 3:}
 The request is taking too long.
 The Application developer can cancel the request in the middle of the execution.
-They have to check the server status, the request data, and metadata, and rerun the request.
+They have to check the server status, the request data, and metadata and rerun the request.
 
 \usecase{Execute a server streaming request and preview responses with metadata, headers, and trailers}
 
 \textbf{Primary Actor:} Application Developer\\
 \textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
-\textbf{Goal:} Execution is successful and all responses are shown.\\
+\textbf{Goal:} Execution is successful, and all responses are shown.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
 First, they define the target server URL\@.
 Then, they select a service and method.
 They fill in the request data and metadata.
 They execute the request.
-The website shows headers, then all responses while they are arriving from the server one by one with, and finally trailers.\\
+The website shows headers, then all responses while they are arriving from the server one by one, and finally, trailers.\\
 \textbf{Alternative Scenario 1:}
 The request data are invalid.
 The website shows an error message.
@@ -1142,17 +1142,17 @@ The Application Developer has to fix the request data and rerun the request.\\
 \textbf{Alternative Scenario 2:}
 The request fails for any reason.
 The website shows an error message.
-The Application Developer has to check the server status, the request data, and metadata, and rerun the request.\\
+The Application Developer has to check the server status, the request data, and metadata and rerun the request.\\
 \textbf{Alternative Scenario 3:}
 The request is taking too long.
 The Application developer can cancel the request in the middle of the execution.
-They have to check the server status, the request data, and metadata, and rerun the request.
+They have to check the server status, the request data, and metadata and rerun the request.
 
 \usecase{Set global metadata, such as authorization}
 
 \textbf{Primary Actor:} Application Developer\\
 \textbf{Preconditions:} The Application Developer has opened the static website with the Protocol Buffers definition defined.\\
-\textbf{Goal:} Execution is successful and the global metadata are included in the request.\\
+\textbf{Goal:} Execution is successful, and the global metadata is included in the request.\\
 \textbf{Main Scenario:}
 The Application Developer opens the website.
 First, they define the target server URL\@.
