@@ -870,102 +870,106 @@ Based on the issues and primary features described previously in the tools, I ha
 \newcounter{fcounter}
 \newcommand{\functional}[1]{%
     \stepcounter{fcounter}%
-    \subsubsection{F\arabic{fcounter} -- #1}%
+    \textcolor{heading}{\textbf{#1}}\\%
 }
 
-\functional{List services and methods}
-The website should list all services and methods available in the Protocol Buffers.
+\begin{enumerate}[label=\textbf{F\arabic*}, labelwidth=!, labelsep=*, align=left, leftmargin=*]
+    \item \functional{List services and methods}
+    The website should list all services and methods available in the Protocol Buffers.
 
-\functional{List message types}
-The website should list all message types available in the Protocol Buffers.
+    \item \functional{List message types}
+    The website should list all message types available in the Protocol Buffers.
 
-\functional{List enum types}
-The website should list all enum types available in the Protocol Buffers.
+    \item \functional{List enum types}
+    The website should list all enum types available in the Protocol Buffers.
 
-\functional{Show comments for services, methods, message types, and enum types}
-Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message, and enum types.
+    \item \functional{Show comments for services, methods, message types, and enum types}
+    Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message, and enum types.
 
-\functional{Show comments for fields}
-Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
+    \item \functional{Show comments for fields}
+    Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
 
-\functional{Execution of methods with unary requests}
-The website should allow for the execution of unary requests.
+    \item \functional{Execution of methods with unary requests}
+    The website should allow for the execution of unary requests.
 
-\functional{Execution of methods with server streaming requests}
-The website should allow for the execution of server streaming gRPC method requests.
-Also, streaming cancellation should be allowed in the middle of the execution.
+    \item \functional{Execution of methods with server streaming requests}
+    The website should allow for the execution of server streaming gRPC method requests.
+    Also, streaming cancellation should be allowed in the middle of the execution.
 
-\functional{Request body message input}
-The website should allow request data input as a form or JSON\@.
-It has to support all scalar types, including bytes and enums.
-The input should also contain an example of the message structure.
+    \item \functional{Request body message input}
+    The website should allow request data input as a form or JSON\@.
+    It has to support all scalar types, including bytes and enums.
+    The input should also contain an example of the message structure.
 
-\functional{Input form validation for the correct message structure}
-The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
+    \item \functional{Input form validation for the correct message structure}
+    The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
 
-\functional{Request metadata input}
-The website should allow for input of request metadata.
+    \item \functional{Request metadata input}
+    The website should allow for input of request metadata.
 
-\functional{Response headers and trailers}
-The website should show response headers and trailers.
+    \item \functional{Response headers and trailers}
+    The website should show response headers and trailers.
 
-\functional{Response message}
-The website should display the response message or messages.
+    \item \functional{Response message}
+    The website should display the response message or messages.
 
-\functional{Support for oneof fields}
-The website should support oneof the fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for oneof fields}
+    The website should support oneof the fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for map fields}
-The website should support map fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for map fields}
+    The website should support map fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for repeated fields}
-The website should support repeated fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for repeated fields}
+    The website should support repeated fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for nested messages}
-The website should support nested messages in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for nested messages}
+    The website should support nested messages in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for well-known types}
-The website should support well-known types like Timestamp, Duration, FieldMask, etc.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for well-known types}
+    The website should support well-known types like Timestamp, Duration, FieldMask, etc.
+    They must be supported in the input request and the message definition.
 
-\functional{Generate website from .proto files}
-The generator should be able to generate the website from .proto files.
-The .proto files can be a single file or a folder.
+    \item \functional{Generate website from .proto files}
+    The generator should be able to generate the website from .proto files.
+    The .proto files can be a single file or a folder.
 
-\functional{Generate a website from gRPC reflection}
-The generator should be able to generate the website from gRPC reflection.
-The reflection can be from a server or a protoset definition file.
+    \item \functional{Generate a website from gRPC reflection}
+    The generator should be able to generate the website from gRPC reflection.
+    The reflection can be from a server or a protoset definition file.
 
-\functional{Global metadata and authorization}
-The website should allow for global metadata definition and authorization metadata.
-It should be possible to set the metadata for all requests and methods.
+    \item \functional{Global metadata and authorization}
+    The website should allow for global metadata definition and authorization metadata.
+    It should be possible to set the metadata for all requests and methods.
 
-\functional{Options should be shown}
-The website should show the options for services and methods.
+    \item \functional{Options should be shown}
+    The website should show the options for services and methods.
+\end{enumerate}
 
 \subsection{Non-Functional Requirements}
 \newcounter{nfcounter}
 \newcommand{\nonfunctional}[1]{%
     \stepcounter{nfcounter}%
-    \subsubsection{N\arabic{nfcounter} -- #1}%
+    \textcolor{heading}{\textbf{#1}}\\%
 }
 
-\nonfunctional{Static Website}
-The website should be static.
-It means only a combination of static files like HTML, CSS, and JavaScript without requiring a dynamic server to be run.
-This should allow for easy deployment and hosting on various platforms.
+\begin{enumerate}[label=\textbf{N\arabic*}, labelwidth=!, labelsep=*, align=left, leftmargin=*]
+    \item \nonfunctional{Static Website}
+    The website should be static.
+    It means only a combination of static files like HTML, CSS, and JavaScript without requiring a dynamic server to be run.
+    This should allow for easy deployment and hosting on various platforms.
 
-\nonfunctional{Familiar UI}
-The website should have a familiar UI for developers, probably close to something already used in the RESTful or GraphQL worlds.
-It should be easy to navigate and understand, with a clear structure and layout.
+    \item \nonfunctional{Familiar UI}
+    The website should have a familiar UI for developers, probably close to something already used in the RESTful or GraphQL worlds.
+    It should be easy to navigate and understand, with a clear structure and layout.
 
-\nonfunctional{Input as form or JSON}
-The website should allow request data input as a form or JSON\@.
-Depending on the developer's preference, this should allow for flexibility in how the data is entered.
+    \item \nonfunctional{Input as form or JSON}
+    The website should allow request data input as a form or JSON\@.
+    Depending on the developer's preference, this should allow for flexibility in how the data is entered.
+\end{enumerate}
 
 
 \section{Use Cases}
