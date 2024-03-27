@@ -157,12 +157,12 @@ It is present at the beginning of the file using the \textit{package} keyword fo
 
 The other option to differentiate \textit{messages} names is using nested types.
 The \textit{message} can be defined inside another \textit{message}.
-This is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only in the parent \textit{message} context.
+It is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only in the parent \textit{message} context.
 \cite{protobuf-proto3}
 
 Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between names.
 
-The \textit{options} are used to alter the behavior of the .proto file, \textit{message}, \textit{enum}, \textit{service}, \textit{method} or fields.
+The \textit{options} are used to alter the behavior of the .proto file, \textit{message}, \textit{enum}, \textit{service}, \textit{method}, or fields.
 They are defined using the \textit{option} keyword followed by the name of the \textit{option} and its value.
 One of the most commonly used \textit{option} is a \textit{java\_package}.
 The \textit{java\_package} is used to define the package for the Java code generation.
