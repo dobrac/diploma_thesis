@@ -693,6 +693,36 @@ The main disadvantages (compared to my task) are:
     \item requires manual implementation - library usage~\cite{graphql-graphiql}.
 \end{itemize}
 
+\subsubsection{Apollo Studio}
+Apollo Studio is a cloud platform with features called Explorer or Schema.
+The Schema feature is for exploring the graph with documentation.
+The Explorer is a tool for executing queries and mutations, with the support of documentation, that is the closest to my task.
+It also contains features like monitoring, teams, changelog, deployment support, and more.
+The UI is in the figure~\ref{fig:graphql-apollo-studio}.
+\cite{graphql-apollo-studio}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/graphql/apollo-studio}
+    \caption{Apollo Studio UI~\cite{graphql-apollo-studio}}
+    \label{fig:graphql-apollo-studio}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item website,
+    \item documentation with comments,
+    \item listing of queries, mutations, and types,
+    \item execution of queries and mutations,
+    \item autocompletion,
+    \item metadata support,
+    \item option to construct queries using the schema with documentation,
+    \item and much more~\cite{graphql-apollo-studio}.
+\end{itemize}
+
+The main disadvantage (compared to my task) is that it is not self-hosted and is a closed source~\cite{graphql-apollo-studio}.
+
 \subsection{RESTful API}
 In the RESTful API world, there are several tools for generating documentation or interactive calls.
 Swagger UI is one of the most popular ones, which I will mainly cover and compare with the gRPC options.
@@ -822,10 +852,12 @@ Also, I think it is important to point out that maintenance of the tools is gene
 Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
 Overall, the combination of having a static website with documenting comments and being able to call specific service methods interactively is lacking in current gRPC tools.
 
-In the GraphQL realm, a documentation-focused tool, graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
+In the GraphQL realm, a documentation-focused tool graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
 However, this tool cannot execute queries and mutations, limiting its usefulness for interactive API exploration.
 On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs that do not require a specific server to be running and excel in executing queries and mutations.
 Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments but is not able to connect them with the queries directly.
+The most advanced tool is Apollo Studio, a cloud platform that offers a wide range of features for exploring and executing GraphQL APIs.
+However, it still lacks a self-hosted solution for static website generation.
 As a result, none of the most popular tools I have found combine comprehensive documentation rendering with fully interactive query capabilities in a static website format.
 
 In contrast, the RESTful API ecosystem is in a vastly different state.
