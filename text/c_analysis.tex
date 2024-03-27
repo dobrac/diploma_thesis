@@ -150,13 +150,9 @@ When the response is streamed, it is called \textit{server-streaming} call.
 And when both request and response are streamed, it is called \textit{bidirectional-streaming} call.
 \cite{grpc-core-concept}
 
-\subsubsection{Packages}
+\subsubsection{Packages and Options}
 The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums}, and \textit{services} in the .proto file.
 It is present at the beginning of the file using the \textit{package} keyword followed by the name of the \textit{package}.
-The \textit{package} may not be considered for the code generation.
-This is especially true for Java.
-Because of that, a \textit{java\_package} option can be used to define the package for the generated code.
-This option is defined at the file level.
 \cite{protobuf-proto3}
 
 The other option to differentiate \textit{messages} names is using nested types.
@@ -165,6 +161,14 @@ This is useful when the \textit{message} is used only in the context of the pare
 \cite{protobuf-proto3}
 
 Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between names.
+
+The \textit{options} are used to alter the behavior of the .proto file, \textit{message}, \textit{enum}, \textit{service}, \textit{method} or fields.
+They are defined using the \textit{option} keyword followed by the name of the \textit{option} and its value.
+One of the most commonly used \textit{option} is a \textit{java\_package}.
+The \textit{java\_package} is used to define the package for the Java code generation.
+It is defined at the file level.
+Other \textit{option} could be \textit{java\_multiple\_files} for altering Java code generation to generate multiple files, or \textit{optimize\_for} for selection of C++ and Java generated client size, and more.
+\cite{protobuf-proto3}
 
 \subsection{Comments}
 The .proto files can contain comments.
