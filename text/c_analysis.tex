@@ -4,7 +4,7 @@ I will start with Protocol Buffers, then move and explore the solutions to Graph
 
 
 \section{Protocol Buffers}
-Protocol Buffers are a mechanism for serializing structured data.
+Protocol Buffers\footnote{\url{https://protobuf.dev/}} are a mechanism for serializing structured data.
 They are language-neutral and platform-neutral.
 They encompass:
 \begin{itemize}
@@ -140,7 +140,7 @@ The \textit{method} can also have a \textit{stream} keyword to define streaming 
 \cite{protobuf-proto3}
 
 Streaming is a feature that allows the client and server to send a sequence of \textit{messages} back and forth until the stream is closed.
-This is useful when the client or server needs to send a large number of \textit{messages} and does not know the exact number of \textit{messages} in advance.
+This is useful when the client or server needs to send a large number of \textit{messages} or just does not know the exact number of them in advance.
 \cite{protobuf-proto3}
 
 There are four types of gRPC calls.
@@ -150,21 +150,25 @@ When the response is streamed, it is called \textit{server-streaming} call.
 And when both request and response are streamed, it is called \textit{bidirectional-streaming} call.
 \cite{grpc-core-concept}
 
-\subsubsection{Packages}
+\subsubsection{Packages and Options}
 The \textit{package} is used to define a namespace for the defined \textit{messages}, \textit{enums}, and \textit{services} in the .proto file.
 It is present at the beginning of the file using the \textit{package} keyword followed by the name of the \textit{package}.
-The \textit{package} may not be considered for the code generation.
-This is especially true for Java.
-Because of that, a \textit{java\_package} option can be used to define the package for the generated code.
-This option is defined at the file level.
 \cite{protobuf-proto3}
 
 The other option to differentiate \textit{messages} names is using nested types.
 The \textit{message} can be defined inside another \textit{message}.
-This is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only in the parent \textit{message} context.
+It is useful when the \textit{message} is used only in the context of the parent \textit{message} or is meaningful only in the parent \textit{message} context.
 \cite{protobuf-proto3}
 
 Both \textit{package} and nested types are used to avoid name conflicts and can be used using the dot notation between names.
+
+The \textit{options} are used to alter the behavior of the .proto file, \textit{message}, \textit{enum}, \textit{service}, \textit{method}, or fields.
+They are defined using the \textit{option} keyword followed by the name of the \textit{option} and its value.
+One of the most commonly used \textit{option} is a \textit{java\_package}.
+The \textit{java\_package} is used to define the package for the Java code generation.
+It is defined at the file level.
+Other \textit{option} could be \textit{java\_multiple\_files} for altering Java code generation to generate multiple files, or \textit{optimize\_for} for selection of C++ and Java generated client size, and more.
+\cite{protobuf-proto3}
 
 \subsection{Comments}
 The .proto files can contain comments.
@@ -221,7 +225,7 @@ The design goals of the gRPC-Web are:
     \item support text stream for cross-browser support~\cite{grpc-protocol-web}.
 \end{itemize}
 
-The gRPC-Web is adding a proxy between the server and the browser.
+The gRPC-Web clients require a proxy, which is added between the client and the server.
 The communication works as follows.
 The browser sends a request to the proxy using the gRPC-Web protocol.
 The proxy translates the gRPC-Web protocol to the gRPC protocol and sends the request to the server.
@@ -253,7 +257,7 @@ The support for it varies across different gRPC implementations in different pro
 \cite{grpc-reflection}
 
 
-\section{Documentation Websites}
+\section{Existing Documentation Tools}
 This section examines popular tools for documenting gRPC, GraphQL, and RESTful APIs.
 I'll assess the capabilities and shortcomings of each solution, addressing gRPC first, then GraphQL, and lastly, RESTful APIs.
 The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static web generator.
@@ -537,7 +541,7 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{Postman}
-Postman is one of the most popular applications for API calling.
+Postman is the leading API platform~\cite{postman-popularity}.
 It supports many different API types (e.g.,\ HTTP API, WebSockets, GraphQL) but also includes gRPC\@.
 Upon loading .proto files or using gRPC reflection, it can understand the gRPC API and use the information for calls.
 It can do more than call the gRPC services, but it is not a documentation website.
@@ -567,7 +571,7 @@ The main features are:
 
 The main disadvantages (compared to my task) are:
 \begin{itemize}
-    \item it is an application, not a static website,
+    \item it is a desktop application, not a static website,
     \item no support for comments,
     \item request data are only in the form of JSON~\cite{postman}.
 \end{itemize}
@@ -595,7 +599,7 @@ The disadvantage is that it does not allow the gRPC services to be called.
 
 \subsection{GraphQL}
 In the GraphQL world, there are several tools for generating documentation or interactive calls.
-The most popular ones I have found are described in the following subsections.
+The most popular ones based on the state of GraphQL in 2022 and others I have found for documentation are in the following subsections~\cite{graphql-popularity}.
 
 \subsubsection{graphdoc}
 GraphDoc is a static website generator for GraphQL schemas.
@@ -689,6 +693,36 @@ The main disadvantages (compared to my task) are:
     \item requires manual implementation - library usage~\cite{graphql-graphiql}.
 \end{itemize}
 
+\subsubsection{Apollo Studio}
+Apollo Studio is a cloud platform with features called Explorer or Schema.
+The Schema feature is for exploring the graph with documentation.
+The Explorer is a tool for executing queries and mutations, with the support of documentation, that is the closest to my task.
+It also contains features like monitoring, teams, changelog, deployment support, and more.
+The UI is in the figure~\ref{fig:graphql-apollo-studio}.
+\cite{graphql-apollo-studio}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/graphql/apollo-studio}
+    \caption{Apollo Studio UI~\cite{graphql-apollo-studio}}
+    \label{fig:graphql-apollo-studio}
+\end{figure}
+
+The main features are:
+\begin{itemize}
+    \item website,
+    \item documentation with comments,
+    \item listing of queries, mutations, and types,
+    \item execution of queries and mutations,
+    \item autocompletion,
+    \item metadata support,
+    \item option to construct queries using the schema with documentation,
+    \item and much more~\cite{graphql-apollo-studio}.
+\end{itemize}
+
+The main disadvantage (compared to my task) is that it is not self-hosted and is a closed source~\cite{graphql-apollo-studio}.
+
 \subsection{RESTful API}
 In the RESTful API world, there are several tools for generating documentation or interactive calls.
 Swagger UI is one of the most popular ones, which I will mainly cover and compare with the gRPC options.
@@ -744,10 +778,10 @@ The main features are:
     \item support for authentication mechanisms~\cite{rest-rapidoc}.
 \end{itemize}
 
-I have not found any main disadvantages of RapiDoc.
+I have not found any main disadvantages (compared to my task) of RapiDoc.
 
 \subsubsection{Swagger UI}
-Swagger UI is one of the most popular choices for RESTful API documentation.
+Swagger UI is one of the most popular choices for RESTful API documentation~\cite{rest-swagger-ui-popularity}.
 The parent project is OpenAPI, a specification for general building HTTP APIs.
 This tool is used to generate documentation from the OpenAPI definition.
 It is a static website with support for comments and interactive endpoint calling.
@@ -773,7 +807,7 @@ The main features are:
     \item support for authentication mechanisms~\cite{rest-swagger-ui}.
 \end{itemize}
 
-I have not found any main disadvantages of Swagger UI\@.
+I have not found any main disadvantages (compared to my task) of Swagger UI\@.
 
 \subsection{Summary}
 I have compiled main tools for documenting and interacting with Protocol Buffers, GraphQL, and RESTful APIs.
@@ -818,10 +852,12 @@ Also, I think it is important to point out that maintenance of the tools is gene
 Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
 Overall, the combination of having a static website with documenting comments and being able to call specific service methods interactively is lacking in current gRPC tools.
 
-In the GraphQL realm, a documentation-focused tool, graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
+In the GraphQL realm, a documentation-focused tool graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
 However, this tool cannot execute queries and mutations, limiting its usefulness for interactive API exploration.
 On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs that do not require a specific server to be running and excel in executing queries and mutations.
 Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments but is not able to connect them with the queries directly.
+The most advanced tool is Apollo Studio, a cloud platform that offers a wide range of features for exploring and executing GraphQL APIs.
+However, it still lacks a self-hosted solution for static website generation.
 As a result, none of the most popular tools I have found combine comprehensive documentation rendering with fully interactive query capabilities in a static website format.
 
 In contrast, the RESTful API ecosystem is in a vastly different state.
@@ -861,107 +897,111 @@ The website should be generated from .proto files or gRPC reflection.
 
 Based on the issues and primary features described previously in the tools, I have compiled functional and non-functional requirements covering the required functionality of the static website interactive documentation generator.
 
-\subsection{Functional}
+\subsection{Functional Requirements}
 % What should the system do
 \newcounter{fcounter}
 \newcommand{\functional}[1]{%
     \stepcounter{fcounter}%
-    \subsubsection{F\arabic{fcounter} -- #1}%
+    \textcolor{heading}{\textbf{#1}}\\%
 }
 
-\functional{List services and methods}
-The website should list all services and methods available in the Protocol Buffers.
+\begin{enumerate}[label=\textbf{F\arabic*}, labelwidth=!, labelsep=*, align=left, leftmargin=*]
+    \item \functional{List services and methods}
+    The website should list all services and methods available in the Protocol Buffers.
 
-\functional{List message types}
-The website should list all message types available in the Protocol Buffers.
+    \item \functional{List message types}
+    The website should list all message types available in the Protocol Buffers.
 
-\functional{List enum types}
-The website should list all enum types available in the Protocol Buffers.
+    \item \functional{List enum types}
+    The website should list all enum types available in the Protocol Buffers.
 
-\functional{Show comments for services, methods, message types, and enum types}
-Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message, and enum types.
+    \item \functional{Show comments for services, methods, message types, and enum types}
+    Comments from the Protocol Buffers definitions should be rendered in the website for services, methods, message, and enum types.
 
-\functional{Show comments for fields}
-Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
+    \item \functional{Show comments for fields}
+    Comments from the Protocol Buffers definitions should be rendered in the website for fields in message or enum types.
 
-\functional{Execution of methods with unary requests}
-The website should allow for the execution of unary requests.
+    \item \functional{Execution of methods with unary requests}
+    The website should allow for the execution of unary requests.
 
-\functional{Execution of methods with server streaming requests}
-The website should allow for the execution of server streaming gRPC methods requests.
-Also, streaming cancellation should be allowed in the middle of the execution.
+    \item \functional{Execution of methods with server streaming requests}
+    The website should allow for the execution of server streaming gRPC method requests.
+    Also, streaming cancellation should be allowed in the middle of the execution.
 
-\functional{Request body message input}
-The website should allow request data input as a form or JSON\@.
-It has to support all scalar types, including bytes and enums.
-The input should also contain an example of the message structure.
+    \item \functional{Request body message input}
+    The website should allow request data input as a form or JSON\@.
+    It has to support all scalar types, including bytes and enums.
+    The input should also contain an example of the message structure.
 
-\functional{Input form validation for the correct message structure}
-The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
+    \item \functional{Input form validation for the correct message structure}
+    The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
 
-\functional{Request metadata input}
-The website should allow for input of request metadata.
+    \item \functional{Request metadata input}
+    The website should allow for input of request metadata.
 
-\functional{Response headers and trailers}
-The website should show response headers and trailers.
+    \item \functional{Response headers and trailers}
+    The website should show response headers and trailers.
 
-\functional{Response message}
-The website should display the response message or messages.
+    \item \functional{Response message}
+    The website should display the response message or messages.
 
-\functional{Support for oneof fields}
-The website should support oneof the fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for oneof fields}
+    The website should support oneof the fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for map fields}
-The website should support map fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for map fields}
+    The website should support map fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for repeated fields}
-The website should support repeated fields in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for repeated fields}
+    The website should support repeated fields in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for nested messages}
-The website should support nested messages in the message types.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for nested messages}
+    The website should support nested messages in the message types.
+    They must be supported in the input request and the message definition.
 
-\functional{Support for well-known types}
-The website should support well-known types like Timestamp, Duration, FieldMask, etc.
-They must be supported in the input request and the message definition.
+    \item \functional{Support for well-known types}
+    The website should support well-known types like Timestamp, Duration, FieldMask, etc.
+    They must be supported in the input request and the message definition.
 
-\functional{Generate website from .proto files}
-The generator should be able to generate the website from .proto files.
-The .proto files can be a single file or a folder.
+    \item \functional{Generate website from .proto files}
+    The generator should be able to generate the website from .proto files.
+    The .proto files can be a single file or a folder.
 
-\functional{Generate a website from gRPC reflection}
-The generator should be able to generate the website from gRPC reflection.
-The reflection can be from a server or a protoset definition file.
+    \item \functional{Generate a website from gRPC reflection}
+    The generator should be able to generate the website from gRPC reflection.
+    The reflection can be from a server or a protoset definition file.
 
-\functional{Global metadata and authorization}
-The website should allow for global metadata definition and authorization metadata.
-It should be possible to set the metadata for all requests and methods.
+    \item \functional{Global metadata and authorization}
+    The website should allow for global metadata definition and authorization metadata.
+    It should be possible to set the metadata for all requests and methods.
 
-\functional{Options should be shown}
-The website should show the options for services and methods.
+    \item \functional{Options should be shown}
+    The website should show the options for services and methods.
+\end{enumerate}
 
-\subsection{Non-Functional}
+\subsection{Non-Functional Requirements}
 \newcounter{nfcounter}
 \newcommand{\nonfunctional}[1]{%
     \stepcounter{nfcounter}%
-    \subsubsection{N\arabic{nfcounter} -- #1}%
+    \textcolor{heading}{\textbf{#1}}\\%
 }
 
-\nonfunctional{Static Website}
-The website should be static.
-It means only a combination of static files like HTML, CSS, and JavaScript without requiring a dynamic server to be run.
-This should allow for easy deployment and hosting on various platforms.
+\begin{enumerate}[label=\textbf{N\arabic*}, labelwidth=!, labelsep=*, align=left, leftmargin=*]
+    \item \nonfunctional{Static Website}
+    The website should be static.
+    It means only a combination of static files like HTML, CSS, and JavaScript without requiring a dynamic server to be run.
+    This should allow for easy deployment and hosting on various platforms.
 
-\nonfunctional{Familiar UI}
-The website should have a familiar UI for developers, probably close to something already used in the RESTful or GraphQL worlds.
-It should be easy to navigate and understand, with a clear structure and layout.
+    \item \nonfunctional{Familiar UI}
+    The website should have a familiar UI for developers, probably close to something already used in the RESTful or GraphQL worlds.
+    It should be easy to navigate and understand, with a clear structure and layout.
 
-\nonfunctional{Input as form or JSON}
-The website should allow request data input as a form or JSON\@.
-Depending on the developer's preference, this should allow for flexibility in how the data is entered.
+    \item \nonfunctional{Input as form or JSON}
+    The website should allow request data input as a form or JSON\@.
+    Depending on the developer's preference, this should allow for flexibility in how the data is entered.
+\end{enumerate}
 
 
 \section{Use Cases}
@@ -1178,7 +1218,7 @@ The table shows that all requirements are covered.
         F3  &   &   &   &   & x &   &   &   &   &    \\ \hline
         F4  &   &   &   &   &   & x &   &   &   &    \\ \hline
         F5  &   &   &   &   &   & x &   &   &   &    \\ \hline
-        F6  &   &   &   &   &   &   &   &   &   &    \\ \hline
+        F6  &   &   &   &   &   &   &   & x &   &    \\ \hline
         F7  &   &   &   &   &   &   &   &   & x &    \\ \hline
         F8  &   &   &   &   &   &   &   & x & x &    \\ \hline
         F9  &   &   &   &   &   &   &   & x & x &    \\ \hline
