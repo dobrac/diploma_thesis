@@ -10,6 +10,7 @@ First, I will try to analyze, if I could use Swagger UI directly, or if I need t
 
 
 \section{Swagger UI for gRPC}
+
 % TODO: OpenAPI, swagger UI extensions
 
 
@@ -24,6 +25,7 @@ As gRPC has its specifics, and it is not based the same way as OpenAPI, I will n
 \section{gRPC-Web limitations}
 % gRPC-Web limitations, and how it affects the design
 % Possibility of full gRPC server implementation in the future, but also may-be not necessary if gRPC-Web supports it
+% grpc-web-text and grpc-application content types
 
 
 \section{Architecture}
@@ -44,13 +46,12 @@ The server then returns the response, which is then displayed in the website (th
 
 % The overall process description - state diagram - (with the help of the diagram I have)
 % Swagger UI JSON inspiration
-\ref{fig:grpcflair-architecture}
 
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth]{images/design/grpcdoc-architecture}
-    \caption{Architecture~\cite{protobuf-overview}}
+    \caption{Architecture}
     \label{fig:grpcflair-architecture}
 \end{figure}
 
@@ -83,12 +84,48 @@ The server then returns the response, which is then displayed in the website (th
 \subsection{Website Wireframe}
 % Inspiration and main focus
 % Section: Main Page
+\ref{fig:wireframe-main-layout}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{images/design/wireframes/main-layout}
+    \caption{Main Layout Wireframe}
+    \label{fig:wireframe-main-layout}
+\end{figure}
 
 \subsubsection{Method Wireframe}
 % Section: Method, and it's detail with forms, JSON, etc
+\ref{fig:wireframe-method}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{images/design/wireframes/method}
+    \caption{Method Wireframe}
+    \label{fig:wireframe-method}
+\end{figure}
 
 \subsubsection{Type and Enum Wireframe}
 % Section: Type & Enum
+\ref{fig:wireframe-type}
+\ref{fig:wireframe-enum}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/design/wireframes/type}
+    \caption{Type Wireframe}
+    \label{fig:wireframe-type}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.8\textwidth]{images/design/wireframes/enum}
+    \caption{Enum Wireframe}
+    \label{fig:wireframe-enum}
+\end{figure}
 
 
 \section{Fulfillment of Requirements}
