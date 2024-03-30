@@ -20,7 +20,7 @@ As described in the analysis, the grpc-gateway is an example of this translation
 Another option is using Swagger UI plugin system~\cite{swagger-ui-plugins}.
 This would allow me to use the swagger-ui package as a dependency and build all the gRPC specifics on top of it, including reading different specification than OpenAPI\@.
 The positive side of this approach is that I would be able to use the Swagger UI design.
-But, on the other hand, I would need to reimplement almost every single part in order to be able to work with gRPC specifics, and in the future maintain compatibility with possible Swagger UI updates.
+On the other hand, I would need to reimplement almost every single part in order to be able to work with gRPC specifics, and in the future maintain compatibility with possible Swagger UI updates.
 This would leave me only with a page skeleton, which is a toolbar and a background color.
 I do not see that as a significant advantage over creating my own website.
 
@@ -56,7 +56,7 @@ There will need to be a server-side tool or client, which will connect to the gR
 The gRPCurl tool mentioned in the analysis allows not only creating the client, but also to export a \enquote{protoset}file.
 This is a file containing the reflection metadata in its own format.
 This file can be then used instead of direct gRPC server as a reflection source.
-But it can also be read by different tools than grpcul.
+But it can also be read by different tools than grpcurl.
 For example, the gRPC UI tool elevates this in its own implementation~\cite{grpc-grpcui}.
 This will allow for the documentation website to either use the protoset file directly, or convert the protoset file to a different common format, which will be then used by the website.
 
@@ -82,7 +82,7 @@ The website will be a static website, which will be generated from the common fo
 The user of the website will be able to see all the methods, types, and enums, which are defined in the gRPC definition file.
 They will also be able to call the methods and see the responses on the website.
 When they invoke the request, the website will select the correct backend (gRPC-Web or other implementation) and it will the server.
-The server then returns the response, which is then displayed on the website (the responses can be shown gradually as for example the server streams responses).
+The server then returns the response, which is then displayed on the website (the responses can be shown gradually as, for example, the server streams responses).
 
 % The overall process description - state diagram - (with the help of the diagram I have)
 % Swagger UI JSON inspiration
