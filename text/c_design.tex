@@ -95,27 +95,78 @@ The server then returns the response, which is then displayed on the website (th
     \label{fig:grpcflair-architecture}
 \end{figure}
 
+This architecture should allow static website hosting, with the possibility to generate the website on the fly based on the common format definition.
+The deployment of that website could be then split to deploying the website itself and deploying the common format definition, which may allow more possibilities for gRPC API developers or maintainers.
+It will be also able to execute queries, and more importantly, show server streaming responses right at the moment they are received from the server.
+The website will be able to work with both proto files and gRPC reflection, and it will be ready for the future gRPC-Web support for client streaming and bidirectional streaming.
+
 
 \section{Common Format}
+As previously mentioned, the website will use a common format for the gRPC definitions, from which the website will be generated on the fly.
+In this section, I will discuss the possibilities of already existing common formats, and I will choose the most suitable one for the website.
+I will not consider the OpenAPI standard anymore, as I have discussed that previously in the Swagger UI possibility.
 
 % TODO: Probably not even consider, because already discussed earlier
 %\subsection{OpenAPI}
 % Why not use OpenAPI -> It's made for REST, not gRPC, I would have to map it -> already existing solutions
 
 \subsection{grpc-protoc-gen-doc}
+The grpc-protoc-gen-doc\footnote{\url{https://github.com/pseudomuto/protoc-gen-doc}} allows JSON output generation including comments.
+This is great for documentation, but it does not allow to generate the necessary gRPC metadata used for constructing gRPC requests.
+That means the website would not allow gRPC methods execution just from this file and additional data would be needed.
 
 \subsection{gnostic}
+The gnostic\footnote{\url{https://github.com/google/gnostic}} is a compiler for APIs described by the OpenAPI Specification.
+It generates JSON and YAML OpenAPI descriptors to (and from) Protocol Buffer representations.
+It uses gRPC options to specify HTTP paths and other information.
+\cite{gnostic}
 
-\subsection{proto3-json-serializer}
+This is a good option, as it is able to generate the OpenAPI Specification from the proto files.
+The issue is that the binary format of the proto files is defined by gnostic, so all generations have to be done from YAML or JSON, not from the proto files at all.
+This makes this library not suitable for use as a common format, as it would require the proto files to be converted to YAML or JSON first.
+Or implementing a script for converting proto files to the gnostic binary format, which still is missing all the implementation needed for the website itself.
+
+%\subsection{proto3-json-serializer}
 
 \subsection{protobufjs}
 % Protobufjs, protobufjs-cli
+The protobufjs\footnote{\url{https://github.com/protobufjs/protobuf.js}} library is a JavaScript implementation with TypeScript of the Protocol Buffers serialization with over fourteen million downloads per week.
+It is able to parse the proto files and query the data from them.
+The data can then be used to serialize and deserialize the messages to the binary format when used in gRPC calls.
+It does not execute the gRPC calls directly, but this functionality can be implemented using other libraries.
+\cite{protobufjs}
+
+This library allows for listing all services, methods, types, enums, and all other related parts of proto files, such as fields, options, and most importantly, also comments.
+It is able to parse the proto files and generate the JSON output, which can be then used instead of the proto files directly.
+This is a possible candidate for the common format, as it is able to generate the necessary data for the website, and it is also able to generate the binary format for the gRPC calls.
+
+There is also a protobufjs/ext/descriptor\footnote{\url{https://github.com/protobufjs/protobuf.js/blob/master/ext/descriptor/README.md}} extension, which is able to parse and decode the descriptor.proto files used in the binary format of gRPC reflection.
+This means that the protobufjs library is able to work with both proto files and gRPC reflection.
+Using this extension, I can generate the common JSON format, and the website will be able to work with the reflection too.
 
 \subsection{Summary}
+% Why protobufjs is the best option
 % Why not use my own parsing
+
+Based on the options I have found, the protobufjs library looks like the best option for the common format.
+It is able to generate the JSON output, which can be used as a common format, from the proto files, as well as the gRPC reflection.
+It also allows creation of the binary message format necessary for the gRPC calls.
+It is also able to parse the comments from the proto files, which is important for documentation purposes.
+
+I could also create my own parser, which would parse the proto files and generate the JSON output.
+But this would require a lot of work, and it would not be as good as the protobufjs library, which is already broadly used by more than fourteen million installations per week.
+Therefore, I have decided to use the protobufjs library for the common format.
 
 
 \section{Website Design}
+The website generator will contain three subprojects:
+\begin{itemize}
+    \item proto files generator,
+    \item gRPC reflection generator,
+    \item static website.
+\end{itemize}
+
+The website design will be inspired by the Swagger UI design, but it will be adjusted to the gRPC specifics.
 
 \subsection{Proto Files Generator}
 
