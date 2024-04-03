@@ -1,3 +1,22 @@
+For the testing of the application, I have prepared automated unit tests and manual scenarios.
+The automated tests are written in the TypeScript programming language using the Jest~\footnote{\url{https://jestjs.io/}} framework.
+The manual scenarios serve as a guide for the user testing of the application
+and for verifying the correctness of the application's behavior.
+
+
+\section{Automated Testing}
+Using the Jest framework, I have created unit tests for the most critical parts of the application.
+The tests cover the following parts:
+% TODO: finish writing this section
+%\begin{itemize}
+%    \item data conversion,
+%    \item data migration,
+%    \item data validation,
+%    \item data export,
+%    \item data import.
+%\end{itemize}
+
+
 \section{Manual Scenarios}
 For the manual user testing of the website, I have created scenarios that cover all use cases.
 Each scenario consists of:
@@ -9,7 +28,14 @@ Each scenario consists of:
 
 In the individual steps, I describe how to achieve the result defined in the title of the testing scenario.
 
-%\subsection{T1 -- Zobrazení okna pro inicializaci softwaru Syllabus Plus}
+\newcounter{testingcounter}
+\newcommand{\testing}[2]{%
+    \stepcounter{testingcounter}%
+    \subsection{T\arabic{testingcounter} -- #1}
+}
+
+
+\testing{Generating JSON from proto files}
 %Počáteční stav: Aplikace je spuštěná\\
 %Kroky:
 %\begin{enumerate}

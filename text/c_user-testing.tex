@@ -1,41 +1,135 @@
 \section{User Testing}
-%Jako cíl testování jsem zvolil zjištění intuitivnosti a přehlednosti používání aplikace, funkcionalitu aplikace v prostředí, ve kterém bude software používaný, a případné odhalení chyb.
-%Jako uživatele pro testování jsem zvolil aktuálního fakultního rozvrháře Daniela Dombka (dále jen \enquote{tester}).
-%Jedná se o jediného uživatele, který by s touto aplikací měl po dokončení pracovat, má nejbližší vztah k tvorbě rozvrhu a rozumí jeho problémům a požadavkům.
-%
-%Pro uživatelské testování jsem vytvořil následující scénáře:
-%\begin{itemize}
-%    \item Instalace programu
-%    \item Inicializace obrazu a navázání spojení se softwarem Syllabus Plus
-%    \item Převod všech časových lístků do softwaru Syllabus Plus
-%    \item Export všech časových lístků ze softwaru Syllabus Plus
-%    \item Oprava informací časového lístku ze systému KOS
-%    \item Oprava smazaného náhodného časového lístku v softwaru Syllabus Plus
-%    \item Vyhledání chybějícího učitele a jeho následný import do softwaru Syllabus Plus
-%\end{itemize}
-%
-%
-%Jedná se o jiné scénáře než pro otestování funkčnosti aplikace a zároveň nepokrývají celou funkcionalitu, protože cílem uživatelského testování je primárně intuitivnost a přehlednost aplikace. (Například z pohledu používání není potřeba testovat import všech dat pro jednotlivé pohledy, protože se vždy jedná o tu samou posloupnost kroků.)
-%
-%Protože tester je dostatečně seznámen s problematikou tvorby rozvrhu, nemusel jsem vysvětlovat smysl a účel aplikace.
+My goal for user testing is to determine the intuitiveness and clarity of the application and to identify any issues.
+For the user testing, I have chosen developers.
 
-%\subsection{Instalace programu}
-%Testerovi byl zaslán instalační soubor s aplikací a údaje k nastavení spojení s KOS API\@.
-%
-%Poté byly zadány instrukce:
-%\begin{enumerate}
-%    \item Spusťte instalační soubor
-%    \item Projděte pomocníkem pro instalaci
-%    \item Spusťte aplikaci
-%    \item V levém horním menu zvolte \enquote{Nastavení}
-%    \item Nastavte v souboru \enquote{settings.properties} zaslané údaje
-%    \item Restartujte aplikaci
-%\end{enumerate}
-%
-%Tester aplikaci pomocí těchto pokynů nainstaloval a nastavil spojení s KOS API\@.
-%Během scénáře se nevyskytly žádné chyby ani nejasnosti.
+I have created the following scenarios for the user testing:
+\begin{itemize}
+    \item Common Format Generation from Proto Files
+    \item List Services, Methods, Message Types, and Enum Types
+    \item Comments and Options
+    \item Execute Unary Request
+    \item Execute Server Streaming Request
+    \item Complex Method Input
+    \item Global Metadata
+\end{itemize}
 
-\subsection{Found Issues and Their Solutions}\label{subsec:zjistene-problemy-a-jejich-reseni}
+The scenarios are different from those for testing the functionality of the application
+and do not cover the entire functionality
+because the primary goal of user testing is the intuitiveness and clarity of the application.
+
+Each user will be briefed about the application's general use-case,
+asked about their experience with similar pieces of software,
+and then they will be asked to complete the scenarios
+and provide feedback on the application's functionality and clarity.
+
+The pre-questionnaire will be used to gather information about the user's experience with similar software.
+The questions are:
+\begin{itemize}
+    \item What is your main focus in programming?
+    (software, hardware, web development, etc.)
+    \item What is your experience with REST APIs?
+    \item What is your experience with Swagger UI, GraphiQL, or similar tools?
+    \item What is your experience with the gRPC?
+\end{itemize}
+
+The post-questionnaire will be used to gather feedback on the application's functionality and clarity.
+The questions are:
+\begin{itemize}
+    \item How did you find the common format generation process?
+    (rate 1--5, 1 being the best)
+    \item How did you find the overall application design?
+    (rate 1--5, 1 being the best)
+    \item How difficult was to find the methods and message types?
+    (rate 1--5, 1 being the easiest)
+    \item How difficult was to control the method execution?
+    (rate 1--5, 1 being the easiest)
+    \item Is there anything else to add?
+\end{itemize}
+
+\subsection{Common Format Generation from Proto Files}
+The tester is provided with proto files and a script for generating a common format with its documentation.
+
+\textbf{The following instructions are given:}\\
+Based on the provided proto files, generate a common format which will be used later on for the documentation website.
+
+\textbf{The expected result is:}\\
+A generated common format JSON file.
+
+\subsection{List Services, Methods, Message Types, and Enum Types}
+The tester is provided with the common format file.
+The application is running on localhost on port 3000.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+List all services, methods, message types, and enum types from the common format file.
+Find the method \texttt{SayHello} and tell me what type it gives as a response.
+
+\textbf{The expected result is:}\\
+The method is found and the type is \texttt{HelloReply}.
+
+\subsection{Comments and Options}
+The tester is provided with the common format file.
+The application is running on localhost on port 3000.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+What does the method \texttt{ListFeatures} in the service \texttt{RouteGuide} do, and what is the java package of that service?
+
+\textbf{The expected result is:}\\
+The method obtains features within the given rectangle and the java package is \textit{guiding.route}.
+
+\subsection{Execute Unary Request}
+The tester is provided with the common format file.
+The application is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+Execute method \texttt{SayHello} with their parameters and tell me the response with their headers and trailers.
+
+\textbf{The expected result is:}\\
+The method is executed with any parameter
+and the response is \enquote{Hello Name} in the \texttt{message} field of the response message type.
+
+\subsection{Execute Server Streaming Request}
+The tester is provided with the common format file.
+The application is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+Execute method \texttt{SayRepeatHello} with their parameters and tell me the responses with their headers and trailers.
+
+\textbf{The expected result is:}\\
+The method is executed with any parameter
+and the response is \enquote{Hello Name} multiple times in the \texttt{message} field of the response message type.
+
+\subsection{Complex Method Input}
+The tester is provided with the common format file.
+The application is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+Execute method \texttt{ListFeatures} with their parameters and tell me the responses.
+The parameters are the following:
+\begin{itemize}
+    \item \texttt{lo}: latitude: 400000000, longitude: -750000000,
+    \item \texttt{hi}: latitude 420000000, longitude -73000000.
+\end{itemize}
+
+\textbf{The expected result is:}\\
+The method is executed with and responses are returned.
+
+\subsection{Global Metadata}
+The tester is provided with the common format file and authorization token.
+The application is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+
+\textbf{The following instructions are given:}\\
+You have a website running on the localhost on port 3000.
+Execute method \texttt{SayHello} with the authorization token.
+
+\textbf{The expected result is:}\\
+The method is executed, and in the request metadata section, the authorization token is present.
+
+\subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
 %\begin{itemize}
 %    \item Pro vyřešení problému s nepřehledností vybraného semestru jsem do dialogového okna s informacemi o inicializaci semestru přidal stejný výběr semestru, jako v hlavním okně aplikace.
 %    \item Při převodu časových lístků (včetně rozvrhu) nepovoluji vznik kolizí, i když to v softwaru Syllabus Plus lze.

@@ -53,7 +53,7 @@ Before I start designing the website architecture, I need to decide how the gRPC
 Any tool using gRPC reflection has to support connection using gRPC itself.
 Therefore, it is not possible to use it directly in the browser.
 There will need to be a server-side tool or client, which will connect to the gRPC server and get the reflection data.
-The gRPCurl tool mentioned in the analysis allows not only creating the client, but also to export a \enquote{protoset}file.
+The gRPCurl tool mentioned in the analysis allows not only creating the client, but also to export a \enquote{protoset} file.
 This is a file containing the reflection metadata in its own format.
 This file can be then used instead of direct gRPC server as a reflection source.
 But it can also be read by different tools than grpcurl.
