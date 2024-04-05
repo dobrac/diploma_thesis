@@ -195,25 +195,67 @@ The only requirement is to keep the license and copyright notice, eventually sta
 
 Because I have met the requirements of the licenses and their limitations allow me to use the libraries for free, I can use the libraries for my work.
 
+\newcommand{\library}[1]{%
+    #1\tablefootnote{\url{https://www.npmjs.com/package/#1}}%
+}
+
+\newpage
 \begin{table}[hbt!]
     \centering
     \captionsetup{justification=centering}
     \begin{tabular}{|l|l|l|}
         \hline
-        \textbf{Knihovna}                                 & \textbf{Licence}                                                                                                          \\ \hline
-        com4j                                             & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/kohsuke/com4j/blob/master/LICENSE.txt}}         \\ \hline
-        com4j -- oprava chyb a využití try-with-resources & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/archiecobbs/com4j/blob/master/LICENSE.txt}}     \\ \hline
-        com4j -- úprava pro podporu referencí             & BSD 2-Clause\ "Simplified"\ License\tablefootnote{\url{https://github.com/jasperkrijgsman/com4j/blob/master/LICENSE.txt}} \\ \hline
-        Kotlin                                            & Apache 2.0\tablefootnote{\url{https://github.com/JetBrains/kotlin/blob/master/license/README.md}}                         \\ \hline
-        Kotlin Coroutines                                 & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/kotlinx.coroutines/blob/master/LICENSE.txt}}                      \\ \hline
-        KotlinX DateTime                                  & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/kotlinx-datetime/blob/master/LICENSE.txt}}                        \\ \hline
-        Compose for Desktop                               & Apache 2.0\tablefootnote{\url{https://github.com/JetBrains/compose-jb/blob/master/LICENSE.txt}}                           \\ \hline
-        Koin                                              & Apache 2.0\tablefootnote{\url{https://github.com/InsertKoinIO/koin/blob/master/LICENSE}}                                  \\ \hline
-        Ktor, HTTP Client, JSON                           & Apache 2.0\tablefootnote{\url{https://github.com/ktorio/ktor/blob/main/LICENSE}}                                          \\ \hline
-        Jackson (XML)                                     & Apache 2.0\tablefootnote{\url{https://github.com/FasterXML/jackson-dataformat-xml/blob/master/LICENSE}}                   \\ \hline
-        Gradle                                            & Apache 2.0\tablefootnote{\url{https://github.com/gradle/gradle/blob/master/LICENSE}}                                      \\ \hline
-        Dokka -- generátor dokumentace                    & Apache 2.0\tablefootnote{\url{https://github.com/Kotlin/dokka/blob/master/LICENSE}}                                       \\ \hline
+        \textbf{Library}                              & \textbf{License} \\ \hline
+        \library{@fortawesome/fontawesome-svg-core}   & MIT              \\ \hline
+        \library{@fortawesome/free-regular-svg-icons} & CC-BY-4.0, MIT   \\ \hline
+        \library{@fortawesome/free-solid-svg-icons}   & CC-BY-4.0, MIT   \\ \hline
+        \library{@fortawesome/react-fontawesome}      & MIT              \\ \hline
+        \library{@hookform/resolvers}                 & MIT              \\ \hline
+        \library{bootstrap}                           & MIT              \\ \hline
+        \library{grpc-web}                            & Apache-2.0       \\ \hline
+        \library{lodash}                              & MIT              \\ \hline
+        \library{next}                                & MIT              \\ \hline
+        \library{p-cancelable}                        & MIT              \\ \hline
+        \library{protobufjs}                          & BSD-3-Clause     \\ \hline
+        \library{protobufjs-cli}                      & BSD-3-Clause     \\ \hline
+        \library{react}                               & MIT              \\ \hline
+        \library{react-bootstrap}                     & MIT              \\ \hline
+        \library{react-dom}                           & MIT              \\ \hline
+        \library{react-hook-form}                     & MIT              \\ \hline
+        \library{react-syntax-highlighter}            & MIT              \\ \hline
+        \library{sass}                                & MIT              \\ \hline
+        \library{yup}                                 & MIT              \\ \hline
     \end{tabular}
-    \caption{Seznam knihoven a jejich licencí}
+    \caption{List of libraries and their licenses}
     \label{tab:libraries-licenses}
+\end{table}
+
+\newpage
+\begin{table}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Development Library}              & \textbf{License} \\ \hline
+        \library{@testing-library/jest-dom}       & MIT              \\ \hline
+        \library{@testing-library/react}          & MIT              \\ \hline
+        \library{@types/jest}                     & MIT              \\ \hline
+        \library{@types/lodash}                   & MIT              \\ \hline
+        \library{@types/node}                     & MIT              \\ \hline
+        \library{@types/react}                    & MIT              \\ \hline
+        \library{@types/react-dom}                & MIT              \\ \hline
+        \library{@types/react-syntax-highlighter} & MIT              \\ \hline
+        \library{cross-env}                       & MIT              \\ \hline
+        \library{eslint}                          & MIT              \\ \hline
+        \library{eslint-config-next}              & MIT              \\ \hline
+        \library{eslint-config-prettier}          & MIT              \\ \hline
+        \library{jest}                            & MIT              \\ \hline
+        \library{jest-environment-jsdom}          & MIT              \\ \hline
+        \library{prettier}                        & MIT              \\ \hline
+        \library{typescript}                      & Apache-2.0       \\ \hline
+        \library{lerna}                           & MIT              \\ \hline
+        \library{rimraf}                          & ISC              \\ \hline
+    \end{tabular}
+    \caption{List of development libraries and their licenses}
+    \label{tab:libraries-licenses-dev}
 \end{table}
