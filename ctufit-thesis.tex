@@ -111,6 +111,7 @@
 }
 %\usepackage[newfloat]{minted}\captionsetup[listing]{position=top} % typesetting of sources
 
+
 %theorems, definitions, etc.
 \theoremstyle{plain}
 \newtheorem{theorem}{Věta}
@@ -291,7 +292,9 @@
     \include{text/appendix} % include `appendix.tex' from `text/' subdirectory
 
     \backmatter % do not remove this command
-
+    
+    \setcounter{biburllcpenalty}{7000}
+    \setcounter{biburlucpenalty}{8000}
     \printbibliography % print out the BibLaTeX-generated bibliography list
 
     \include{text/medium} % include `medium.tex' from `text/' subdirectory
