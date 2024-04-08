@@ -16,7 +16,7 @@ For the programming language, because of the dynamic rendering based on the comm
 Because I will need to be updating the website (meaning the DOM), which is not supported directly by WebAssembly, I have chosen JavaScript~\cite{webassembly-dom}.
 
 Because JavaScript is a weakly typed language, which, in my experience, can lead to bugs in larger projects, there are supersets and other libraries trying to add strong typing.
-The popular libraries that I know of are TypeScript and Flow.
+The popular libraries that I know of are TypeScript\footnote{\url{https://www.typescriptlang.org/}} and Flow\footnote{\url{https://flow.org/}}.
 Because I have the most experience with TypeScript, I will be using it instead of direct JavaScript.
 
 For the common format generators, I have many options because the generators are run on the developer's machine.
@@ -25,7 +25,7 @@ And, because I will be using the protobufjs JavaScript library for the common fo
 
 \subsection{Web Framework}
 In order to create the website with extensive logic, I will use a front-end framework.
-There are several options, but the most popular are React, Angular, Vue.js, and Svelte~\cite{state-of-js-frontend-frameworks}.
+There are several options, but the most popular are React\footnote{\url{https://react.dev/}}, Angular\footnote{\url{https://angular.io/}}, Vue.js\footnote{\url{https://vuejs.org/}}, and Svelte\footnote{\url{https://svelte.dev/}}~\cite{state-of-js-frontend-frameworks}.
 I want the page to exist for a long time and be maintained.
 For this reason, I will choose the most popular framework, which is React.
 
@@ -36,21 +36,130 @@ It allows developers to create large web applications that can change data witho
 \cite{react}
 
 Using React is a great option, but it requires a lot of parts to be set up manually.
-For this reason, there is a React framework called Next.js.
+For this reason, there is a React framework called Next.js\footnote{\url{https://nextjs.org/}}.
 It simplifies the setup, development, static site page generation, routing, and a lot more~\cite{nextjs}.
 It is also the first recommended way to build a new React application by the React team~\cite{react-start-new-project}.
 Therefore, I will use Next.js for the website.
 The key features except the setup of Next.js that I will use are static site generation and TypeScript support.
 
 \subsection{Styling Libraries}
+For the styling of the website, instead of using my own CSS classes, I will use a framework, which will speed up development.
+The most popular CSS frameworks are Bootstrap\footnote{\url{https://getbootstrap.com/}}, Tailwind CSS\footnote{\url{https://tailwindcss.com/}}, and Materialize CSS\footnote{\url{https://materializecss.com/}}~\cite{state-of-css-frameworks}.
+All of them are good options, but as for choosing the front-end framework, I will choose the most popular one, which is Bootstrap.
 
-\subsection{protobufjs Library}
-% and protobufjs-cli
+\subsection{Protobufjs Library}
+Based on the design chapter, the protobufjs library is used for the serialization and deserialization of the data to a common JSON format.
+The library also offers a tool called protobufjs-cli\footnote{\url{https://www.npmjs.com/package/protobufjs-cli}}.
+It is a command-line tool that can be used to generate the JSON format from the proto files~\cite{protobufjs-cli}.
+It has an issue though, it only allows individual proto files as an input, not the entire folder, which maybe be a use case.
+Also, it needs to have specified the correct parameters in order to get the correct output.
+For this reason, I will use the protobufjs-cli, but only as a library.
+This will allow me to have potential features in the future, but also to fix the current one and to seal the required parameters.
 
-\subsection{gRPC-web Client Library}
+There are two more issues with this library that need to be addressed.
+The first one is that there is a bug in the library when parsing the value options for enums.
+I have found the issue in the library's repository source code, and I have fixed it locally using package manager patch functionality.
+I have also reported the issue to the library's repository at \url{https://github.com/protobufjs/protobuf.js/issues/1961} with a way to fix it and a pull request.
+The patch change is in the code snippet~\ref{lst:protobufjs-enum-value-options}.
+
+\begin{lstlisting}[style=JavaScript, caption={protobufjs library enum comments bug fix}, label={lst:protobufjs-value-options}]
+Enum.fromJSON = function fromJSON(name, json) {
+    // This line is removed
+    var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
+    // This line is added
+    var enm = new Enum(name, json.values, json.options, json.comment, json.comments, json.valuesOptions);
+    enm.reserved = json.reserved;
+    return enm;
+};
+\end{lstlisting}
+
+The second issue is that the protobufjs-cli library does not support comments.
+I have found an already existing issue (\url{https://github.com/protobufjs/protobuf.js/issues/1145}) which hints how to patch the library locally until it is added to the library itself.
+For making the protobufjs-cli library support comments, I have slightly updated the way JSON export works and created a patch locally.
+When this feature is added to the library, I can remove the patch and use the library as it is.
+The patch change is in the code snippet~\ref{lst:protobufjs-comments}.
+
+\begin{lstlisting}[style=JavaScript, caption={protobufjs-cli comments support}, label={lst:protobufjs-comments}]
+function json_target(root, options, callback) {
+    // This line is removed
+    callback(null, JSON.stringify(root, null, 2));
+    // Theis line is added
+    callback(null, JSON.stringify(root.toJSON({ keepComments: true }), null, 2));
+}
+\end{lstlisting}
+
+\subsection{gRPC-Web Client Library}
 % Talk about extracting gRPC-Web client from the generated stubs
+The gRPC-Web library does offer only client side code generation from the proto files (stubs).
+However, it does not offer the client for making the requests only with the possibility of implementing the data serialization and deserialization.
+I have tried to find a library which would offer this functionality, but I have not found any.
+For this reason, I have decided to analyze how the stubs are generated in order to extract the gRPC-Web client.
+I already know that I am able to serialize and deserialize the data using the protobufjs library, which I will use for that.
+
+There are two generated gRPC-Web client files.
+One generates the client, the other one the message types and methods.
+Note that the client is still specific to the proto files.
+
+Based on the generated code, I have found that the actual call is done using initialization of \textit{GrpcWebClientBase} and then calling \textit{rpcCall} method for unary requests, and \textit{serverStreaming} method for server streaming requests.
+The client initialization does not require any parameters, but can be supplied with the option object, which may contain a format (binary or text).
+The \textit{rpcCall} method requires a method name, a request message type object, a metadata of the request, a methodDescriptor (more on that later), and a callback.
+The \textit{rpcCall} function returns a stream, which may be used for additional headers or trailer handling.
+The \textit{serverStreaming} method requires the same parameters, but the callback is not present and responses are handled only using the returned stream.
+
+An example of the method with parameters is shown in the code snippet~\ref{lst:grpc-web-client}.
+The method name is a string with a full path to the method.
+The request message type is defined by the generated client and is required to contain certain attributes and methods.
+Because I am using protobufjs library, I have found out I am able to supply only an empty object (\textit{\{\}}) here, and do the rest of the work in other functions supplied in the method descriptor.
+The method descriptor is an object containing the method name, the method type, the request message type, the response message type, and the request serialize and response deserialize functions.
+The method name is just the method name without a path.
+The method type is either unary or server streaming.
+Because I am using the protobufjs library, again, the request and response message types can be replaced by a fake class with just a constructor.
+And finally, the request serialize and response deserialize functions are functions that take the message object and return the serialized or deserialized message.
+Because I have replaced the request object by an empty object, the request serialize function is not supplied with the message.
+However, I can directly access the variable from outer scope and use the protobufjs library and return the encoded message.
+For the response deserialize function, I can use the protobufjs library again to decode the available message, this time as a byte's array parameter, and return it.
+The callback function or the stream then received the deserialized message in the protobufjs format.
+
+\begin{lstlisting}[style=JavaScript, caption={gRPC-Web extracted client unary call example}, label={lst:grpc-web-client}]
+const client = new GrpcWebClientBase({ format: options?.format });
+
+const unaryStream = client.rpcCall(
+    methodPath,
+    // Ignored, using protobufjs directly
+    {},
+    options?.metadata ?? {},
+    new MethodDescriptor(
+        method.name,
+        MethodType.UNARY,
+        // Ignored, using protobufjs directly
+        DummyRPCType,
+        // Ignored, using protobufjs directly
+        DummyRPCType,
+        () => {
+            return typeEncode.encode(message).finish();
+        },
+        (bytes: Uint8Array) => {
+            return typeDecode.decode(bytes);
+        },
+    ),
+    (err, response: protobuf.Message<MessageData>) => {
+        if (err) {
+            reject(err);
+        } else {
+            completeResponse.data = [response];
+        }
+    },
+);
+\end{lstlisting}
+
+
+I have extracted the gRPC-Web client from the generated stubs, and I am able to use it on the website for any request.
+The gRPC-Web library still handles the communication with the server though, so any future updates to the library should be automatically applied to the client as well.
 
 \subsection{Other Libraries}
+Other important libraries that I will use are react-hook-form\footnote{\url{https://react-hook-form.com/}} for creating the request input form validation, yup\footnote{\url{https://github.com/jquense/yup}} for the schema validation (used in connection with forms), and fontawesome\footnote{\url{https://fontawesome.com/}} for the icons.
+All of these libraries have the features I need from them, have over a million weekly downloads (which is significant compared to other NPM packages) and are maintained.
+Again, I am choosing the most popular and maintained libraries for the long-term existence of the static documentation website.
 
 
 \section{Project Settings}
@@ -63,7 +172,7 @@ The key features except the setup of Next.js that I will use are static site gen
 \section{JSON from gRPC Reflection Generator}
 
 
-\section{User Interface}
+\section{Static Website}
 
 \subsection{Building}
 
