@@ -62,7 +62,7 @@ I have found the issue in the library's repository source code, and I have fixed
 I have also reported the issue to the library's repository at \url{https://github.com/protobufjs/protobuf.js/issues/1961} with a way to fix it and a pull request.
 The patch change is in the code snippet~\ref{lst:protobufjs-enum-value-options}.
 
-\begin{lstlisting}[style=JavaScript, caption={protobufjs library enum comments bug fix}, label={lst:protobufjs-value-options}]
+\begin{lstlisting}[style=JavaScript, caption={protobufjs library enum comments bug fix}, label={lst:protobufjs-enum-value-options}]
 Enum.fromJSON = function fromJSON(name, json) {
     // This line is removed
     var enm = new Enum(name, json.values, json.options, json.comment, json.comments);
@@ -181,7 +181,7 @@ Again, I am choosing the most popular and maintained libraries for the long-term
 
 
 \section{Licensing}
-For the development, I used libraries that use the following licenses:
+For the development, I have used libraries that use the following licenses:
 \begin{itemize}
     \item MIT\footnote{\url{https://choosealicense.com/licenses/mit/}},
     \item BSD-3-Clause\footnote{\url{https://opensource.org/license/bsd-3-clause}},
@@ -220,9 +220,11 @@ The rights and limitations of these licenses are then shown in table~\ref{tab:li
 \end{table}
 
 All licenses allow both private and commercial use, including distribution and possible modifications.
-The only requirement is to keep the license and copyright notice, eventually state changes if made.
-% TODO
-%All used libraries with their respective licenses can be found in the website
+The only requirement is to
+%keep the license and copyright notice, eventually
+state changes if made (I have not made any change to the libraries that require it).
+% TODO Is it necessary to mention them somewhere in the project?
+%All used libraries with their respective licenses can be found on the website
 
 
 Because I have met the requirements of the licenses and their limitations allow me to use the libraries for free, I can use the libraries for my work.
