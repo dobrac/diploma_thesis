@@ -1,40 +1,46 @@
 % Talk about issues encountered, how they were solved
-% Talk about extracting gRPC-Web client from the generated stubs
+In this section, I will describe the implementation of the website generator.
+I will start by discussing the choice of technology, followed by the project settings.
+Then, I will describe the code structure, user interface, and functionality.
+Finally, I will discuss the licensing of the libraries used in the project.
+
 
 \section{Choosing the Technology}
+The main factor in choosing the technology was the ability to generate a website that can be easily deployed and accessed by users.
+In the design chapter, I have concluded that I will use a common format with all gRPC definitions, and the website will be generated from this format in the browser.
+Therefore, I need to choose a technology for the website and for the common format generators.
 
-%Hlavními rozhodujícími faktory pro výběr technologií jsou grafické uživatelské rozhraní, komunikace se systémem Syllabus Plus přes COM rozhraní a s tím se přímo váže i podpora operačního systému Windows.
-%Potřebuji tak vybrat programovací jazyk, framework pro tvorbu uživatelského rozhraní a knihovnu umožňující potřebnou komunikaci se softwarem Syllabus Plus.
+As of the website, the basics are done using HTML and CSS\@.
+There is no other choice.
+For the programming language, because of the dynamic rendering based on the common format, the only possibilities are JavaScript and WebAssembly.
+Because I will need to be updating the website (meaning the DOM), which is not supported directly by WebAssembly, I have chosen JavaScript~\cite{webassembly-dom}.
 
-\subsection{Programming Language}
-%NextJs, React, TypeScript
+Because JavaScript is a weakly typed language, which, in my experience, can lead to bugs in larger projects, there are supersets and other libraries trying to add strong typing.
+The popular libraries that I know of are TypeScript and Flow.
+Because I have the most experience with TypeScript, I will be using it instead of direct JavaScript.
 
+For the common format generators, I have many options because the generators are run on the developer's machine.
+Therefore, the decision is based on the libraries needed for the generators.
+And, because I will be using the protobufjs JavaScript library for the common format, I will use JavaScript for the generators.
 
-%Jako jazykové možnosti pro vývoj aplikace jsem zvolil Java, Kotlin a JavaScript (případně TypeScript).
-%Jsou to jazyky, které znám a se kterými jsem již v minulosti pracoval na tvorbě uživatelského rozhraní.
-%
-%Nejzajímavější uživatelská rozhraní se mi povedla v minulosti vytvořit pomocí programovacího jazyka JavaScript ve spojení s HTML a CSS\@.
-%Ačkoliv bych rád tyto technologie využil i v této práci, tak bohužel kvůli potřebám těsné provázanosti s operačním systémem by mohly vznikat zbytečné komplikace při práci se systémovými soubory nebo při snaze o komunikaci přes COM rozhraní.
-%Proto jsem tento jazyk nezvolil pro implementaci aplikace.
-%
-%Java nebo Kotlin se tak staly hlavními kandidáty.
-%Pro jazyk Kotlin se mi podařilo najít framework pro tvorbu uživatelských rozhraní Compose for Desktop.
-%Tato knihovna mi přišla zajímavá, protože využívá podobných principů reaktivity, jako některé webové frameworky, a pomocí syntaxe jazyka Kotlin odstraňuje potřebu psát uživatelská rozhraní pomocí XML~\cite{compose-ui-desktop}.
-%Navíc Kotlin je open-source staticky typovaný programovací jazyk, který dokáže být přeložen na JVM nebo nativní aplikaci~\cite{kotlin-faq}.
-%Oproti jazyku Java je bezpečnější při práci s datovými typy díky podpoře typů s nulovou hodnotou a aplikace jsou tak méně náchylné na chyby s tím spojené~\cite{kotlin-faq}.
-%
-%Co mě dále zaujalo, je kompletní kompatibilita s programovacím jazykem Java~\cite{kotlin-faq}.
-%To znamená, že kód napsaný v jazyce Kotlin se dá zavolat z jazyka Java a obráceně~\cite{kotlin-faq}.
-%Kompatibilita na této úrovni není samozřejmostí, například kód napsaný v jazyce Scala jde sice také volat z jazyka Java, ale existují oblasti, ve kterých nastávají komplikace~\cite{scala-faq}.
-%Těmi jsou funkcionality, které nemají na úrovni kódu ekvivalent v jazyce Java, jako například \textit{trait}~\cite{scala-faq}.
-%
-%Protože jazyk Kotlin je ale mladý jazyk od společnosti JetBrains s první verzí z roku 2016, potřebuji najít způsob, pomocí kterého dokáži komunikovat přes COM rozhraní~\cite{kotlin-faq}.
-%Jelikož je ale COM rozhraní poměrně staré, tak se mi nepovedlo dohledat žádnou dostupnou knihovnu.
-%To však vůbec nevadí, protože mohu využít jakoukoli knihovnu pro JVM\@, konkrétně jsem se zaměřil na knihovny pro jazyk Java, pro který se mi jich několik podařilo nalézt.
-%
-%Protože Compose for Desktop plní požadavek na framework pro tvorbu uživatelského rozhraní a povedlo se mi najít několik knihoven pro práci s rozhraním COM (více v podkapitole~\ref{subsec:pristup-ke-com-rozhrani} o COM knihovnách), rozhodl jsem se pro jazyk Kotlin.
-%Navíc díky kompatibilitě se mi nestane, že bych přišel o případnou funkcionalitu, která je v jazyce Java dostupná, a budu moct využívat nové koncepty syntaxe.
-%Mohu využít například generátor kódu, který existuje pouze pro jazyk Java, a poté volat vygenerovaný kód z jazyka Kotlin (více v podkapitole~\ref{subsec:pristup-ke-com-rozhrani} o COM knihovnách).
+\subsection{Web Framework}
+In order to create the website with extensive logic, I will use a front-end framework.
+There are several options, but the most popular are React, Angular, Vue.js, and Svelte~\cite{state-of-js-frontend-frameworks}.
+I want the page to exist for a long time and be maintained.
+For this reason, I will choose the most popular framework, which is React.
+
+React is a JavaScript library for building user interfaces.
+It is maintained by Meta and a community of individual developers and companies.
+React can be used as a base in the development of single-page web applications.
+It allows developers to create large web applications that can change data without reloading the page, making the website faster.
+\cite{react}
+
+Using React is a great option, but it requires a lot of parts to be set up manually.
+For this reason, there is a React framework called Next.js.
+It simplifies the setup, development, static site page generation, routing, and a lot more~\cite{nextjs}.
+It is also the first recommended way to build a new React application by the React team~\cite{react-start-new-project}.
+Therefore, I will use Next.js for the website.
+The key features except the setup of Next.js that I will use are static site generation and TypeScript support.
 
 \subsection{Styling Libraries}
 
@@ -42,111 +48,27 @@
 % and protobufjs-cli
 
 \subsection{gRPC-web Client Library}
+% Talk about extracting gRPC-Web client from the generated stubs
 
 \subsection{Other Libraries}
-%Kromě dříve uvedených a základních knihoven jazyka Kotlin jsem se rozhodl, že by se mi ještě hodila knihovna pro Dependency Injection, dále knihovna pro vytvoření HTTP spojení, knihovna pro přeložení XML a JSON, a knihovna pro jednodušší práci s datumy a časy.
-%
-%Pro Dependency Injection se mi podařilo najít několik knihoven, nicméně můj záměr byl, aby podporovala v nějaké formě framework Compose for Desktop.
-%Vybral jsem si tak knihovnu s názvem Koin\footnote{\url{https://insert-koin.io/}}, která by ho dle dokumentace měla podporovat.
-%Její použití je zároveň dostatečně jednoduché.
-%Ve výsledku jsem ale zjistil, že podpora není taková, jakou bych si představoval.
-%Nedařilo se mi dle dokumentace zprovoznit získávání třídy pomocí metody \textit{get}.
-%Nakonec jsem si implementoval tuto metodu sám pomocí využití zpětné kompatibility frameworku s třídami v jazyce Java, a tím jsem problém vyřešil.
-%
-%Na vytvoření HTTP spojení jsem využil knihovnu Ktor\footnote{\url{https://ktor.io/}}.
-%Jedná se o oficiální knihovnu a framework od společnosti JetBrains pro rychlou a jednoduchou tvorbu webových aplikací, HTTP služeb~\cite{ktor-introduction}.
-%Ktor využívá abstrakce asynchronních procesů pomocí Coroutines, které jsou součástí jazyka Kotlin~\cite{ktor-introduction}.
-%Framework obsahuje i server, třeba pro tvorbu webových aplikací, nicméně pro mé využití mi postačí pouze klient.
-%U klienta budu potřebovat dvě knihovny pro zpracování dotazů ve dvou různých formátech.
-%Jednou je knihovna pro JSON formát.
-%Ta je součástí Ktor knihovny a je možné ji získat jako volitelný balíček.
-%Pro XML využiji knihovnu Jackson, která je také součástí knihovny Ktor, v kombinaci s XML parser\footnote{\url{https://github.com/FasterXML/jackson-dataformat-xml}}.
-%
-%Na závěr ještě využiji drobnou knihovnu pro práci s datumy a časy.
-%Usnadní mi primárně konverze mezi minutami, hodinami nebo třeba sekundami.
-%Jedná se o knihovnu opět od společnosti JetBrains kotlinx-datetime\footnote{\url{https://github.com/Kotlin/kotlinx-datetime}}.
-%Je tak plně kompatibilní s jazykem Kotlin.
 
 
 \section{Project Settings}
 % lerna, pnpm
 
-%Jako nástroj pro kompilaci, vývoj a správu modulů je použitý nástroj Gradle\footnote{\url{https://github.com/gradle/gradle}}.
-%Projekt aplikace se pak skládá ze čtyř modulů.
-%Těmi jsou:
-%\begin{itemize}
-%    \item com (modul pro přístup ke COM rozhraní včetně pomocných metod),
-%    \item models (definice tříd systémů a jejich vlastnosti),
-%    \item services (služby pro práci s modely a daty z obou systémů),
-%    \item ui (uživatelské rozhraní aplikace).
-%\end{itemize}
-%Návaznosti mezi moduly jsou znázorněny na obrázku~\ref{fig:moduly}.
 
-%\begin{figure}[hbt!]
-%    \centering
-%    \captionsetup{justification=centering}
-%    \includegraphics[width=0.9\textwidth]{projekt-moduly}
-%    \caption{Moduly projektu}
-%    \label{fig:moduly}
-%\end{figure}
+\section{JSON from Proto Files Generator}
 
-%Dále je vytvořen ještě modul s názvem \textit{buildSrc}.
-%Tento modul je předdefinovaný pro komplikovanější nastavení více modulů v rámci nástroje Gradle~\cite{gradle-buildsrc}.
-%Mé využití je pro sdílení proměnných, které pak mohu využívat v souborech \textit{build.gradle.kts} (jedná se o soubory sloužící pro nastavení kompilace jednotlivých modulů).
-%Definuji zde verzi jednotlivých knihoven a verzi cíle pro JVM\@.
-%Samotný modul se ale nijak nepropisuje do funkčnosti aplikace, proto ho v diagramu neuvádím.
 
-\subsection{Building}
-%Jelikož je aplikace napsaná v jazycích Kotlin a Java, její výstup je v základu ve formátu .jar, což je spustitelný soubor na JVM\@.
-%Tento soubor lze získat pomocí spuštění Gradle úkolu \textit{packageUberJarForCurrentOS}.
-%Potřebná verze nainstalovaného prostředí jazyka Java je 15.
-%
-%Compose for Desktop ale umožňuje i lepší distribuci, než tento soubor~\cite{compose-compile}.
-%Tou je kompilace do binárních souborů různých formátů (.dmg, .deb, .msi, .exe), mě zajímá nejvíce formát .exe~\cite{compose-compile}.
-%V rámci konfigurace kompilace nastavím informace o spustitelné třídě a cílovém formátu a poté spustím Gradle úkol \textit{packageExe}.
-%Vytvoří se soubor, který končí příponou exe.
-%Tento soubor obsahuje všechny potřebné soubory aplikace včetně prostředí jazyka Java pro samotný běh.
-%Jedná se o instalátor, který při instalaci nakopíruje potřebné soubory do uživatelem definovaného umístění~\cite{compose-compile}.
-%V případě odinstalace pak může uživatel postupovat stejně jako u většiny programů na systému Windows.
-%V rámci ovládacího panelu si najde aplikaci a vybere odinstalaci.
-%
-%Může nastat ale i situace, kdy se vyplatí více použít balíček JAR, kvůli úspoře místa na disku.
-%Údaje o velikostech zobrazuje tabulka~\ref{tab:instalator}.
-%\begin{table}[hbt!]
-%    \centering
-%    \captionsetup{justification=centering}
-%    \begin{tabular}{|l|l|l|}
-%        \hline
-%        & Instalátor .exe & Balíček JAR           \\ \hline
-%        Distribuovaná aplikace              & 82 MB           & 34 MB                 \\ \hline
-%        Nainstalovaná aplikace              & 170 MB          & ---                   \\ \hline
-%        Běhové prostředí                    & ---             & 72 MB~\cite{jre-size} \\ \hline
-%        \textbf{Výsledná velikost na disku} & \textbf{170 MB} & \textbf{106 MB}       \\ \hline
-%    \end{tabular}
-%    \caption{Tabulka porovnání velikostí jednotlivých verzí}
-%    \label{tab:instalator}
-%\end{table}
-%
-%Vzhledem k přidaným funkcím, nezávislosti na nainstalovaném prostředí jazyka Java a kapacitě dnešních disků pohybující se v jednotkách terabytů, jsem se rozhodl pro použití instalátoru místo balíčku JAR\@.
-%
-%Uživatel dostane jeden soubor, který obsahuje instalátor.
-%Ten spustí, vybere si umístění a aplikaci nainstaluje.
-%Po prvním spuštění se ve složce \textit{\%appdata\%\textbackslash{}SPlusKOS} vytvoří soubor pro nastavení a předdefinovaný seznam skupin místností.
-%V souboru pro nastavení upraví uživatel potřebné údaje (\textit{KOSAPIClientId} a \textit{KOSAPIClientSecret}, viz podkapitola~\ref{subsec:kos-api}) a aplikaci restartuje.
-%Po dokončení by mělo vše plně fungovat.
+\section{JSON from gRPC Reflection Generator}
 
 
 \section{User Interface}
-%Uživatelské rozhraní je založeno na jedné hlavní obrazovce a třech pohledech, které se skládají ze sloupců.
-%Pro zachování posledního načteného stavu je implementováno řešení, které ponechává všechny pohledy v paměti, i když nejsou zrovna viditelné.
-%To zaručuje, že se uživatel může přepínat mezi jednotlivými pohledy bez ztráty vybraných dat nebo pozice ve scrollování.
-%
-%V horní části se nachází hlavičky jednotlivých systémů, výběrová tlačítka pro specifické funkce (výběr semestru, nastavení spojení) a ukazatel průběhu načítání/aktualizace dat.
-%Po načtení dat je místo ukazatele zobrazen čas poslední aktualizace a doba, kterou poslední aktualizace zabrala.
-%Funkcionalita této lišty se nachází v komponentě \textit{Toolbar}.
+
+\subsection{Building}
 
 
-\section{Known Issues}
+\section{User Interface}
 
 
 \section{Licensing}
