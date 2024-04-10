@@ -88,7 +88,7 @@ function json_target(root, options, callback) {
 }
 \end{lstlisting}
 
-\subsection{gRPC-Web Client Library}
+\subsection{gRPC-Web Client Library}\label{subsec:grpc-web-client}
 % Talk about extracting gRPC-Web client from the generated stubs
 The gRPC-Web library does offer only client side code generation from the proto files (stubs).
 However, it does not offer the client for making the requests only with the possibility of implementing the data serialization and deserialization.
@@ -163,7 +163,35 @@ Again, I am choosing the most popular and maintained libraries for the long-term
 
 
 \section{Project Settings}
-% lerna, pnpm
+The project is using the lerna\footnote{\url{https://lerna.js.org/}} and pNpM\footnote{\url{https://pnpm.io/}} package manager.
+Lerna is a tool that optimizes the workflow around managing multi-package repositories~\cite{lerna}.
+And pNpM is a fast, disk-space efficient package manager with the support of workspaces and libraries patching~\cite{pnpm}.
+Both tools cooperate and are compatible to with each other.
+
+The project is set up as a monorepo.
+It is divided into three packages:
+\begin{itemize}
+    \item \textbf{proto-to-json} -- contains the generator from proto files,
+    \item \textbf{reflection-to-json} -- contains the generator from the reflection file,
+    \item \textbf{web} -- contains the website.
+\end{itemize}
+The project also contains \textit{example} and \textit{patches} folders.
+
+The \textit{example} folder contains example proto and reflection files with pre-generated common format, as wel las envoy proxy configuration and gRPC server implementation in JavaScript.
+The envoy proxy can be then started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
+This setup can be used for testing the website functionality.
+
+The \textit{patches} folder contains the patches for the protobufjs library described in the~\ref{subsec:grpc-web-client}.
+They are split into two files where each file contains the diff of a concrete package file.
+These files are generated using the \textit{pnpm patch <pkg name>} command and applied automatically when the package is installed.
+
+The generators from proto and reflection files are set up as NPM runnable packages.
+This means that the packages can be installed globally and run from the command line.
+
+The website is set up as a Next.js project using the command \textit{npx create-next-app@latest}.
+It uses App directory for routing, TypeScript as the language, ESLint\footnote{\url{https://eslint.org/}} for linting, Jest\footnote{\url{https://jestjs.io/}} for testing, and Prettier\footnote{\url{https://prettier.io/}} for code formatting.
+The website is set up to be statically generated using the \textit{output: "export"} option, which means that the website is generated at build time and served as static files.
+For building, it uses the Next.js Compiler and is run using the \textit{pnpm build} command.
 
 
 \section{JSON from Proto Files Generator}
@@ -174,7 +202,7 @@ Again, I am choosing the most popular and maintained libraries for the long-term
 
 \section{Static Website}
 
-\subsection{Building}
+\subsection{Code Structure and Build}
 
 
 \section{User Interface}
