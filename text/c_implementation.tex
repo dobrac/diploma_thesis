@@ -242,11 +242,51 @@ The generated JSON output can be then used on the website.
 
 
 \section{Static Website}
+The website is a static site generated using the Next.js framework.
+The code structure is divided into:
+\begin{itemize}
+    \item \textbf{src/app} -- contains the pages of the website,
+    \item \textbf{src/components} -- contains the React components,
+    \item \textbf{src/contexts} -- contains the React contexts,
+    \item \textbf{src/scss} -- contains the global styles of the website,
+    \item \textbf{src/services} -- contains the functions with logic for the website,
+    \item \textbf{src/types} -- helper types and constant definition,
+    \item \textbf{public} -- contains the public files (e.g., images).
+\end{itemize}
 
-\subsection{Code Structure and Build}
+After the website is built, the output is in the \textit{out} directory.
+The directory contains static HTML, CSS, JavaScript files, and all files from the public directory.
+It can be then hosted by any web server that supports static file hosting.
+It is enough to just copy the contents of the \textit{out} directory to the server.
+The default definitions file is in the root of the directory and is called \textit{definitions.json}.
+It is shown on the website page by default.
+It can be replaced by any other file with the same structure and name, or, it is possible to host the file anywhere and specify the file URL in the \textit{url} query parameter of the website.
 
+\subsection{Protobufjs Data Structure}
+I am using the protobufjs library with its data structure.
+The data class diagram is shown in the figure~\ref{fig:protobufjs-class-diagram}.
 
-\section{User Interface}
+\begin{landscape}
+    \begin{figure}
+        \centering
+        \captionsetup{justification=centering}
+        \includegraphics[width=1.5\textheight]{images/implementation/protobufjs-class-diagram}
+        \caption{Protobufjs class diagram}
+        \label{fig:protobufjs-class-diagram}
+    \end{figure}
+\end{landscape}
+
+The base is the \textit{Root} class, which is returned by parsing the common format.
+Other classes like service or type create a tree structure.
+For example, using the field nested (or nestedArray) from the \textit{NamespaceBase}, I can traverse the tree and find all services, message types, or enums.
+This way I find all the data I need for the website.
+
+Each class has fields related to the protobuf features.
+For example, the \textit{Service} class has a methods field, which contains all methods for that service, and the \textit{Method} class has a type or what type of streaming it is.
+Also, all classes have a comment field which contains the comment from the proto file.
+Using these fields, I can display the data on the website.
+
+\subsection{User Interface}
 
 
 \section{Licensing}
