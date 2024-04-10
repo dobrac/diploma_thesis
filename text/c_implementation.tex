@@ -166,7 +166,7 @@ Again, I am choosing the most popular and maintained libraries for the long-term
 The project is using the lerna\footnote{\url{https://lerna.js.org/}} and pNpM\footnote{\url{https://pnpm.io/}} package manager.
 Lerna is a tool that optimizes the workflow around managing multi-package repositories~\cite{lerna}.
 And pNpM is a fast, disk-space efficient package manager with the support of workspaces and libraries patching~\cite{pnpm}.
-Both tools cooperate and are compatible to with each other.
+Both tools cooperate and are compatible with each other.
 
 The project is set up as a monorepo.
 It is divided into three packages:
@@ -195,9 +195,50 @@ For building, it uses the Next.js Compiler and is run using the \textit{pnpm bui
 
 
 \section{JSON from Proto Files Generator}
+The generator from proto files is a command-line tool that generates the common JSON format.
+It takes one or more proto files or a directory with proto files as an input and outputs the JSON format to the console.
+The script uses the proto files from the command or recursively traverses the directory for all proto files, which are then passed to the protobufjs-cli library with correct arguments and writes output to the console.
+The output can be then redirected to a file.
+
+An example of the command is shown in the code snippet~\ref{lst:proto-to-json}.
+The symbol \textit{\>} is used to redirect the output to a file.
+The \textit{SOURCE\_PROTO\_FILES} can be any number of proto files or folders combination split by space.
+If invalid proto files are passed, an error will be thrown, which is then displayed in the console.
+
+\begin{lstlisting}[caption={proto-to-json command example}, label={lst:proto-to-json}]
+gf-proto-to-json ${SOURCE_PROTO_FILES} > ${EXPORTED_NAME}.json
+\end{lstlisting}
+
+The generated JSON output can be then used on the website.
 
 
 \section{JSON from gRPC Reflection Generator}
+The generator from reflection file is a command-line tool that generates the common JSON format.
+The script uses the reflection bin file from the command, which is then processed by the protobufjs library and serialized to the JSON format.
+The output can be then redirected to a file.
+
+The bin format can be generated using the grpcurl tool.
+The example command is shown in the code snippet~\ref{lst:reflection-to-bin}.
+The \textit{BIN\_FILE} is the target reflection bin file, \textit{GRPC\_SERVER} is the gRPC server address.
+The \textit{-protoset-out} is used to output the reflection to the file, and the \textit{describe} tells the grpcurl to output the reflection definitions.
+Other parameters and features of the grpcurl tool can be used as well (e.g., TLS settings, filtering only parts of the reflection interface, etc.), this is just an example.
+Also, there may be other tools for creating the reflection bin file.
+There is no limitation on the tool used, as long as the bin file is in the correct format.
+
+\begin{lstlisting}[caption={proto-to-json command example}, label={lst:reflection-to-bin}]
+grpcurl -protoset-out ${BIN_FILE}.bin -plaintext ${GRPC_SERVER} describe
+\end{lstlisting}
+
+An example of the command is shown in the code snippet~\ref{lst:reflection-to-json}.
+The symbol \textit{\>} is used to redirect the output to a file.
+The \textit{SOURCE\_BIN\_FILE} is the bin file.
+If an invalid bin file is passed, an error will be thrown, which is then displayed in the console.
+
+\begin{lstlisting}[caption={proto-to-json command example}, label={lst:reflection-to-json}]
+gf-reflection-to-json ${SOURCE_BIN_FILE} > ${EXPORTED_NAME}.json
+\end{lstlisting}
+
+The generated JSON output can be then used on the website.
 
 
 \section{Static Website}
