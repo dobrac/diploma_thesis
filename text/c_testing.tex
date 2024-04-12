@@ -6,15 +6,23 @@ and for verifying the correctness of the website's behavior.
 
 \section{Automated Testing}
 Using the Jest framework, I have created unit tests for the most critical parts of the website.
-The tests cover the following parts:
-% TODO: finish writing this section
-%\begin{itemize}
-%    \item data conversion,
-%    \item data migration,
-%    \item data validation,
-%    \item data export,
-%    \item data import.
-%\end{itemize}
+The tests cover the services and components of the website.
+They are located in the \texttt{\_\_tests\_\_} directory.
+The test coverage statistics are in the table~\ref{tab:tests-coverage}.
+
+\begin{table}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        ~        & Statements & Branches & Functions & Lines   \\
+        \hline
+        Coverage & 82.21\%    & 94.3\%   & 63.21\%   & 82.21\% \\
+        \hline
+    \end{tabular}
+    \caption{Test coverage statistics}
+    \label{tab:tests-coverage}
+\end{table}
 
 
 \section{Manual Scenarios}
@@ -35,15 +43,45 @@ In the individual steps, I describe how to achieve the result defined in the tit
 }
 
 
-%\testing{Generating JSON from proto files}
-%Počáteční stav: Aplikace je spuštěná\\
-%Kroky:
-%\begin{enumerate}
-%    \item V levém horním rohu kliknout na tlačítko s názvem aktuálně vybraného semestru
-%    \item Vybrat semestr, pro který má inicializace probíhat -- semestr se nastaví
-%    \item V pravém horním rohu kliknout vedle nápisu \enquote{Syllabus Plus} na ikonku s písmenem \textit{i} -- zobrazí se dialogové okno s předvyplněnými políčky pro inicializaci softwaru Syllabus Plus
-%\end{enumerate}
-%Pokryté případy užití: UC1
+\testing{Generating the website from proto files a validating the data}
+Initial state: A folder with proto files\\
+Steps:
+\begin{enumerate}
+    \item TODO
+\end{enumerate}
+Use cases covered: UC1, UC3, UC4, UC5, UC6, UC7
+
+\testing{Generating the website from the gRPC reflection a validating the data}
+Initial state: A gRPC server URL with reflection enabled\\
+Steps:
+\begin{enumerate}
+    \item TODO
+\end{enumerate}
+Use cases covered: UC2, UC3, UC4, UC5, UC6, UC7
+
+\testing{Executing unary request}
+Initial state: Hosted website with loaded definitions and gRPC server running with the Envoy proxy\\
+Steps:
+\begin{enumerate}
+    \item TODO
+\end{enumerate}
+Use cases covered: UC8
+
+\testing{Executing server streaming request}
+Initial state: Hosted website with loaded definitions and gRPC server running with the Envoy proxy\\
+Steps:
+\begin{enumerate}
+    \item TODO
+\end{enumerate}
+Use cases covered: UC9
+
+\testing{Setting global metadata}
+Initial state: Hosted website with loaded definitions and gRPC server running with the Envoy proxy\\
+Steps:
+\begin{enumerate}
+    \item TODO
+\end{enumerate}
+Use cases covered: UC10
 
 
 \input{text/c_user-testing}
