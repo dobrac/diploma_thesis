@@ -294,51 +294,51 @@ If the use clicks on the URL dropdown button, they can change the input to a fil
 The file can be then a JSON definition file from the local machine, or the gRPC reflection bin file.
 The file is then parsed and the data is displayed on the website.
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/fullpage}
+    \includegraphics[width=0.8\textwidth]{images/implementation/screenshots/fullpage}
     \caption{Website overview}
     \label{fig:implementation-screenshots-fullpage}
 \end{figure}
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/reflection-input}
+    \includegraphics[width=0.8\textwidth]{images/implementation/screenshots/reflection-input}
     \caption{Input using file}
     \label{fig:implementation-screenshots-reflection-input}
 \end{figure}
 
 Under the toolbar, there is a short description of the website's purpose.
 Under it is a part with global settings.
-First is the selection of the backend method, which is by default the gRPC-Web.
+The first is the selection of the backend method, which is by default the gRPC-Web.
 This is a place where it is possible in the future to add more backends, which may have full implementation of client streaming.
-If that is not possible, this dropdown can be easily removed.
+If that is not necessary in the case of gRPC-Web implementing it, this dropdown can be easily removed.
 
 Next to the method selection is a backend gRPC server selection.
 The user can change the server address and port.
 This is a global setting for the website and is used for all requests.
 
 Next is the global metadata definition.
-Upon clicking the button, a modal dialog in the figure~\ref{fig:implementation-screenshots-metadata-modal} is shown.
+Upon clicking the button, a modal dialog, figure~\ref{fig:implementation-screenshots-metadata-modal}, is shown.
 The user can then define the metadata as key value pairs for the request.
 It also allows defining the authorization token, which effectively creates a new metadata entry with predefined format.
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/metadata-modal}
+    \includegraphics[width=0.7\textwidth]{images/implementation/screenshots/metadata-modal}
     \caption{Metadata modal dialog}
     \label{fig:implementation-screenshots-metadata-modal}
 \end{figure}
 
 Under the global settings is the list of services.
 The services are shown the way as described in the design chapter.
-In the figure~\ref{fig:implementation-screenshots-fullpage} you can see also the difference between the unary and server streaming methods, as well as service options and comments.
+In the figure~\ref{fig:implementation-screenshots-fullpage} the user can see also the difference between the unary and server streaming methods, as well as service options and comments.
 
 The expanded method is shown in the figure~\ref{fig:implementation-screenshots-method}.
-Its design is based on the wireframes from the design chapter, where you can see the request input form and the response message type.
+Its design is based on the wireframes, where the user can see the request input form and the response message type.
 After the method is executed, the response is shown as in the figure~\ref{fig:implementation-screenshots-response}.
 It contains the request JSON with the metadata, server urls, and the response with headers and trailers.
 When the method type is server streaming, the response is shown as in the figure~\ref{fig:implementation-screenshots-responses-streaming} with all responses gradually showing as soon as they come.
@@ -346,49 +346,49 @@ If the user wants to cancel the method execution while it is still running, they
 If there is an error in the response, it is shown as in the figure~\ref{fig:implementation-screenshots-response-error} with the gRPC error code status, as well as the HTTP status (for gRPC-Web) and metadata.
 
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/method}
+    \includegraphics[width=0.8\textwidth]{images/implementation/screenshots/method}
     \caption{Method overview}
     \label{fig:implementation-screenshots-method}
 \end{figure}
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/response}
+    \includegraphics[width=0.8\textwidth]{images/implementation/screenshots/response}
     \caption{Method execution response}
     \label{fig:implementation-screenshots-response}
 \end{figure}
 
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/responses-streaming}
-    \caption{Method execution response - server streaming}
+    \includegraphics[width=0.8\textwidth]{images/implementation/screenshots/responses-streaming}
+    \caption{Method execution response -- server streaming}
     \label{fig:implementation-screenshots-responses-streaming}
 \end{figure}
 
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/execution-pending}
+    \includegraphics[width=0.75\textwidth]{images/implementation/screenshots/execution-pending}
     \caption{Method execution pending state}
     \label{fig:implementation-screenshots-execution-pending}
 \end{figure}
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/response-error}
+    \includegraphics[width=0.75\textwidth]{images/implementation/screenshots/response-error}
     \caption{Method execution response error}
     \label{fig:implementation-screenshots-response-error}
 \end{figure}
 
-The input of a method is in a form.
+The input of a method is as a form.
 Different input field types are shown in the figure~\ref{fig:implementation-screenshots-inputs}.
 There is special handling for bytes input (file selection), strings, numbers, enums (dropdown selection), booleans (dropdown selection), oneof fields grouping, and JSON input fields.
 The JSON input fields are shown for repeated (arrays), maps, and messages fields.
@@ -399,13 +399,75 @@ The examples are shown in the figure~\ref{fig:implementation-screenshots-inputs-
 The errors are shown after execution under the field with the error message and above the execution button.
 The execution button is disabled until all fields are valid.
 
-%\begin{figure}[hbt!]
-%    \centering
-%    \captionsetup{justification=centering}
-%    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/inputs}
-%    \caption{Method execution input fields}
-%    \label{fig:implementation-screenshots-inputs}
-%\end{figure}
+\begin{figure}[!htb]
+    \centering
+    \captionsetup{justification=centering}
+
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-bytes}
+        \caption{Bytes}
+    \end{subfigure}%
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-number}
+        \caption{Number}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-enum}
+        \caption{Enum}
+    \end{subfigure}%
+
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-json-field}
+        \caption{JSON (Message type, repeated, map)}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-json-example}
+        \caption{JSON - example}
+    \end{subfigure}%
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-map}
+        \caption{Model}
+    \end{subfigure}
+
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-oneof}
+        \caption{Oneof}
+    \end{subfigure}%
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/input-repeated}
+        \caption{Repeated - example}
+    \end{subfigure}
+
+    \caption{Method execution input fields}
+    \label{fig:implementation-screenshots-inputs}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \captionsetup{justification=centering}
+
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[width=.8\linewidth]{images/implementation/screenshots/input-validation-error}
+        \caption{Field}
+
+        \centering
+        \includegraphics[width=.8\linewidth]{images/implementation/screenshots/input-validation-error-button}
+        \caption{Button}
+    \end{subfigure}%
+
+    \caption{Input validation}
+    \label{fig:implementation-screenshots-inputs-validation}
+\end{figure}
+
 
 Message types are a next section on a website.
 Expanded message type is shown in the figure~\ref{fig:implementation-screenshots-message-type}.
@@ -416,20 +478,28 @@ The expanded message type is shown in the figure~\ref{fig:implementation-screens
 If the expanded message type contains another nested message type, it is also expandable.
 Each expansion rendering is done after the click on the field -- this prevents issues with recursive types.
 
-\begin{figure}[hbt!]
+\begin{figure}[!htb]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/message-type}
-    \caption{Message type overview}
-    \label{fig:implementation-screenshots-message-type}
-\end{figure}
 
-\begin{figure}[hbt!]
-    \centering
-    \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/message-type-field-expansion}
-    \caption{Message type expanded}
-    \label{fig:implementation-screenshots-message-type-field-expansion}
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/message-type}
+        \caption{Message type overview}
+        \label{fig:implementation-screenshots-message-type}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/implementation/screenshots/message-type-field-expansion}
+        \caption{Message type expanded}
+        \label{fig:implementation-screenshots-message-type-field-expansion}
+
+        \includegraphics[width=0.95\linewidth]{images/implementation/screenshots/enum}
+        \caption{Enum overview}
+        \label{fig:implementation-screenshots-enum}
+    \end{subfigure}%
+
+    \caption{Message type and enum type}
 \end{figure}
 
 The website ends with enums.
@@ -438,17 +508,9 @@ It shows the documentation comments and options for the enum itself, as well as 
 The values are shown as keys with their respective numbers.
 The enum value options are shown in brackets after the value name, copying the protobuf syntax.
 
-\begin{figure}[hbt!]
-    \centering
-    \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth]{images/implementation/screenshots/enum}
-    \caption{Enum overview}
-    \label{fig:implementation-screenshots-enum}
-\end{figure}
-
 All the functionality and design allow the user to navigate through the proto file services, methods, message types, and enums and see the documentation comments.
 When the user selects a method, they can execute it with the input form and see the response, for streaming requests see the responses gradually, and for errors see the error message.
-This way, the user can test the gRPC server without the need for any additional desktop application.
+This way the user can test the gRPC server without implementing any client.
 
 
 \section{Licensing}
@@ -464,7 +526,7 @@ For the development, I have used libraries that use the following licenses:
 The list of libraries and their licenses is captured in tables~\ref{tab:libraries-licenses} and~\ref{tab:libraries-licenses-dev}.
 The rights and limitations of these licenses are then shown in table~\ref{tab:licenses}.
 
-\begin{table}
+\begin{table}[hbt!]
     \centering
     \captionsetup{justification=centering}
     \begin{tabular}{|l|l|l|l|l|l|}
