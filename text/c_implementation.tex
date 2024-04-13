@@ -1,4 +1,3 @@
-% Talk about issues encountered, how they were solved
 In this section, I will describe the implementation of the website generator.
 I will start by discussing the choice of technology, followed by the project settings.
 Then, I will describe the code structure, user interface, and functionality.
@@ -7,24 +6,24 @@ Finally, I will discuss the licensing of the libraries used in the project.
 
 \section{Choosing the Technology}
 The main factor in choosing the technology was the ability to generate a website that can be easily deployed and accessed by users.
-In the design chapter, I have concluded that I will use a common format with all gRPC definitions, and the website will be generated from this format in the browser.
-Therefore, I need to choose a technology for the website and for the common format generators.
+In the design chapter, I concluded that I would use a common format with all gRPC definitions, and the website would be generated from this format in the browser.
+Therefore, I must choose a technology for the website and the common format generators.
 
-As of the website, the basics are done using HTML and CSS\@.
+As for the website, the basics are done using HTML and CSS\@.
 There is no other choice.
 For the programming language, because of the dynamic rendering based on the common format, the only possibilities are JavaScript and WebAssembly.
 Because I will need to be updating the website (meaning the DOM), which is not supported directly by WebAssembly, I have chosen JavaScript~\cite{webassembly-dom}.
 
-Because JavaScript is a weakly typed language, which, in my experience, can lead to bugs in larger projects, there are supersets and other libraries trying to add strong typing.
+Because JavaScript is a weakly typed language, which, in my experience, can lead to bugs in larger projects, there are supersets and other libraries that add strong typing.
 The popular libraries that I know of are TypeScript\footnote{\url{https://www.typescriptlang.org/}} and Flow\footnote{\url{https://flow.org/}}.
-Because I have the most experience with TypeScript, I will be using it instead of direct JavaScript.
+Because I have the most experience with TypeScript, I will use it instead of direct JavaScript.
 
-For the common format generators, I have many options because the generators are run on the developer's machine.
+I have many options for the common format generator language because the generators are run on the developer's machine.
 Therefore, the decision is based on the libraries needed for the generators.
 And, because I will be using the protobufjs JavaScript library for the common format, I will use JavaScript for the generators.
 
 \subsection{Web Framework}
-In order to create the website with extensive logic, I will use a front-end framework.
+To create the website with extensive logic, I will use a front-end framework.
 There are several options, but the most popular are React\footnote{\url{https://react.dev/}}, Angular\footnote{\url{https://angular.io/}}, Vue.js\footnote{\url{https://vuejs.org/}}, and Svelte\footnote{\url{https://svelte.dev/}}~\cite{state-of-js-frontend-frameworks}.
 I want the page to exist for a long time and be maintained.
 For this reason, I will choose the most popular framework, which is React.
@@ -35,30 +34,31 @@ React can be used as a base in the development of single-page web applications.
 It allows developers to create large web applications that can change data without reloading the page, making the website faster.
 \cite{react}
 
-Using React is a great option, but it requires a lot of parts to be set up manually.
+Using React is a great option, but it requires a lot of manual setup (routing, code splitting, and more).
 For this reason, there is a React framework called Next.js\footnote{\url{https://nextjs.org/}}.
 It simplifies the setup, development, static site page generation, routing, and a lot more~\cite{nextjs}.
 It is also the first recommended way to build a new React application by the React team~\cite{react-start-new-project}.
 Therefore, I will use Next.js for the website.
-The key features except the setup of Next.js that I will use are static site generation and TypeScript support.
+The key features, except the setup of Next.js, that I will use are static site generation and TypeScript support.
 
 \subsection{Styling Libraries}
-For the styling of the website, instead of using my own CSS classes, I will use a framework, which will speed up development.
+Instead of using my own CSS classes to style the website, I will use a framework to speed up development.
 The most popular CSS frameworks are Bootstrap\footnote{\url{https://getbootstrap.com/}}, Tailwind CSS\footnote{\url{https://tailwindcss.com/}}, and Materialize CSS\footnote{\url{https://materializecss.com/}}~\cite{state-of-css-frameworks}.
 All of them are good options, but as for choosing the front-end framework, I will choose the most popular one, which is Bootstrap.
 
 \subsection{Protobufjs Library}
-Based on the design chapter, the protobufjs library is used for the serialization and deserialization of the data to a common JSON format.
+Based on the design chapter, the protobufjs library is used to serialize and deserialize the data in a common JSON format.
 The library also offers a tool called protobufjs-cli\footnote{\url{https://www.npmjs.com/package/protobufjs-cli}}.
 It is a command-line tool that can be used to generate the JSON format from the proto files~\cite{protobufjs-cli}.
-It has an issue though, it only allows individual proto files as an input, not the entire folder, which maybe be a use case.
-Also, it needs to have specified the correct parameters in order to get the correct output.
+It has an issue, though.
+It only allows individual proto files as input, not the entire folder, which may be a use case.
+Also, the correct parameters need to be specified in order to get the correct output.
 For this reason, I will use the protobufjs-cli, but only as a library.
-This will allow me to have potential features in the future, but also to fix the current one and to seal the required parameters.
+This will allow me to have potential features in the future, fix the current ones, and seal the required parameters.
 
 There are two more issues with this library that need to be addressed.
 The first one is that there is a bug in the library when parsing the value options for enums.
-I have found the issue in the library's repository source code, and I have fixed it locally using package manager patch functionality.
+I found the issue in the library's repository source code and fixed it locally using the package manager patch functionality.
 I have also reported the issue to the library's repository at \url{https://github.com/protobufjs/protobuf.js/issues/1961} with a way to fix it and a pull request.
 The patch change is in the code snippet~\ref{lst:protobufjs-enum-value-options}.
 
@@ -74,8 +74,8 @@ Enum.fromJSON = function fromJSON(name, json) {
 \end{lstlisting}
 
 The second issue is that the protobufjs-cli library does not support comments.
-I have found an already existing issue (\url{https://github.com/protobufjs/protobuf.js/issues/1145}) which hints how to patch the library locally until it is added to the library itself.
-For making the protobufjs-cli library support comments, I have slightly updated the way JSON export works and created a patch locally.
+I have found an already existing issue (\url{https://github.com/protobufjs/protobuf.js/issues/1145}), which hints at how to patch the library locally until it is added to the library itself.
+To make the protobufjs-cli library support comments, I have slightly updated how JSON export works and created a local patch.
 When this feature is added to the library, I can remove the patch and use the library as it is.
 The patch change is in the code snippet~\ref{lst:protobufjs-comments}.
 
@@ -89,36 +89,36 @@ function json_target(root, options, callback) {
 \end{lstlisting}
 
 \subsection{gRPC-Web Client Library}\label{subsec:grpc-web-client}
-% Talk about extracting gRPC-Web client from the generated stubs
-The gRPC-Web library does offer only client side code generation from the proto files (stubs).
-However, it does not offer the client for making the requests only with the possibility of implementing the data serialization and deserialization.
-I have tried to find a library which would offer this functionality, but I have not found any.
+% Talk about extracting the gRPC-Web client from the generated stubs
+The gRPC-Web library only offers client-side code generation from the proto files (stubs).
+However, it does not allow the client to make the requests only with the possibility of implementing the data serialization and deserialization.
+I have tried to find a library offering this functionality, but I have not found any.
 For this reason, I have decided to analyze how the stubs are generated in order to extract the gRPC-Web client.
-I already know that I am able to serialize and deserialize the data using the protobufjs library, which I will use for that.
+I already know that I can serialize and deserialize the data using the protobufjs library, which I will use for that.
 
 There are two generated gRPC-Web client files.
-One generates the client, the other one the message types and methods.
+One generates the client, and the other generates the message types and methods.
 Note that the client is still specific to the proto files.
 
-Based on the generated code, I have found that the actual call is done using initialization of \textit{GrpcWebClientBase} and then calling \textit{rpcCall} method for unary requests, and \textit{serverStreaming} method for server streaming requests.
-The client initialization does not require any parameters, but can be supplied with the option object, which may contain a format (binary or text).
+Based on the generated code, I have found that the actual call is done using initialization of \textit{GrpcWebClientBase} and then calling \textit{rpcCall} method for unary requests and \textit{serverStreaming} method for server streaming requests.
+The client initialization does not require any parameters but can be supplied with the option object, which may contain a format (binary or text).
 The \textit{rpcCall} method requires a method name, a request message type object, a metadata of the request, a methodDescriptor (more on that later), and a callback.
 The \textit{rpcCall} function returns a stream, which may be used for additional headers or trailer handling.
-The \textit{serverStreaming} method requires the same parameters, but the callback is not present and responses are handled only using the returned stream.
+The \textit{serverStreaming} method requires the same parameters, but the callback is not present, and responses are handled only using the returned stream.
 
-An example of the method with parameters is shown in the code snippet~\ref{lst:grpc-web-client}.
+The code snippet~\ref{lst:grpc-web-client} shows an example of the method with parameters.
 The method name is a string with a full path to the method.
-The request message type is defined by the generated client and is required to contain certain attributes and methods.
-Because I am using protobufjs library, I have found out I am able to supply only an empty object (\textit{\{\}}) here, and do the rest of the work in other functions supplied in the method descriptor.
+The request message type is defined by the generated client and is required to contain specific attributes and methods.
+Because I am using the protobufjs library, I have found out I am able to supply only an empty object (\textit{\{\}}) here and do the rest of the work in other functions supplied in the method descriptor.
 The method descriptor is an object containing the method name, the method type, the request message type, the response message type, and the request serialize and response deserialize functions.
 The method name is just the method name without a path.
 The method type is either unary or server streaming.
-Because I am using the protobufjs library, again, the request and response message types can be replaced by a fake class with just a constructor.
-And finally, the request serialize and response deserialize functions are functions that take the message object and return the serialized or deserialized message.
-Because I have replaced the request object by an empty object, the request serialize function is not supplied with the message.
-However, I can directly access the variable from outer scope and use the protobufjs library and return the encoded message.
+Because I am using the protobufjs library, a fake class with a constructor can replace the request and response message types.
+Finally, the request serialize, and response deserialize functions are functions that take the message object and return the serialized or deserialized message.
+Because I have replaced the request object with an empty object, the request serialize function is not supplied with the message.
+However, I can directly access the variable from the outer scope using the protobufjs library and return the encoded message.
 For the response deserialize function, I can use the protobufjs library again to decode the available message, this time as a byte's array parameter, and return it.
-The callback function or the stream then received the deserialized message in the protobufjs format.
+The callback function or the stream receives the deserialized message in the protobufjs format.
 
 \begin{lstlisting}[style=JavaScript, caption={gRPC-Web extracted client unary call example}, label={lst:grpc-web-client}]
 const client = new GrpcWebClientBase({ format: options?.format });
@@ -153,12 +153,12 @@ const unaryStream = client.rpcCall(
 \end{lstlisting}
 
 
-I have extracted the gRPC-Web client from the generated stubs, and I am able to use it on the website for any request.
-The gRPC-Web library still handles the communication with the server though, so any future updates to the library should be automatically applied to the client as well.
+I have extracted the gRPC-Web client from the generated stubs, and I can use it on the website for any request.
+The gRPC-Web library still handles the communication with the server, though, so any future updates to the library should be automatically applied to the client as well.
 
 \subsection{Other Libraries}
-Other important libraries that I will use are react-hook-form\footnote{\url{https://react-hook-form.com/}} for creating the request input form validation, yup\footnote{\url{https://github.com/jquense/yup}} for the schema validation (used in connection with forms), and fontawesome\footnote{\url{https://fontawesome.com/}} for the icons.
-All of these libraries have the features I need from them, have over a million weekly downloads (which is significant compared to other NPM packages) and are maintained.
+Other essential libraries that I will use are react-hook-form\footnote{\url{https://react-hook-form.com/}} for creating the request input form validation, yup\footnote{\url{https://github.com/jquense/yup}} for the schema validation (used in connection with forms), and fontawesome\footnote{\url{https://fontawesome.com/}} for the icons.
+These libraries have the features I need from them, have over a million weekly downloads (which is significant compared to other NPM packages), and are maintained.
 Again, I am choosing the most popular and maintained libraries for the long-term existence of the static documentation website.
 
 
@@ -177,72 +177,73 @@ It is divided into three packages:
 \end{itemize}
 The project also contains \textit{example} and \textit{patches} folders.
 
-The \textit{example} folder contains example proto and reflection files with pre-generated common format, as wel las envoy proxy configuration and gRPC server implementation in JavaScript.
-The envoy proxy can be then started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
-This setup can be used for testing the website functionality.
+The \textit{example} folder contains example proto and reflection files with a pre-generated common format, as well as envoy proxy configuration and gRPC server implementation in JavaScript.
+The envoy proxy can then be started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
+This setup can be used to test the website's functionality.
 
 The \textit{patches} folder contains the patches for the protobufjs library described in the~\ref{subsec:grpc-web-client}.
-They are split into two files where each file contains the diff of a concrete package file.
+They are split into two files, each containing the diff of a concrete package file.
 These files are generated using the \textit{pnpm patch <pkg name>} command and applied automatically when the package is installed.
 
 The generators from proto and reflection files are set up as NPM runnable packages.
-This means that the packages can be installed globally and run from the command line.
+This means the packages can be installed globally and run from the command line.
 
 The website is set up as a Next.js project using the command \textit{npx create-next-app@latest}.
-It uses App directory for routing, TypeScript as the language, ESLint\footnote{\url{https://eslint.org/}} for linting, Jest\footnote{\url{https://jestjs.io/}} for testing, and Prettier\footnote{\url{https://prettier.io/}} for code formatting.
+It uses an App directory for routing, TypeScript as the language, ESLint\footnote{\url{https://eslint.org/}} for linting, Jest\footnote{\url{https://jestjs.io/}} for testing, and Prettier\footnote{\url{https://prettier.io/}} for code formatting.
 The website is set up to be statically generated using the \textit{output: "export"} option, which means that the website is generated at build time and served as static files.
-For building, it uses the Next.js Compiler and is run using the \textit{pnpm build} command.
+For building, it uses the Next.js Compiler, which is run using the \textit{pnpm build} command.
 
 
 \section{JSON from Proto Files Generator}
 The generator from proto files is a command-line tool that generates the common JSON format.
-It takes one or more proto files or a directory with proto files as an input and outputs the JSON format to the console.
+It takes one or more proto files or a directory with proto files as input and outputs the JSON format to the console.
 The script uses the proto files from the command or recursively traverses the directory for all proto files, which are then passed to the protobufjs-cli library with correct arguments and writes output to the console.
 The output can be then redirected to a file.
 
-An example of the command is shown in the code snippet~\ref{lst:proto-to-json}.
-The symbol \textit{\>} is used to redirect the output to a file.
-The \textit{SOURCE\_PROTO\_FILES} can be any number of proto files or folders combination split by space.
+The code snippet~\ref{lst:proto-to-json} shows an example of the command.
+The symbol \textit{\>} redirects the output to a file.
+The \textit{SOURCE\_PROTO\_FILES} can be any number of proto files or folder combinations split by space.
 If invalid proto files are passed, an error will be thrown, which is then displayed in the console.
 
 \begin{lstlisting}[caption={proto-to-json command example}, label={lst:proto-to-json}]
 gf-proto-to-json ${SOURCE_PROTO_FILES} > ${EXPORTED_NAME}.json
 \end{lstlisting}
 
-The generated JSON output can be then used on the website.
+The generated JSON output can then be used on the website.
 
 
 \section{JSON from gRPC Reflection Generator}
-The generator from reflection file is a command-line tool that generates the common JSON format.
+The generator from the reflection file is a command-line tool that generates the common JSON format.
 The script uses the reflection bin file from the command, which is then processed by the protobufjs library and serialized to the JSON format.
 The output can be then redirected to a file.
 
 The bin format can be generated using the grpcurl tool.
 The example command is shown in the code snippet~\ref{lst:reflection-to-bin}.
-The \textit{BIN\_FILE} is the target reflection bin file, \textit{GRPC\_SERVER} is the gRPC server address.
+The \textit{BIN\_FILE} is the target reflection bin file, and \textit{GRPC\_SERVER} is the gRPC server address.
 The \textit{-protoset-out} is used to output the reflection to the file, and the \textit{describe} tells the grpcurl to output the reflection definitions.
-Other parameters and features of the grpcurl tool can be used as well (e.g., TLS settings, filtering only parts of the reflection interface, etc.), this is just an example.
+Other parameters and features of the grpcurl tool can also be used (e.g., TLS settings, filtering only parts of the reflection interface, etc.).
+This is just an example.
 Also, there may be other tools for creating the reflection bin file.
-There is no limitation on the tool used, as long as the bin file is in the correct format.
+There is no limitation on the tool used as long as the bin file is in the correct format.
 
 \begin{lstlisting}[caption={proto-to-json command example}, label={lst:reflection-to-bin}]
 grpcurl -protoset-out ${BIN_FILE}.bin -plaintext ${GRPC_SERVER} describe
 \end{lstlisting}
 
-An example of the command is shown in the code snippet~\ref{lst:reflection-to-json}.
-The symbol \textit{\>} is used to redirect the output to a file.
+The code snippet~\ref{lst:reflection-to-json} shows an example of the command.
+The symbol \textit{\>} redirects the output to a file.
 The \textit{SOURCE\_BIN\_FILE} is the bin file.
-If an invalid bin file is passed, an error will be thrown, which is then displayed in the console.
+If an invalid bin file is passed, an error will be thrown, which will then be displayed in the console.
 
 \begin{lstlisting}[caption={proto-to-json command example}, label={lst:reflection-to-json}]
 gf-reflection-to-json ${SOURCE_BIN_FILE} > ${EXPORTED_NAME}.json
 \end{lstlisting}
 
-The generated JSON output can be then used on the website.
+The generated JSON output can then be used on the website.
 
 
 \section{Static Website}
-The website is a static site generated using the Next.js framework.
+The website is static and generated using the Next.js framework.
 The code structure is divided into:
 \begin{itemize}
     \item \textbf{src/app} -- contains the pages of the website,
@@ -256,11 +257,11 @@ The code structure is divided into:
 
 After the website is built, the output is in the \textit{out} directory.
 The directory contains static HTML, CSS, JavaScript files, and all files from the public directory.
-It can be then hosted by any web server that supports static file hosting.
-It is enough to just copy the contents of the \textit{out} directory to the server.
+It can then be hosted by any web server that supports static file hosting.
+It is enough to copy only the contents of the \textit{out} directory to the server.
 The default definitions file is in the root of the directory and is called \textit{definitions.json}.
 It is shown on the website page by default.
-It can be replaced by any other file with the same structure and name, or, it is possible to host the file anywhere and specify the file URL in the \textit{url} query parameter of the website.
+Any other file can replace it with the same structure and name, or it is possible to host the file anywhere and specify the file URL in the \textit{url} query parameter of the website.
 
 \subsection{Protobufjs Data Structure}
 I am using the protobufjs library with its data structure.
@@ -279,20 +280,20 @@ The data class diagram is shown in the figure~\ref{fig:protobufjs-class-diagram}
 The base is the \textit{Root} class, which is returned by parsing the common format.
 Other classes like service or type create a tree structure.
 For example, using the field nested (or nestedArray) from the \textit{NamespaceBase}, I can traverse the tree and find all services, message types, or enums.
-This way I find all the data I need for the website.
+This way, I find all the data I need for the website.
 
 Each class has fields related to the protobuf features.
-For example, the \textit{Service} class has a methods field, which contains all methods for that service, and the \textit{Method} class has a type or what type of streaming it is.
-Also, all classes have a comment field which contains the comment from the proto file.
+For example, the \textit{Service} class has a methods field containing all methods for that service, and the \textit{Method} class has a field of what type of streaming it is.
+Also, all classes have a comment field containing the proto file's comment.
 Using these fields, I can display the data on the website.
 
 \subsection{Design and Functionality}
 The website design starts from the wireframes in the design chapter.
-The full page is in the figure~\ref{fig:implementation-screenshots-fullpage}.
-At the top, the toolbar contains the URL input for definitions JSON file by default.
-If the use clicks on the URL dropdown button, they can change the input to a file input (shown in the figure~\ref{fig:implementation-screenshots-reflection-input}).
-The file can be then a JSON definition file from the local machine, or the gRPC reflection bin file.
-The file is then parsed and the data is displayed on the website.
+The whole page is in the figure~\ref{fig:implementation-screenshots-fullpage}.
+At the top, the toolbar contains the URL input for definitions JSON files by default.
+If the user clicks on the URL dropdown button, they can change the input to a file input (shown in the figure~\ref{fig:implementation-screenshots-reflection-input}).
+The file can then be a JSON definition file from the local machine or the gRPC reflection bin file.
+The file is then parsed, and the data is displayed on the website.
 
 \begin{figure}[!htb]
     \centering
@@ -310,11 +311,11 @@ The file is then parsed and the data is displayed on the website.
     \label{fig:implementation-screenshots-reflection-input}
 \end{figure}
 
-Under the toolbar, there is a short description of the website's purpose.
-Under it is a part with global settings.
-The first is the selection of the backend method, which is by default the gRPC-Web.
-This is a place where it is possible in the future to add more backends, which may have full implementation of client streaming.
-If that is not necessary in the case of gRPC-Web implementing it, this dropdown can be easily removed.
+Under the toolbar is a short description of the website's purpose.
+Under the description is a section with global settings.
+The first is the selection of the backend method, which is, by default, the gRPC-Web.
+This is a place where it is possible to add more backends in the future, which may have full implementation of client streaming.
+If the gRPC-Web library eventually has client streaming support, this dropdown can be easily removed.
 
 Next to the method selection is a backend gRPC server selection.
 The user can change the server address and port.
@@ -322,8 +323,8 @@ This is a global setting for the website and is used for all requests.
 
 Next is the global metadata definition.
 Upon clicking the button, a modal dialog, figure~\ref{fig:implementation-screenshots-metadata-modal}, is shown.
-The user can then define the metadata as key value pairs for the request.
-It also allows defining the authorization token, which effectively creates a new metadata entry with predefined format.
+The user can then define the metadata as key-value pairs for the request.
+It also allows defining the authorization token, effectively creating a new metadata entry with a predefined format.
 
 \begin{figure}[!htb]
     \centering
@@ -333,14 +334,14 @@ It also allows defining the authorization token, which effectively creates a new
     \label{fig:implementation-screenshots-metadata-modal}
 \end{figure}
 
-Under the global settings is the list of services.
-The services are shown the way as described in the design chapter.
-In the figure~\ref{fig:implementation-screenshots-fullpage} the user can see also the difference between the unary and server streaming methods, as well as service options and comments.
+The list of services is under the global settings.
+The services are displayed as described in the design chapter.
+In the figure~\ref{fig:implementation-screenshots-fullpage}, the user can also see the difference between the unary and server streaming methods, as well as service options and comments.
 
 The expanded method is shown in the figure~\ref{fig:implementation-screenshots-method}.
 Its design is based on the wireframes, where the user can see the request input form and the response message type.
-After the method is executed, the response is shown as in the figure~\ref{fig:implementation-screenshots-response}.
-It contains the request JSON with the metadata, server urls, and the response with headers and trailers.
+After executing the method, the response is shown as in the figure~\ref{fig:implementation-screenshots-response}.
+It contains the request JSON with the metadata, server URLs, and the response with headers and trailers.
 When the method type is server streaming, the response is shown as in the figure~\ref{fig:implementation-screenshots-responses-streaming} with all responses gradually showing as soon as they come.
 If the user wants to cancel the method execution while it is still running, they can click the cancel button, which is shown in the figure~\ref{fig:implementation-screenshots-execution-pending}.
 If there is an error in the response, it is shown as in the figure~\ref{fig:implementation-screenshots-response-error} with the gRPC error code status, as well as the HTTP status (for gRPC-Web) and metadata.
@@ -390,10 +391,10 @@ If there is an error in the response, it is shown as in the figure~\ref{fig:impl
 
 The input of a method is as a form.
 Different input field types are shown in the figure~\ref{fig:implementation-screenshots-inputs}.
-There is special handling for bytes input (file selection), strings, numbers, enums (dropdown selection), booleans (dropdown selection), oneof fields grouping, and JSON input fields.
+There is special handling for bytes input (file selection), strings, numbers, enums (dropdown selection), booleans (dropdown selection), oneof the fields grouping, and JSON input fields.
 The JSON input fields are shown for repeated (arrays), maps, and messages fields.
 Each JSON input contains also a tab with the JSON schema example and the interactive message type model (with expandable nested message types).
-The same example and model also applies for the enum types, but the input is a dropdown selection (if it is not part of repeated).
+The same example and model also apply for the enum types, but the input is a dropdown selection (if it is not part of repeated).
 Each field has a validation based on the schema definition.
 The examples are shown in the figure~\ref{fig:implementation-screenshots-inputs-validation}.
 The errors are shown after execution under the field with the error message and above the execution button.
@@ -469,14 +470,14 @@ The execution button is disabled until all fields are valid.
 \end{figure}
 
 
-Message types are a next section on a website.
-Expanded message type is shown in the figure~\ref{fig:implementation-screenshots-message-type}.
+Message types are the next section on a website.
+The expanded message type is shown in the figure~\ref{fig:implementation-screenshots-message-type}.
 It shows the documentation comments and options for the message type itself, as well as for the fields.
-All types of fields are shown, including repeated (as an array), maps, and oneof fields.
-Green text with underline indicates an expandable message type.
+All types of fields are shown, including repeated (as an array), maps, and oneof the fields.
+Green text with underlining indicates an expandable message type.
 The expanded message type is shown in the figure~\ref{fig:implementation-screenshots-message-type-field-expansion}.
 If the expanded message type contains another nested message type, it is also expandable.
-Each expansion rendering is done after the click on the field -- this prevents issues with recursive types.
+Each expansion rendering is done after clicking on the field, which prevents issues with recursive types.
 
 \begin{figure}[!htb]
     \centering
@@ -509,8 +510,10 @@ The values are shown as keys with their respective numbers.
 The enum value options are shown in brackets after the value name, copying the protobuf syntax.
 
 All the functionality and design allow the user to navigate through the proto file services, methods, message types, and enums and see the documentation comments.
-When the user selects a method, they can execute it with the input form and see the response, for streaming requests see the responses gradually, and for errors see the error message.
-This way the user can test the gRPC server without implementing any client.
+When the user selects a method, they can execute it with the input form and see the response.
+For streaming requests, the user can see the responses gradually. 
+They can see the error message for errors.
+This way, the user can test the gRPC server without implementing any client.
 
 
 \section{Licensing}
@@ -552,15 +555,15 @@ The rights and limitations of these licenses are then shown in table~\ref{tab:li
     \label{tab:licenses}
 \end{table}
 
-All licenses allow both private and commercial use, including distribution and possible modifications.
+All licenses allow private and commercial use, including distribution and possible modifications.
 The only requirement is to
-%keep the license and copyright notice, eventually
-state changes if made (I have not made any change to the libraries that require it).
+%keep the license and copyright notice and eventually
+state changes if made (I have not made any changes to the libraries that require it).
 % TODO Is it necessary to mention them somewhere in the project?
 %All used libraries with their respective licenses can be found on the website
 
 
-Because I have met the requirements of the licenses and their limitations allow me to use the libraries for free, I can use the libraries for my work.
+Because I have met the requirements of the licenses and their limitations, which allow me to use the libraries for free, I can use them for my work.
 
 \newcommand{\library}[1]{%
     #1\tablefootnote{\url{https://www.npmjs.com/package/#1}}%
