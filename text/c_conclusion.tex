@@ -1,45 +1,45 @@
-In my thesis, I have dealt with analysis of existing solutions for Protocol Buffers and compared them with similar tools for GraphQL and RESTful APIs, design, implementation, and testing of the static website generator with interactive API call support.
+In my thesis, I have dealt with the analysis of existing solutions for Protocol Buffers and compared them with similar tools for GraphQL and RESTful APIs, as well as the design, implementation, and testing of the static website generator with interactive API call support.
 
 As part of the analysis, I found out what tools are used for the Protocol Buffers and how they work, including their features and shortcomings.
 I have then done the same for GraphQL and RESTful APIs.
 Finally, I compared the tools and analyzed the state of the static website with interactive API call support.
-The main outcome is that there are tools for RESTful APIs with almost none issues from my task perspective.
-The existing tools for GraphQL come close, but have few issues like the lack of a self-hosted solution.
+The main outcome is that there are tools for RESTful APIs with almost no issues from my task perspective.
+The existing tools for GraphQL come close but have a few issues, like the lack of a self-hosted solution.
 On the other hand, the tools for Protocol Buffers are not as advanced.
-They have many issues like not being a static website, lack of support for documenting comments, or the support for interactive API calls.
+They have many issues, like not being a static website, lack of support for documenting comments, or lack of support for interactive API calls.
 None of the analyzed tools for Protocol Buffers support all the features I have defined as necessary for my task.
 Based on the information found, I then compiled requirements and use cases.
 
 In the next chapter, I discussed the design of the solution.
 I have analyzed the possibility of using Swagger UI, but I have found that it is not suitable for my task.
-Then I have analyzed the gRPC-Web library and gRPC reflection limitations, which influenced the design of the solution (gRPC reflection does not support documentation comments as of right now).
+Then, I analyzed the gRPC-Web library and gRPC reflection limitations, which influenced the design of the solution (gRPC reflection does not support documentation comments as of right now).
 I have then proposed a solution that uses the gRPC-Web library and is able to use the gRPC reflection.
-The main part of the architecture is using a common file format and static website, which is then rendered on the fly based on the provided file.
-I have found an existing library called protobufjs, which can convert both proto files and the gRPC reflection to the JSON format with small improvements from my side.
-This has allowed me to design the website in the same way as the Swagger UI is working, which should allow familiarization with the tool.
+The architecture's central part uses a common file format and static website, which is then rendered on the fly based on the provided file.
+I have found an existing library called protobufjs, which can convert proto files and the gRPC reflection to the JSON format with small improvements from my side.
+This has allowed me to design the website the same way as the Swagger UI works, which should allow familiarization with the tool.
 
-In the implementation, I then put the designs together, and using several libraries, I built two generators (one for proto files, one for the gRPC reflection), and a static website with the ability to call the gRPC-Web methods.
+In the implementation, I then put the designs together, and using several libraries, I built two generators (one for proto files, one for the gRPC reflection) and a static website with the ability to call the gRPC-Web methods.
 I had also overcome several issues.
 One was successfully extracting the gRPC-Web client from the gRPC-Web library, which was not designed for this purpose, and there is no other solution for this.
-Then for one issue with the protobufjs library, I had it fixed locally, and I have created an issue on the library's GitHub page and opened a pull request with a fix proposal.
+Then, for one issue with the protobufjs library, I had it fixed locally, and I created an issue on the library's GitHub page and opened a pull request with a fix proposal.
 
-As part of the testing, I have created automated unit tests that cover the application functionality.
-Then I have built test scenarios that cover all functionality and use cases and are used to test the static website along with generators.
+As part of the testing, I created automated unit tests that covered the website functionality.
+Then, I built test scenarios covering all functionality and use cases, which were used to test the static website and generators.
 %TODO: add more about the testing when it is done
-I also conducted user testing with, which revealed several minor bugs.
+I also conducted user testing, which revealed several minor bugs.
 By resolving these, I removed the barriers to intuitiveness and fixed minor issues.
 
-The static website with both generators created meets all the requirements, solves the issues of existing solutions by creating a static website based on common file format and two generators from proto and gRPC reflection files.
-It together creates a unique new solution and option for the gRPC API documentation.
+The static website with both generators created meets all the requirements and solves the issues of existing solutions by creating a static website based on a common file format and two generators from proto and gRPC reflection files.
+Together, it create a unique solution and option for the gRPC API documentation.
 
 
 \section{Possible Future Development}
 For the future development, I see several possibilities.
 One of them is to add support for more backends than just gRPC-Web.
-This could be done by creating a custom proxy, which will translate the requests from the UI to the gRPC server.
+This could be done by creating a custom proxy to translate the requests from the UI to the gRPC server.
 The implementation could be done using Websockets or HTTP/2, as it has to support client streaming.
-This would allow the tool to be used with any gRPC server, not just the gRPC-Web server, but also not limit the tool to using any specific backend at all.
+This would allow the tool to be used with any gRPC server, not only the gRPC-Web server but also not limit the tool to using any specific backend.
 
 Another possibility is to add support for automatic generation from the gRPC API server source codes.
-This could be done by creating a Gradle or Maven plugin (for Java or Kotlin projects), which will generate the JSON file from the project proto files, and then host the static website along with the project server.
+This could be done by creating a Gradle or Maven plugin (for Java or Kotlin projects), which will generate the JSON file from the project proto files and then host the static website along the project server.
 This would allow the tool to be used without extensive deployment setup and would allow the tool to be used in the development phase—for example, the automatic JSON file pre-generating on each update.
