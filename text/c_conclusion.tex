@@ -1,40 +1,45 @@
-%V práci jsem se zabýval analýzou procesu tvorby rozvrhu, návrhem, implementací a testováním aplikace.
-%
-%V rámci analýzy jsem zjistil, jak funguje proces tvorby rozvrhu na Fakultě informačních technologií.
-%V procesu jsem se potom zaměřil na část s převody dat mezi systémem KOS a softwarem Syllabus Plus.
-%Zjistil jsem, jak funguje aktuální řešení a analyzoval jeho problémy.
-%Těmi hlavními jsou částečné opakované převody, přehlednost operací pro fakultního rozvrháře a uživatelské rozhraní.
-%Na základě zjištěných informací jsem pak sestavil požadavky a případy užití.
-%
-%V další kapitole jsem se zabýval návrhem řešení.
-%Během návrhu jsem přišel na to, že nejlepší možností je mít všechna data v jedné aplikaci a umožnit uživateli rozhodnout, co s daty udělá, na základě vizualizace se zobrazením rozdílů položek jednotlivých systémů.
-%Uživatel tak může identifikovat případné další nekonzistence, které mohly při práci vzniknout, a předcházet zbytečným chybám.
-%Díky tomu také odpadá nutnost poznamenávání úprav stranou při doplnění nových informací do systému KOS\@.
-%Povedlo se mi ale také vylepšit připojení k softwaru Syllabus Plus.
-%Místo využití pomocné databáze se má aplikace umí připojit k softwaru Syllabus Plus na přímo.
-%To mi umožnilo zjednodušit celý proces o jeden krok a zároveň jsem díky tomu získal více možností (například naplánování časového lístku).
-%
-%V implementaci jsem pak dal návrhy dohromady a za použití několika knihoven jsem sestavil grafické rozhraní a plně funkční aplikaci.
-%Bohužel, během této cesty jsem narazil na několik problémů.
-%Většinu se mi podařilo vyřešit, ale dva v aplikaci zůstaly.
-%Naštěstí jeden bude pravděpodobně opraven s aktualizací knihovny pro vykreslování uživatelského rozhraní a druhý se téměř neprojevuje a případně nemá zásadní dopad na funkčnost aplikace.
-%
-%V rámci testování jsem sestavil scénáře, které pokrývají veškeré funkcionality a slouží pro otestování samotné aplikace.
-%Dále jsem provedl uživatelské testování s fakultním rozvrhářem, které odhalilo několik drobnějších chyb.
-%Jejich vyřešením jsem odstranil překážky v intuitivnosti.
-%
-%Vytvořená aplikace splňuje všechny požadavky, řeší problémy aktuálního řešení a rozšiřuje možnosti při tvorbě rozvrhu.
+In my thesis, I have dealt with analysis of existing solutions for Protocol Buffers and compared them with similar tools for GraphQL and RESTful APIs, design, implementation, and testing of the static website generator with interactive API call support.
+
+As part of the analysis, I found out what tools are used for the Protocol Buffers and how they work, including their features and shortcomings.
+I have then done the same for GraphQL and RESTful APIs.
+Finally, I compared the tools and analyzed the state of the static website with interactive API call support.
+The main outcome is that there are tools for RESTful APIs with almost none issues from my task perspective.
+The existing tools for GraphQL come close, but have few issues like the lack of a self-hosted solution.
+On the other hand, the tools for Protocol Buffers are not as advanced.
+They have many issues like not being a static website, lack of support for documenting comments, or the support for interactive API calls.
+None of the analyzed tools for Protocol Buffers support all the features I have defined as necessary for my task.
+Based on the information found, I then compiled requirements and use cases.
+
+In the next chapter, I discussed the design of the solution.
+I have analyzed the possibility of using Swagger UI, but I have found that it is not suitable for my task.
+Then I have analyzed the gRPC-Web library and gRPC reflection limitations, which influenced the design of the solution (gRPC reflection does not support documentation comments as of right now).
+I have then proposed a solution that uses the gRPC-Web library and is able to use the gRPC reflection.
+The main part of the architecture is using a common file format and static website, which is then rendered on the fly based on the provided file.
+I have found an existing library called protobufjs, which can convert both proto files and the gRPC reflection to the JSON format with small improvements from my side.
+This has allowed me to design the website in the same way as the Swagger UI is working, which should allow familiarization with the tool.
+
+In the implementation, I then put the designs together, and using several libraries, I built two generators (one for proto files, one for the gRPC reflection), and a static website with the ability to call the gRPC-Web methods.
+I had also overcome several issues.
+One was successfully extracting the gRPC-Web client from the gRPC-Web library, which was not designed for this purpose, and there is no other solution for this.
+Then for one issue with the protobufjs library, I had it fixed locally, and I have created an issue on the library's GitHub page and opened a pull request with a fix proposal.
+
+As part of the testing, I have created automated unit tests that cover the application functionality.
+Then I have built test scenarios that cover all functionality and use cases and are used to test the static website along with generators.
+%TODO: add more about the testing when it is done
+I also conducted user testing with, which revealed several minor bugs.
+By resolving these, I removed the barriers to intuitiveness and fixed minor issues.
+
+The static website with both generators created meets all the requirements, solves the issues of existing solutions by creating a static website based on common file format and two generators from proto and gRPC reflection files.
+It together creates a unique new solution and option for the gRPC API documentation.
 
 
 \section{Possible Future Development}
-%V rámci dalšího vývoje by se dala aplikace rozšířit o dvě nové sekce.
-%Jednou jsou studijní plány a druhou kruhy studentů prvních ročníků.
-%Tyto informace jsou aktuálně manuálně definovány fakultním rozvrhářem v softwaru Syllabus Plus.
-%Díky návrhu aplikace by mělo být možné případnou funkcionalitu vytvořit přidáním pohledů a zpracováním nových dat.
-%
-%Dalším vylepšením by mohlo být převedení studentů a jejich zapsaných předmětů v daném semestru.
-%Fakultní rozvrhář by tak mohl zahrnout do tvorby rozvrhu nové informace, které by mohly mít za důsledek zlepšení výsledné podoby rozvrhu.
-%Například by se v případě vzniklých kolizí více časových lístků dalo zredukovat množství situací, kdy si zapsaní studenti nemohou sestavit nekolizní rozvrh.
-%
-%Na závěr dodám nápad na drobné vylepšení ovládání samotné aplikace, který byl vznesen během uživatelského testování.
-%Jedná se o komplexnější práci s jednotlivými sloupci, kdy by mohlo být možné zobrazit například časové lístky pro více předmětů najednou.
+For the future development, I see several possibilities.
+One of them is to add support for more backends than just gRPC-Web.
+This could be done by creating a custom proxy, which will translate the requests from the UI to the gRPC server.
+The implementation could be done using Websockets or HTTP/2, as it has to support client streaming.
+This would allow the tool to be used with any gRPC server, not just the gRPC-Web server, but also not limit the tool to using any specific backend at all.
+
+Another possibility is to add support for automatic generation from the gRPC API server source codes.
+This could be done by creating a Gradle or Maven plugin (for Java or Kotlin projects), which will generate the JSON file from the project proto files, and then host the static website along with the project server.
+This would allow the tool to be used without extensive deployment setup and would allow the tool to be used in the development phase—for example, the automatic JSON file pre-generating on each update.
