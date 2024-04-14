@@ -1023,13 +1023,13 @@ The other is the gRPC Developer, who generates the static website from the .prot
 
 
 \newcounter{uccounter}
-\newcommand{\usecase}[2]{%
+\newcommand{\usecase}[1]{%
     \stepcounter{uccounter}%
     \subsection{UC\arabic{uccounter} -- #1}
 }
 
 
-\usecase{Generate Website from .proto Files}
+\usecase{Generate Website from .proto Files}\label{uc:generate-website-from-proto-files}
 
 \textbf{Primary Actor:} gRPC Developer\\
 \textbf{Preconditions:} The gRPC Developer has the .proto files ready.
