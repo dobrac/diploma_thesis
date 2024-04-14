@@ -55,7 +55,7 @@ Before I start designing the website architecture, I need to decide how the gRPC
 Any tool using gRPC reflection has to support the connection using gRPC itself.
 Therefore, it is not possible to use it directly in the browser.
 A server-side tool or client will need to be used to connect to the gRPC server and get the reflection data.
-The gRPCurl tool mentioned in the analysis allows not only creating the client but also exporting a \enquote{protoset} file.
+The grpcurl tool mentioned in the analysis allows not only creating the client but also exporting a \enquote{protoset} file.
 This is a file containing the reflection metadata in its own format.
 This file can be used instead of a direct gRPC server as a reflection source.
 But it can also be read with tools other than grpcurl.
@@ -157,7 +157,7 @@ It also allows the creation of the binary message format necessary for the gRPC 
 It is also able to parse the comments from the proto files, which is important for documentation purposes.
 
 I could also create my own parser, which would parse the proto files and generate the JSON output.
-But this would require a lot of work, and it would not be as good as the protobufjs library, which is already broadly used by more than fourteen million installations per week.
+But this would require a lot of work, and it would not be as good as the protobufjs library, which is already broadly used.
 Therefore, I have decided to use the protobufjs library for the common format.
 
 
@@ -210,7 +210,7 @@ There will be an authorization field that will allow the user to enter the autho
 This field will only define an extra metadata pair with a predefined key and value prefix.
 
 The main part of the website consists of three sections: services, types, and enums.
-Each service name contains a full package path, documentation comment, and maybe options, like \textit{java\_package}.
+Each service name contains a full package path, documentation comment, and options, like \textit{java\_package}.
 Services are expandable, and when expanded, they show the methods.
 Each method contains the type (unary, client streaming, server streaming, or bidirectional streaming), name, and part of the documentation comment.
 Methods are expandable as well, and when expanded, they show more information, which I will describe in the following section.
@@ -237,13 +237,14 @@ The first one contains the request data, and the second one contains the respons
 
 The request data section contains a table with all top-level fields and their respective names, types, and comments.
 All fields are empty by default because all fields in the gRPC request are optional by design.
-The only predefined fields are message types because I assume they will be filled with at least some data.
-If necessary, they can be cleared by the user.
+The only pre-filled fields are message types because the structures can be complex, and I assume they will be filled with at least some data.
+If not, they can be cleared by the user, which I consider to be easier than creating the structure from scratch.
 Additional options are shown for these fields, too.
 These options allow the user to preview an example input and the target message type model.
 The input of the message type is done using a JSON format, which is validated on the fly.
 The form itself is generated only for the top-level fields, and the example input is done only for one level deeper.
-This is an intentional design decision because the deepness of nested message types can be infinite, but only the top-level fields are the most important most of the time.
+This is an intentional design decision because the depth of nested message types can be infinite, but the user input always starts with the top-level one.
+Therefore, any nested message type is treated as being part of the top-level message type.
 This should allow quick input for common use cases, such as one string or number of inputs, but also be able to define complex structures using the JSON format for message types.
 For fields using oneof, repeated, or map, respective implementations, such as an array, are shown.
 
@@ -285,7 +286,7 @@ They also include options like \textit{allow\_alias} for enums.
 For the message types, all fields are shown with their names, documentation comments, unique identifiers, and types.
 Also, fields that are part of oneof, repeated, or map are shown in their respective manner.
 If the field type is a message type, it is expandable as well, and it shows the same information as the message type itself.
-Recursive message types should work and allow infinite expansion, though I am not sure of real-world usage.
+Recursive message types allow infinite expansion.
 
 \begin{figure}[hbt!]
     \centering
@@ -313,19 +314,37 @@ They are shown in the same way as the user-defined types.
 
 
 \section{Fulfillment of Requirements}
-For the fulfillment of the requirements, I will go through all the requirements and describe how the website design fulfills them.
-The main webpage design fulfills the requirements F1, F2, F3.
-Showing comments for the services, methods, message types, fields, and enums fulfills the requirements F4 and F5.
-Execution of methods using direct gRPC-Web implementation fulfills F6 and F7.
-The method design with inputs for all fields fulfills F8, and the form validation fulfills F9.
-The global metadata settings, with the ability to set the authorization token, fulfill F10 and F20.
-Showing the response headers, messages as they come, and trailers fulfills F11 and F12.
-Supporting oneof, map, repeated, and nested message types in the method input and in the message type fulfill F13, F14, F15, and F16.
-The F17 is fulfilled by supporting all imported types, including well-known types, and showing them in the types section of the webpage.
-The generator for the proto files fulfills F18, and the gRPC reflection generator, combined with grpcurl, fulfills F19.
-Showing options for services, methods, message types, and enum values fulfills F21.
-As the website is static and all the content is generated on the fly, it fulfills N1.
-The UI is inspired by the Swagger UI design, and it is adjusted to the gRPC specifics, which fulfills N2.
-The message request input is in a combination of form and JSON format, which fulfills N3.
+I have gone through all the requirements and added a description of how the website design fulfills them.
+It is shown in the table~\ref{tab:requirements-fulfillment}.
 
-The website generator design fulfills all the requirements defined in the analysis.
+Based on the table, the website generator design fulfills all the requirements defined in the analysis.
+
+\begin{landscape}
+    \begin{table}[!ht]
+        \centering
+        \resizebox{\columnwidth}{!}{%
+            \renewcommand{\arraystretch}{2}
+            \begin{tabular}{|p{0.3\linewidth}|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+                \hline
+                \textbf{}                                                                                                      & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} & \textbf{F5} & \textbf{F6} & \textbf{F7} & \textbf{F8} & \textbf{F9} & \textbf{F10} & \textbf{F11} & \textbf{F12} & \textbf{F13} & \textbf{F14} & \textbf{F15} & \textbf{F16} & \textbf{F17} & \textbf{F18} & \textbf{F19} & \textbf{F20} & \textbf{F21} & \textbf{N1} & \textbf{N2} & \textbf{N3} \\ \hline
+                \textbf{Main webpage design}                                                                                   & x           & x           & x           & ~           & ~           & ~           & ~           & ~           & ~           & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~           & ~           & ~           \\ \hline
+                \textbf{Showing comments for the services, methods, message types, fields, and enums} & ~ & ~ & ~ & x & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Execution of methods using direct gRPC-Web implementation}                                             & ~           & ~           & ~           & ~           & ~           & x           & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Method design with inputs for all fields}                                                              & ~           & ~           & ~           & ~           & ~           & ~           & ~           & x           & ~           & ~            & ~            & ~            & ~            & ~            & ~            & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Form validation}                                                                                       & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~           & x           & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~           & ~           & ~           \\ \hline
+                \textbf{Global metadata settings, with the ability to set the authorization token} & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Showing the response headers, messages as they come, and trailers}                                     & ~           & ~           & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Supporting oneof, map, repeated, and nested message types in the method input and in the message type} & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & x & x & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Supporting all imported types, including well-known types, and showing them in the types section} & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Generator for the proto files}                                                                         & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~            & ~            & ~            & ~            & ~            & ~            & ~            & ~            & x            & ~            & ~            & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{gRPC reflection generator, combined with grpcurl}                                                      & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~           & ~            & ~            & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ & ~ & ~ & ~ \\ \hline
+                \textbf{Showing options for services, methods, message types, and enum values}                                 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ & ~ \\ \hline
+                \textbf{Website is static and all content is generated on the fly}                                             & ~           & ~           & ~           & ~           & ~           & ~           & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ & ~ \\ \hline
+                \textbf{UI is inspired by the Swagger UI design, and it is adjusted to the gRPC specifics} & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x & ~ \\ \hline
+                \textbf{Message request input is in a combination of form and JSON format}                                     & ~           & ~           & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & x \\ \hline
+            \end{tabular}
+        }
+        \caption{Fulfillment of requirements}
+        \label{tab:requirements-fulfillment}
+    \end{table}
+\end{landscape}
