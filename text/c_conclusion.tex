@@ -13,7 +13,7 @@ Based on the information found, I then compiled requirements and use cases.
 In the next chapter, I discussed the design of the solution.
 I have analyzed the possibility of using Swagger UI, but I have found that it is not suitable for my task.
 This is because the OpenAPI Specification is made for HTTP APIs, which gRPC APIs, although using HTTP/2, are not.
-Therefore, the specification does not support specific gRPC features, like streaming.
+Therefore, the specification and the web UI do not support specific gRPC features, like streaming.
 Then, I analyzed the gRPC-Web library and gRPC reflection limitations, which influenced the design of the solution (gRPC reflection does not support documentation comments as of right now).
 I have then proposed a solution that uses the gRPC-Web library and is able to use the gRPC reflection.
 The architecture's central part uses a common file format and static website, which is then rendered on the fly based on the provided file.
