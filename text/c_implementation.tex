@@ -14,17 +14,24 @@ There is no other choice.
 For the programming language, because of the dynamic rendering based on the common format, the only possibilities are JavaScript and WebAssembly.
 Because I will need to be updating the website (meaning the DOM), which is not supported directly by WebAssembly, I have chosen JavaScript~\cite{webassembly-dom}.
 
-Because JavaScript is a weakly typed language, which, in my experience, can lead to bugs in larger projects, there are supersets and other libraries that add strong typing.
-The popular libraries that I know of are TypeScript\footnote{\url{https://www.typescriptlang.org/}} and Flow\footnote{\url{https://flow.org/}}.
-Because I have the most experience with TypeScript, I will use it instead of direct JavaScript.
+JavaScript is a scripting language.
+It is designed to start at the beginning of the file and end at the end.
+The website will not be only a simple script though, but many scripts with complex functions and classes.
+Complexity can lead to subtle bugs that are hard to track down in plain JavaScript.
+Adding type-checking ensures that errors are caught at the development stage, reducing bugs and improving code quality.
+Additionally, type annotations make the code more readable and easier to understand, which is crucial when collaborating with others or for future modifications.
+\cite{typescript-why-create}
 
-I have many options for the common format generator language because the generators are run on the developer's machine.
-Therefore, the decision is based on the libraries needed for the generators.
-And, because I will be using the protobufjs JavaScript library for the common format, I will use JavaScript for the generators.
+Based on the State of JavaScript 2022 survey~\cite{state-of-js-other-tools}, the most popular language flavor of JavaScript is Typescript\footnote{\url{https://www.typescriptlang.org/}}.
+Because of the popularity, the benefits of type-checking, and the readability of the code, I have decided to use TypeScript for the website.
+
+The browser does not limit the common format generator language selection because the generators are run on the developer's machine.
+Therefore, the language choice is based on the required libraries for the generators.
+But, because I will be using the protobufjs JavaScript library, I will use JavaScript for the generators.
 
 \subsection{Web Framework}
 To create the website with extensive logic, I will use a front-end framework.
-There are several options, but the most popular are React\footnote{\url{https://react.dev/}}, Angular\footnote{\url{https://angular.io/}}, Vue.js\footnote{\url{https://vuejs.org/}}, and Svelte\footnote{\url{https://svelte.dev/}}~\cite{state-of-js-frontend-frameworks}.
+The most popular options for the web framework based on the State of Javascript 2022 survey are React\footnote{\url{https://react.dev/}}, Angular\footnote{\url{https://angular.io/}}, Vue.js\footnote{\url{https://vuejs.org/}}, and Svelte\footnote{\url{https://svelte.dev/}}~\cite{state-of-js-frontend-frameworks}.
 I want the page to exist for a long time and be maintained.
 For this reason, I will choose the most popular framework, which is React.
 
@@ -43,7 +50,7 @@ The key features, except the setup of Next.js, that I will use are static site g
 
 \subsection{Styling Libraries}
 Instead of using my own CSS classes to style the website, I will use a framework to speed up development.
-The most popular CSS frameworks are Bootstrap\footnote{\url{https://getbootstrap.com/}}, Tailwind CSS\footnote{\url{https://tailwindcss.com/}}, and Materialize CSS\footnote{\url{https://materializecss.com/}}~\cite{state-of-css-frameworks}.
+The most popular CSS frameworks based on the State of CSS 2023 survey are Bootstrap\footnote{\url{https://getbootstrap.com/}}, Tailwind CSS\footnote{\url{https://tailwindcss.com/}}, and Materialize CSS\footnote{\url{https://materializecss.com/}}~\cite{state-of-css-frameworks}.
 All of them are good options, but as for choosing the front-end framework, I will choose the most popular one, which is Bootstrap.
 
 \subsection{Protobufjs Library}
@@ -51,7 +58,7 @@ Based on the design chapter, the protobufjs library is used to serialize and des
 The library also offers a tool called protobufjs-cli\footnote{\url{https://www.npmjs.com/package/protobufjs-cli}}.
 It is a command-line tool that can be used to generate the JSON format from the proto files~\cite{protobufjs-cli}.
 It has an issue, though.
-It only allows individual proto files as input, not the entire folder, which may be a use case.
+It only allows individual proto files as input, not the entire folder, which is in the earlier defined use case~\ref{uc:generate-website-from-proto-files}.
 Also, the correct parameters need to be specified in order to get the correct output.
 For this reason, I will use the protobufjs-cli, but only as a library.
 This will allow me to have potential features in the future, fix the current ones, and seal the required parameters.
@@ -177,7 +184,7 @@ It is divided into three packages:
 \end{itemize}
 The project also contains \textit{example} and \textit{patches} folders.
 
-The \textit{example} folder contains example proto and reflection files with a pre-generated common format, as well as envoy proxy configuration and gRPC server implementation in JavaScript.
+The \textit{example} folder contains example proto and reflection files with a pre-generated common format, as well as Envoy proxy configuration and gRPC server implementation in JavaScript.
 The envoy proxy can then be started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
 This setup can be used to test the website's functionality.
 
@@ -511,7 +518,7 @@ The enum value options are shown in brackets after the value name, copying the p
 
 All the functionality and design allow the user to navigate through the proto file services, methods, message types, and enums and see the documentation comments.
 When the user selects a method, they can execute it with the input form and see the response.
-For streaming requests, the user can see the responses gradually. 
+For streaming requests, the user can see the responses gradually.
 They can see the error message for errors.
 This way, the user can test the gRPC server without implementing any client.
 
