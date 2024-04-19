@@ -289,42 +289,75 @@ The fourth tester is a software developer with a master's degree in computer sci
 
 \subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
 The overall feedback was positive, and the testers found the website intuitive and clear.
-However, few issues were found and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
+However, few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
 
-\begin{table}[hbt!]
+
+\begin{table}[!ht]
     \centering
-    \captionsetup{justification=centering}
-    \begin{tabular}{|l|l|l|l|l|}
-        \hline
-        Issue                                                                                                                                         & Solution                          & State \\
-        \hline
-        The metadata button is not clear, especially in connection with authorization (it invokes feeling of submitting the row (not opening a modal) &          & x     \\
-        \hline
-        Switching the request with the response after the method execution                                                                            &                                   & x     \\
-        \hline
-        The metadata are expected also in the method execution                                                                                        &                                   & x     \\
-        \hline
-        Red color in client streaming invokes there is an error                                                                                       &                                   & x     \\
-        \hline
-        Hard to distinguish the returned type model                                                                                                   &                                   & x     \\
-        \hline
-        Confusion if the responses are a list, or a list of messages                                                                                  &                                   & x     \\
-        \hline
-        Could not find the input for the lo parameter                                                                                                 &                                   & x     \\
-        \hline
-        Server streaming response - too many responses, so the page becomes too long                                                                  & collapse? scrolling - max height?& x \\
-        \hline
-        Not seeing the responses as they were coming and they were waiting for the loading on the executed button to end & & x \\
-        \hline
-        If the gRPC API will be larger, it would be good to have collapsible services/types/enums sections & & x \\
-        \hline
-        The button for execution is too long, so it was missed as the heading                                                                         &                                   & x     \\
-        \hline
-        The close button in the metadata modal is confused with the set button in the authorization                                                                         &                                   & x     \\
-        \hline
-        There may be other types of authorization than Bearer                                                                                         &                                   & x     \\
-        \hline
-    \end{tabular}
+    \resizebox{\columnwidth}{!}{%
+        \begin{tabular}{|p{0.4\linewidth}|p{0.4\linewidth}|l|}
+            \hline
+            Issue & Solution & State \\
+            \hline
+            The metadata button does not show a clear connection with authorization.
+            & Renamed the button to \enquote{Metadata \& Authorization}.
+            & Fixed \\
+            \hline
+            The metadata button invokes the feeling of submitting the row (not opening a modal).
+            & Added greater space between the button and the input fields.
+            Also, making the input fields smaller, so the button is much larger.
+            & Fixed \\
+            \hline
+            Swapping the request with the response after the method execution.
+            & Changed the request background color to white to match the metadata and highlight the heading.
+            & Fixed \\
+            \hline
+            The metadata is expected also in the method execution.
+            & Having only global metadata is a design decision based on the Swagger UI.
+            & Will not fix \\
+            \hline
+            The red color background in client streaming invokes there is an error.
+            & The background colors have been redone to be lighter.
+            Also, the client streaming color was changed to yellow.
+            & Fixed \\
+            \hline
+            Hard to distinguish the returned message type from the message type body.
+            & Added description of the response status code and the title for the returned message type.
+            & Fixed \\
+            \hline
+            Confusion if the responses are a response as a list, or a list of responses.
+            & Added a title to each response with the message number and total count at the end.
+            & Fixed \\
+            \hline
+            Server streaming methods can have too many responses, so the page becomes too long.
+            & The responses are now scrollable in a fixed height container.
+            & Fixed \\
+            \hline
+            Not seeing the responses as they are coming, waiting for the loading on the executed button to end.
+            & Relocated the cancel button to the right side of the execution button.
+            Changed the responses to be shown in a fixed height container.
+            Also, this was more related to the tester's stress, where in reality they would scroll sooner.
+            & Partially fix \\
+            \hline
+            If the gRPC API was larger, it would be good to have collapsible services/types/enums sections.
+            & Added collapsible sections for services, message types, and enum types.
+            & Fixed \\
+            \hline
+            The button for execution is too long, so it is mistaken for the heading.
+            & The width of the button is designed based on the Swagger UI, but its color was changed to be more visible with a border.
+            & Fixed \\
+            \hline
+            The close button on the metadata modal is mistaken for the set button in the authorization.
+            & The close button is now a secondary color, the set button is a primary color.
+            & Fixed \\
+            \hline
+            There may be other types of authorization than Bearer.
+            & Added more authorization types, such as Basic and API Key.
+            Otherwise, using the authorization is optional, the user can always use the metadata directly.
+            & Fixed \\
+            \hline
+        \end{tabular}
+    }
     \caption{Found issues and their solutions}
     \label{tab:user-testing-issues}
 \end{table}
