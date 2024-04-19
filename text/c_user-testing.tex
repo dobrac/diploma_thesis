@@ -129,43 +129,202 @@ Execute method \texttt{SayHello} with the authorization token.
 \textbf{The expected result is:}\\
 The method is executed, and in the request metadata section, the authorization token is present.
 
-\subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
-%\begin{itemize}
-%    \item Pro vyřešení problému s nepřehledností vybraného semestru jsem do dialogového okna s informacemi o inicializaci semestru přidal stejný výběr semestru, jako v hlavním okně aplikace.
-%    \item Při převodu časových lístků (včetně rozvrhu) nepovoluji vznik kolizí, i když to v softwaru Syllabus Plus lze.
-%    Nicméně bylo mi řečeno, že je lepší, pokud se vyhodí výjimka (tak jako nyní), než aby program ignoroval omezení a potom vznikly nechtěné kolize.
-%    \item Tlačítka pro aktualizaci dat jednotlivých systémů byla hledána spíše v horní části programu, proto jsem je přesunul pod tlačítko s načtením všech dat.
-%    \item Pro zpřehlednění původu časového lístku jsem přidal do dialogového okna další text s informací o systému (nenachází se nadále pouze v hlavičce).
-%    \item Během testování bylo lehké zmatení mezi označenými položkami pro převod a otevřenými položkami pro zobrazení ve sloupcích.
-%    Dle zpětné vazby není jasné, kolik položek je označených.
-%    Jako řešení jsem navrhl přesunout informaci o počtu vybraných položek mimo tlačítko pro migraci.
-%    Změna je zachycena na obrázku~\ref{fig:ui-migrate-diff}.
-%    \item Během testování vyhledání učitele bylo zjištěno zmatení s prázdným sloupcem s učiteli při nevybrání kategorie.
-%    Navrhl jsem proto řešení, které v případě nevybrané kategorie sloupec znepřístupní a zobrazí text s instrukcí pro jeho aktivaci (pokyn k vybrání položky v nadřazené kategorii).
-%    Změna je zachycena na obrázku~\ref{fig:ui-column-diff}.
-%    \item Akce sbalení sloupce není jednoduše dohledatelná, nicméně při nahodilém klikání na ni přišel.
-%    Jako řešení jsem navrhl podtrhávání textu názvu sloupce při najetí.
-%\end{itemize}
-%
-%\bigskip
-%
-%Další poznámky, které se netýkaly přímo testovacích scénářů, ale v rámci práce na ně bylo poukázáno:
-%\begin{itemize}
-%    \item zobrazení tlačítka pro vybrání všech položek ve sloupci, i když v daném sloupci lze vybrat maximálně jednu položku,
-%    \item chybějící zobrazení místností a učitelů, kteří nejsou přiřazeni do žádné skupiny,
-%    \item zaškrtávací políčko pro schování předmětů s prázdnými časovými lístky bylo v menší velikosti okna zablokováno jinými prvky (změna zaškrtávacího políčka je zachycena na obrázku~\ref{fig:ui-column-diff}).
-%\end{itemize}
+\subsection{Testing Results}
+The testing has been conducted with five developers, regardless of their experience with gRPC\@.
+The goal was to determine the intuitiveness and clarity of the website and to identify any issues.
+The individual testing reports follow in the next sections.
 
-\subsection{Testing Summary}
-%Všechny akce uživatelského testování kromě zjištěných problémů byly na základě zpětné vazby intuitivní a dostatečně přehledné.
-%Dále bylo během převodu oceněno okamžité propsání změn v softwaru Syllabus Plus.
-%
-%Testování ukázalo, že výsledná aplikace je přehledná, funkční v prostředí, ve kterém bude software používaný, a neobsahuje chyby ovlivňující funkcionalitu.
-%Po opravení zjištěných problémů (viz podkapitola~\ref{subsec:zjistene-problemy-a-jejich-reseni}) je intuitivnost aplikace splněna.
-%
-%Jako nápad na vylepšení byla zmíněna možnost zobrazení detailu časových lístků pro více předmětů najednou a možnost výběru více položek pomocí klávesové zkratky \enquote{ctrl + shift}.
-%Na základě krátké konverzace ale nebylo zřejmé, zda by to mělo reálné použití v tvorbě rozvrhu, proto bych nechal tento nápad spíše do případného vylepšení aplikace.
-%
-%Manuální scénáře potvrdily splnění a funkčnost všech požadavků aplikace.
-%Otestování správného výpisu jednotlivých položek s exportem časových lístků bylo provedeno odděleně s několika ukázkovými záznamy, kdy exportovaná data měla správný formát a patřičné změny se korektně provedly.
-%
+\subsubsection{Tester 1}
+\textbf{Pre-questionnaire answers:}
+The first tester is a bachelor's degree student in computer science.
+
+\begin{enumerate}
+    \item Mobile applications and hardware.
+    \item Using them every day.
+    \item Using them at work for documentation, checking and testing the APIs.
+    \item Heard of, but never used.
+\end{enumerate}
+
+\textbf{Post-questionnaire answers:}
+\begin{enumerate}
+    \item 1 -- It is clear and simple to use, but he would prefer to have a button for the generation in the UI\@.
+    \item 2 -- Good, clear overview.
+    The metadata button is not clear, it feels like submitting the row.
+    \item 1 -- All good.
+    \item 1 -- All clear, familiar design and controls ti the Swagger UI\@.
+    \item No.
+\end{enumerate}
+
+\textbf{Individual scenarios:}
+\begin{enumerate}
+    \item All done as expected.
+    \item All done as expected.
+    \item All done as expected.
+    \item The first method execution was done without any parameters (that is acceptable by gRPC, so it is not an issue).
+    The rest was done as expected.
+    \item All was done as expected.
+    He did not expect the number after a name in the response message (not part of my implementation, it is related to the backend).
+    \item All done as expected.
+    \item All done as expected.
+\end{enumerate}
+
+\subsubsection{Tester 2}
+The second tester is a bachelor's degree student in computer science.
+
+\textbf{Pre-questionnaire answers:}
+\begin{enumerate}
+    \item Web development, full-stack.
+    \item Using them actively.
+    \item Rarely used, but when used, he uses them for documentation and API design checking.
+    The testing of endpoints is usually done using Postman.
+    \item None.
+\end{enumerate}
+
+\textbf{Post-questionnaire answers:}
+\begin{enumerate}
+    \item 1 -- All was clear.
+    \item 1 -- All clear, similar to Swagger UI\@.
+    The only complaint is that the red color in client streaming invokes there is an error.
+    \item 1 -- All was clear.
+    \item 1 -- All was clear.
+    \item He would expect the metadata button also in the method request, but he does not know how it is done in Swagger UI\@.
+    (He has found it very quickly though.)
+\end{enumerate}
+
+\textbf{Individual scenarios:}
+\begin{enumerate}
+    \item All done as expected.
+    \item He could not say the returned message type frame is the returned type.
+    But he guessed the correct place quickly without any help.
+    \item All done as expected.
+    \item When he executed the method, he thought the request shown body was the response body.
+    The rest was done as expected.
+    \item The execution was done as expected.
+    The only confusion was that he was not sure if the responses are a one returned list response, or multiple responses.
+    He has suggested adding a title to each response.
+    \item He could not find the input for the \texttt{lo} parameter before executing the method.
+    This was caused by him playing with the application previously and accidentally changing the tab to the model.
+    After pointing him to the correct tab, he found the input and the rest was done as expected.
+    It was more of the testing preparation issue than the application issue connected with the stress from being a tester.
+    \item All done as expected.
+\end{enumerate}
+
+\subsubsection{Tester 3}
+The third tester is a bachelor's degree student in computer science.
+
+\textbf{Pre-questionnaire answers:}
+\begin{enumerate}
+    \item Software development, management, and mobile development.
+    \item Using REST APIs for mobile and web applications.
+    Also using GraphQL web applications.
+    \item None experience with Swagger UI\@.
+    Some experience with Apollo Studio (not much though).
+    \item None.
+\end{enumerate}
+
+\textbf{Post-questionnaire answers:}
+\begin{enumerate}
+    \item 1 -- All was clear.
+    \item 2 -- Server streaming responses were too long, so the page becomes too long.
+    The suggestion is to add scrolling, or a max height, or collapse the responses.
+    The rest was clear.
+    \item 1 -- All was clear.
+    \item 1 -- All was clear.
+    \item He would add the metadata button also in the method request, not only globally.
+\end{enumerate}
+
+\textbf{Individual scenarios:}
+\begin{enumerate}
+    \item All done as expected.
+    \item All done as expected.
+    \item All done as expected.
+    \item When he executed the method, he thought the request shown body was the response body.
+    The rest was done as expected.
+    \item All done as expected.
+    \item All done as expected, but when he had sent the request, he was waiting for the loading on the executed button to end.
+    So he did not see the responses as they were coming.
+    \item He could not find the global metadata settings because he did not connect metadata with authorization.
+    The rest was done as expected.
+\end{enumerate}
+
+\subsubsection{Tester 4}
+The fourth tester is a software developer with a master's degree in computer science.
+
+\textbf{Pre-questionnaire answers:}
+\begin{enumerate}
+    \item Web engineering, backend development in Typescript.
+    \item Everyday.
+    \item Not much usage, but he knows what are they.
+    He uses the Open API specification for REST APIs instead of Swagger UI\@.
+    \item He was using it about 2 years ago for mobile development.
+\end{enumerate}
+
+\textbf{Post-questionnaire answers:}
+\begin{enumerate}
+    \item 1 -- All was clear.
+    \item 1 -- Similar to Swagger UI, so all was clear.
+    \item 1 -- He was not sure about the returned type model, the rest was clear.
+    \item 1 -- He was looking a while for the button to execute the method, but he missed it because it was too wide.
+    The rest was clear.
+    \item If the gRPC API was larger, it would be good to have collapsible services/types/enums sections.
+\end{enumerate}
+
+\textbf{Individual scenarios:}
+\begin{enumerate}
+    \item All done as expected.
+    \item He could not say if the returned type is the message body or the whole message type.
+    But he had eventually remembered it is the whole message type.
+    The rest was done as expected.
+    \item All done as expected.
+    \item He could not find the execution button because it was too long and he thought it was a heading.
+    But he had eventually found it.
+    The rest was done as expected.
+    \item All done as expected.
+    \item All done as expected.
+    \item He was looking for metadata in the method, but quickly found it at the top.
+    He has suggested making the button or header sticky at the top.
+    He has also pointed out that the Bearer prefix addition seems unnecessary as there might be other types of authorization which this might not work with.
+    The rest was done as expected.
+\end{enumerate}
+
+\subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
+The overall feedback was positive, and the testers found the website intuitive and clear.
+However, few issues were found and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
+
+\begin{table}[hbt!]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        Issue                                                                                                                                         & Solution                          & State \\
+        \hline
+        The metadata button is not clear, especially in connection with authorization (it invokes feeling of submitting the row (not opening a modal) &          & x     \\
+        \hline
+        Switching the request with the response after the method execution                                                                            &                                   & x     \\
+        \hline
+        The metadata are expected also in the method execution                                                                                        &                                   & x     \\
+        \hline
+        Red color in client streaming invokes there is an error                                                                                       &                                   & x     \\
+        \hline
+        Hard to distinguish the returned type model                                                                                                   &                                   & x     \\
+        \hline
+        Confusion if the responses are a list, or a list of messages                                                                                  &                                   & x     \\
+        \hline
+        Could not find the input for the lo parameter                                                                                                 &                                   & x     \\
+        \hline
+        Server streaming response - too many responses, so the page becomes too long                                                                  & collapse? scrolling - max height?& x \\
+        \hline
+        Not seeing the responses as they were coming and they were waiting for the loading on the executed button to end & & x \\
+        \hline
+        If the gRPC API will be larger, it would be good to have collapsible services/types/enums sections & & x \\
+        \hline
+        The button for execution is too long, so it was missed as the heading                                                                         &                                   & x     \\
+        \hline
+        The close button in the metadata modal is confused with the set button in the authorization                                                                         &                                   & x     \\
+        \hline
+        There may be other types of authorization than Bearer                                                                                         &                                   & x     \\
+        \hline
+    \end{tabular}
+    \caption{Found issues and their solutions}
+    \label{tab:user-testing-issues}
+\end{table}
