@@ -290,9 +290,11 @@ The fourth tester is a software developer with a master's degree in computer sci
 \subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
 The overall feedback was positive, and the testers found the website intuitive and clear.
 However, few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
+The changes are shown in the figure~\ref{fig:testing-screenshots}.
 
+\newpage
 
-\begin{table}[!ht]
+\begin{table}[!htb]
     \centering
     \resizebox{\columnwidth}{!}{%
         \begin{tabular}{|p{0.4\linewidth}|p{0.4\linewidth}|l|}
@@ -300,12 +302,13 @@ However, few issues were found, and they are listed in the table~\ref{tab:user-t
             Issue & Solution & State \\
             \hline
             The metadata button does not show a clear connection with authorization.
-            & Renamed the button to \enquote{Metadata \& Authorization}.
+            & Renamed the button to \enquote{Metadata \& Authorization} (\ref{fig:testing-changes-top-bar}).
             & Fixed \\
             \hline
             The metadata button invokes the feeling of submitting the row (not opening a modal).
             & Added greater space between the button and the input fields.
             Also, making the input fields smaller, so the button is much larger.
+            (\ref{fig:testing-changes-top-bar})
             & Fixed \\
             \hline
             Swapping the request with the response after the method execution.
@@ -314,30 +317,36 @@ However, few issues were found, and they are listed in the table~\ref{tab:user-t
             \hline
             The metadata is expected also in the method execution.
             & Having only global metadata is a design decision based on the Swagger UI.
+            The idea behind it is that the metadata is usually the same for all methods, carrying, for example, authorization.
             & Will not fix \\
             \hline
             The red color background in client streaming invokes there is an error.
             & The background colors have been redone to be lighter.
             Also, the client streaming color was changed to yellow.
+            (\ref{fig:testing-changes-background-colors})
             & Fixed \\
             \hline
             Hard to distinguish the returned message type from the message type body.
             & Added description of the response status code and the title for the returned message type.
+            (\ref{fig:testing-changes-response})
             & Fixed \\
             \hline
             Confusion if the responses are a response as a list, or a list of responses.
             & Added a title to each response with the message number and total count at the end.
+            (\ref{fig:testing-changes-responses})
             & Fixed \\
             \hline
             Server streaming methods can have too many responses, so the page becomes too long.
             & The responses are now scrollable in a fixed height container.
+            (\ref{fig:testing-changes-responses})
             & Fixed \\
             \hline
             Not seeing the responses as they are coming, waiting for the loading on the executed button to end.
             & Relocated the cancel button to the right side of the execution button.
             Changed the responses to be shown in a fixed height container.
+            (\ref{fig:testing-changes-cancel})
             Also, this was more related to the tester's stress, where in reality they would scroll sooner.
-            & Partially fix \\
+            & Partially fixed \\
             \hline
             If the gRPC API was larger, it would be good to have collapsible services/types/enums sections.
             & Added collapsible sections for services, message types, and enum types.
@@ -345,15 +354,18 @@ However, few issues were found, and they are listed in the table~\ref{tab:user-t
             \hline
             The button for execution is too long, so it is mistaken for the heading.
             & The width of the button is designed based on the Swagger UI, but its color was changed to be more visible with a border.
+            (\ref{fig:testing-changes-cancel})
             & Fixed \\
             \hline
             The close button on the metadata modal is mistaken for the set button in the authorization.
             & The close button is now a secondary color, the set button is a primary color.
+            (\ref{fig:testing-changes-metadata})
             & Fixed \\
             \hline
             There may be other types of authorization than Bearer.
             & Added more authorization types, such as Basic and API Key.
             Otherwise, using the authorization is optional, the user can always use the metadata directly.
+            (\ref{fig:testing-changes-metadata})
             & Fixed \\
             \hline
         \end{tabular}
@@ -361,3 +373,61 @@ However, few issues were found, and they are listed in the table~\ref{tab:user-t
     \caption{Found issues and their solutions}
     \label{tab:user-testing-issues}
 \end{table}
+
+
+\newpage
+
+
+\begin{figure}[!htb]
+    \centering
+    \captionsetup{justification=centering}
+
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-background-colors}
+        \caption{Background colors}
+        \label{fig:testing-changes-background-colors}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-response-description}
+        \caption{Response description}
+        \label{fig:testing-changes-response}
+    \end{subfigure}%
+
+    \vspace{15mm}%
+
+    \begin{subfigure}{.85\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-cancel}
+        \caption{Execute and cancel buttons}
+        \label{fig:testing-changes-cancel}
+    \end{subfigure}%
+
+    \vspace{15mm}%
+
+    \begin{subfigure}{.85\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-top-bar}
+        \caption{Metadat button, global settings}
+        \label{fig:testing-changes-top-bar}
+    \end{subfigure}%
+
+    \vspace{15mm}%
+
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-metadata}
+        \caption{Metadata dialog}
+        \label{fig:testing-changes-metadata}
+    \end{subfigure}%
+    \begin{subfigure}{.55\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-responses}
+        \caption{Scrollable responses with titles and total count}
+        \label{fig:testing-changes-responses}
+    \end{subfigure}%
+
+    \caption{Changes after testing}
+    \label{fig:testing-screenshots}
+\end{figure}
