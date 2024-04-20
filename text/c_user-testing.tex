@@ -1,5 +1,5 @@
 \section{User Testing}
-My goal for the user testing is to determine the intuitiveness and clarity of the website and to identify any issues.
+My goal for the user testing is to determine the website's intuitiveness and clarity and identify any issues.
 As for the target user group, I have chosen developers.
 
 I have created the following scenarios for the user testing:
@@ -17,7 +17,7 @@ The scenarios are different from those for testing the functionality of the webs
 and do not cover the entire functionality
 because the primary goal of user testing is the intuitiveness and clarity of the website.
 
-Each user will be briefed about the website's general use-case,
+Each user will be briefed about the website's general use case,
 asked about their experience with similar pieces of software,
 and then they will be asked to complete the scenarios
 and provide feedback on the website's functionality and clarity.
@@ -39,9 +39,9 @@ The questions are:
     (rate 1--5, 1 being the best)
     \item How did you find the overall website design?
     (rate 1--5, 1 being the best)
-    \item How difficult was to find the methods, message types, and enums?
+    \item How difficult was it to find the methods, message types, and enums?
     (rate 1--5, 1 being the easiest)
-    \item How difficult was to control the method execution?
+    \item How difficult was it to control the method execution?
     (rate 1--5, 1 being the easiest)
     \item Is there anything else to add?
 \end{itemize}
@@ -50,7 +50,7 @@ The questions are:
 The tester is provided with proto files and a script for generating a common format with its documentation.
 
 \textbf{The following instructions are given:}\\
-Based on the provided proto files, generate a common format which will be used later on for the documentation website.
+Based on the provided proto files, generate a common format that will be used later on for the documentation website.
 
 \textbf{The expected result is:}\\
 A generated common format JSON file.
@@ -65,7 +65,7 @@ List all services, methods, message types, and enum types from the common format
 Find the method \texttt{SayHello} and tell me what type it gives as a response.
 
 \textbf{The expected result is:}\\
-The method is found and the type is \texttt{HelloReply}.
+The method is found, and the type is \texttt{HelloReply}.
 
 \subsection{Comments and Options}
 The tester is provided with the common format file.
@@ -76,11 +76,11 @@ You have a website running on the localhost on port 3000.
 What does the method \texttt{ListFeatures} in the service \texttt{RouteGuide} do, and what is the \textit{java\_package} of that service?
 
 \textbf{The expected result is:}\\
-The method obtains features within the given rectangle and the \textit{java\_package} is \textit{guiding.route}.
+The method obtains features within the given rectangle, and the \textit{java\_package} is \textit{guiding.route}.
 
 \subsection{Execute Unary Request}
 The tester is provided with the common format file.
-The website is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+The website runs on localhost on port 3000, and the gRPC-Web proxy with the gRPC server is set up.
 
 \textbf{The following instructions are given:}\\
 You have a website running on the localhost on port 3000.
@@ -92,7 +92,7 @@ and the response is \enquote{Hello Name} in the \texttt{message} field of the re
 
 \subsection{Execute Server Streaming Request}
 The tester is provided with the common format file.
-The website is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+The website runs on localhost on port 3000, and the gRPC-Web proxy with the gRPC server is set up.
 
 \textbf{The following instructions are given:}\\
 You have a website running on the localhost on port 3000.
@@ -104,7 +104,7 @@ and the response is \enquote{Hello Name} multiple times in the \texttt{message} 
 
 \subsection{Complex Method Input}
 The tester is provided with the common format file.
-The website is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+The website runs on localhost on port 3000, and the gRPC-Web proxy with the gRPC server is set up.
 
 \textbf{The following instructions are given:}\\
 You have a website running on the localhost on port 3000.
@@ -116,42 +116,43 @@ The parameters are the following:
 \end{itemize}
 
 \textbf{The expected result is:}\\
-The method is executed with the parameters and responses are returned.
+The method is executed with the parameters, and responses are returned.
 
 \subsection{Global Metadata}
 The tester is provided with the common format file and authorization token.
-The website is running on localhost on port 3000, and the gRPC-Web proxy with gRPC server is set up.
+The website runs on localhost on port 3000, and the gRPC-Web proxy with the gRPC server is set up.
 
 \textbf{The following instructions are given:}\\
 You have a website running on the localhost on port 3000.
 Execute method \texttt{SayHello} with the authorization token.
 
 \textbf{The expected result is:}\\
-The method is executed, and in the request metadata section, the authorization token is present.
+The method is executed, and the authorization token is present in the request metadata section.
 
 \subsection{Testing Results}
 The testing has been conducted with five developers, regardless of their experience with gRPC\@.
-The goal was to determine the intuitiveness and clarity of the website and to identify any issues.
+The goal was to determine the website's intuitiveness and clarity and identify any issues.
 The individual testing reports follow in the next sections.
 
 \subsubsection{Tester 1}
 \textbf{Pre-questionnaire answers:}
-The first tester is a bachelor's degree student in computer science.
+The first tester is an undergraduate student in computer science.
 
 \begin{enumerate}
     \item Mobile applications and hardware.
     \item Using them every day.
-    \item Using them at work for documentation, checking and testing the APIs.
+    \item Using them at work for documentation, checking, and testing the APIs.
     \item Heard of, but never used.
 \end{enumerate}
 
 \textbf{Post-questionnaire answers:}
 \begin{enumerate}
-    \item 1 -- It is clear and simple to use, but he would prefer to have a button for the generation in the UI\@.
+    \item 1 -- It is clear and simple to use, but he would prefer a button for the generation in the UI\@.
     \item 2 -- Good, clear overview.
-    The metadata button is not clear, it feels like submitting the row.
+    The metadata button is not clear.
+    It feels like submitting the row.
     \item 1 -- All good.
-    \item 1 -- All clear, familiar design and controls ti the Swagger UI\@.
+    \item 1 -- All clear, familiar design and controls to the Swagger UI\@.
     \item No.
 \end{enumerate}
 
@@ -163,13 +164,13 @@ The first tester is a bachelor's degree student in computer science.
     \item The first method execution was done without any parameters (that is acceptable by gRPC, so it is not an issue).
     The rest was done as expected.
     \item All was done as expected.
-    He did not expect the number after a name in the response message (not part of my implementation, it is related to the backend).
+    He did not expect the number after a name in the response message (not part of my implementation; it is related to the backend).
     \item All done as expected.
     \item All done as expected.
 \end{enumerate}
 
 \subsubsection{Tester 2}
-The second tester is a bachelor's degree student in computer science.
+The second tester is an undergraduate student in computer science.
 
 \textbf{Pre-questionnaire answers:}
 \begin{enumerate}
@@ -187,8 +188,8 @@ The second tester is a bachelor's degree student in computer science.
     The only complaint is that the red color in client streaming invokes there is an error.
     \item 1 -- All was clear.
     \item 1 -- All was clear.
-    \item He would expect the metadata button also in the method request, but he does not know how it is done in Swagger UI\@.
-    (He has found it very quickly though.)
+    \item The metadata button was also expected in the method request, but he does not know how it is done in Swagger UI\@.
+    (He found it very quickly regardless.)
 \end{enumerate}
 
 \textbf{Individual scenarios:}
@@ -200,37 +201,37 @@ The second tester is a bachelor's degree student in computer science.
     \item When he executed the method, he thought the request shown body was the response body.
     The rest was done as expected.
     \item The execution was done as expected.
-    The only confusion was that he was not sure if the responses are a one returned list response, or multiple responses.
+    The only confusion was that he was unsure if the response was a list or multiple responses.
     He has suggested adding a title to each response.
     \item He could not find the input for the \texttt{lo} parameter before executing the method.
-    This was caused by him playing with the application previously and accidentally changing the tab to the model.
-    After pointing him to the correct tab, he found the input and the rest was done as expected.
-    It was more of the testing preparation issue than the application issue connected with the stress from being a tester.
+    It was caused by him playing with the application previously and accidentally changing the tab to the model.
+    After pointing him to the correct tab, he found the input, and the rest was done as expected.
+    It was more of a testing preparation issue than an application issue connected with the stress of being a tester.
     \item All done as expected.
 \end{enumerate}
 
 \subsubsection{Tester 3}
-The third tester is a bachelor's degree student in computer science.
+The third tester is an undergraduate student in computer science.
 
 \textbf{Pre-questionnaire answers:}
 \begin{enumerate}
     \item Software development, management, and mobile development.
     \item Using REST APIs for mobile and web applications.
-    Also using GraphQL web applications.
+    Also, using GraphQL web applications.
     \item None experience with Swagger UI\@.
-    Some experience with Apollo Studio (not much though).
+    Some experience with Apollo Studio (not much).
     \item None.
 \end{enumerate}
 
 \textbf{Post-questionnaire answers:}
 \begin{enumerate}
     \item 1 -- All was clear.
-    \item 2 -- Server streaming responses were too long, so the page becomes too long.
+    \item 2 -- Server streaming responses were too long, so the page became too long.
     The suggestion is to add scrolling, or a max height, or collapse the responses.
     The rest was clear.
     \item 1 -- All was clear.
     \item 1 -- All was clear.
-    \item He would add the metadata button also in the method request, not only globally.
+    \item He would add the metadata button in the method request, not only globally.
 \end{enumerate}
 
 \textbf{Individual scenarios:}
@@ -242,7 +243,7 @@ The third tester is a bachelor's degree student in computer science.
     The rest was done as expected.
     \item All done as expected.
     \item All done as expected, but when he had sent the request, he was waiting for the loading on the executed button to end.
-    So he did not see the responses as they were coming.
+    So, he did not see the responses as they were coming.
     \item He could not find the global metadata settings because he did not connect metadata with authorization.
     The rest was done as expected.
 \end{enumerate}
@@ -253,43 +254,44 @@ The fourth tester is a software developer with a master's degree in computer sci
 \textbf{Pre-questionnaire answers:}
 \begin{enumerate}
     \item Web engineering, backend development in Typescript.
-    \item Everyday.
-    \item Not much usage, but he knows what are they.
+    \item Every day.
+    \item Not much usage, but he knows what they are.
     He uses the Open API specification for REST APIs instead of Swagger UI\@.
-    \item He was using it about 2 years ago for mobile development.
+    \item He was using it about two years ago for mobile development.
 \end{enumerate}
 
 \textbf{Post-questionnaire answers:}
 \begin{enumerate}
     \item 1 -- All was clear.
     \item 1 -- Similar to Swagger UI, so all was clear.
-    \item 1 -- He was not sure about the returned type model, the rest was clear.
-    \item 1 -- He was looking a while for the button to execute the method, but he missed it because it was too wide.
+    \item 1 -- He was not sure about the returned type model.
     The rest was clear.
-    \item If the gRPC API was larger, it would be good to have collapsible services/types/enums sections.
+    \item 1 -- He was looking for a while for the button to execute the method, but he missed it because it was too wide.
+    The rest was clear.
+    \item If the gRPC API were larger, it would be good to have collapsible services/types/enums sections.
 \end{enumerate}
 
 \textbf{Individual scenarios:}
 \begin{enumerate}
     \item All done as expected.
     \item He could not say if the returned type is the message body or the whole message type.
-    But he had eventually remembered it is the whole message type.
+    But he eventually remembered it was the whole message type.
     The rest was done as expected.
     \item All done as expected.
-    \item He could not find the execution button because it was too long and he thought it was a heading.
+    \item He could not find the execution button because it was too long, and thought it was a heading.
     But he had eventually found it.
     The rest was done as expected.
     \item All done as expected.
     \item All done as expected.
-    \item He was looking for metadata in the method, but quickly found it at the top.
+    \item He was looking for metadata in the method but quickly found it at the top.
     He has suggested making the button or header sticky at the top.
-    He has also pointed out that the Bearer prefix addition seems unnecessary as there might be other types of authorization which this might not work with.
+    He has also pointed out that the Bearer prefix addition seems unnecessary as there might be other types of authorization that this might not work with.
     The rest was done as expected.
 \end{enumerate}
 
 \subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
-The overall feedback was positive, and the testers found the website intuitive and clear.
-However, few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
+The overall feedback was positive, and the testers found the website intuitive and straightforward.
+However, a few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
 The changes are shown in the figure~\ref{fig:testing-screenshots}.
 
 \newpage
@@ -307,7 +309,7 @@ The changes are shown in the figure~\ref{fig:testing-screenshots}.
             \hline
             The metadata button invokes the feeling of submitting the row (not opening a modal).
             & Added greater space between the button and the input fields.
-            Also, making the input fields smaller, so the button is much larger.
+            Also, make the input fields smaller so the button is much larger.
             (\ref{fig:testing-changes-top-bar})
             & Fixed \\
             \hline
@@ -315,9 +317,9 @@ The changes are shown in the figure~\ref{fig:testing-screenshots}.
             & Changed the request background color to white to match the metadata and highlight the heading.
             & Fixed \\
             \hline
-            The metadata is expected also in the method execution.
+            The metadata is also expected in the execution of the method.
             & Having only global metadata is a design decision based on the Swagger UI.
-            The idea behind it is that the metadata is usually the same for all methods, carrying, for example, authorization.
+            The idea is that the metadata is usually the same for all methods, such as authorization.
             & Will not fix \\
             \hline
             The red color background in client streaming invokes there is an error.
@@ -326,45 +328,45 @@ The changes are shown in the figure~\ref{fig:testing-screenshots}.
             (\ref{fig:testing-changes-background-colors})
             & Fixed \\
             \hline
-            Hard to distinguish the returned message type from the message type body.
+            It is hard to distinguish the returned message type from the body of the message type.
             & Added description of the response status code and the title for the returned message type.
             (\ref{fig:testing-changes-response})
             & Fixed \\
             \hline
-            Confusion if the responses are a response as a list, or a list of responses.
+            Confusion if the responses are a response as a list or a list of responses.
             & Added a title to each response with the message number and total count at the end.
             (\ref{fig:testing-changes-responses})
             & Fixed \\
             \hline
-            Server streaming methods can have too many responses, so the page becomes too long.
-            & The responses are now scrollable in a fixed height container.
+            Server streaming methods can have too many responses, making the page too long.
+            & The responses are now scrollable in a fixed-height container.
             (\ref{fig:testing-changes-responses})
             & Fixed \\
             \hline
             Not seeing the responses as they are coming, waiting for the loading on the executed button to end.
             & Relocated the cancel button to the right side of the execution button.
-            Changed the responses to be shown in a fixed height container.
+            Changed the responses to be shown in a fixed-height container.
             (\ref{fig:testing-changes-cancel})
-            Also, this was more related to the tester's stress, where in reality they would scroll sooner.
+            Also, this was more related to the tester's stress, where, in reality, they would scroll sooner.
             & Partially fixed \\
             \hline
-            If the gRPC API was larger, it would be good to have collapsible services/types/enums sections.
+            If the gRPC API were larger, it would be good to have collapsible services/types/enums sections.
             & Added collapsible sections for services, message types, and enum types.
             & Fixed \\
             \hline
             The button for execution is too long, so it is mistaken for the heading.
-            & The width of the button is designed based on the Swagger UI, but its color was changed to be more visible with a border.
+            & The button's width is designed based on the Swagger UI, but its color was changed to be more visible with a border.
             (\ref{fig:testing-changes-cancel})
             & Fixed \\
             \hline
             The close button on the metadata modal is mistaken for the set button in the authorization.
-            & The close button is now a secondary color, the set button is a primary color.
+            & The close button is now a secondary color, and the set button is a primary color.
             (\ref{fig:testing-changes-metadata})
             & Fixed \\
             \hline
             There may be other types of authorization than Bearer.
             & Added more authorization types, such as Basic and API Key.
-            Otherwise, using the authorization is optional, the user can always use the metadata directly.
+            Otherwise, the use of authorization is optional, and the user can always use the metadata directly.
             (\ref{fig:testing-changes-metadata})
             & Fixed \\
             \hline
@@ -409,7 +411,7 @@ The changes are shown in the figure~\ref{fig:testing-screenshots}.
     \begin{subfigure}{.85\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{images/testing/screenshots/testing-top-bar}
-        \caption{Metadat button, global settings}
+        \caption{Metadata button, global settings}
         \label{fig:testing-changes-top-bar}
     \end{subfigure}%
 
