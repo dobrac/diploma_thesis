@@ -292,7 +292,24 @@ The fourth tester is a software developer with a master's degree in computer sci
 \subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
 The overall feedback was positive, and the testers found the website intuitive and straightforward.
 However, a few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
-The changes are shown in the figure~\ref{fig:testing-screenshots}.
+The changes in the UI are shown in the figure~\ref{fig:testing-screenshots}.
+
+The slightly lighter color scheme and the change of color for client streaming are shown in figure~\ref{fig:testing-changes-background-colors} to solve the confusion with the method being in the error state.
+Then the figure~\ref{fig:testing-changes-response} shows added \enquote{OK} text to explain the \enquote{0} response status, alongside added \enquote{Response message type} title to hint the user about the response type.
+The figure~\ref{fig:testing-changes-cancel} shows a dark border around the execute button to emphasize it, and also the cancel button to the right instead of being underneath.
+
+The metadata renaming to the \enquote{Metadata \& Authorization} with the larger space on the left and making the method input and the base gRPC URL input smaller, shown in the figure~\ref{fig:testing-changes-top-bar}, is there to prevent a submit button perception and to explain the authorization definition action.
+After clicking the metadata button, a modal dialog is opened. 
+Changes to that dialog are shown in the figure~\ref{fig:testing-changes-metadata}.
+The colors for the set and close buttons have been switched to underline the primary actions, compared to the secondary close.
+Another change is in the authorization section, where additional types were added with the preview of the final metadata key-value pair that will be added when the authorization is set.
+
+The responses list has been redesigned with the addition of the title to each response message and the total response count.
+It is shown in the figure~\ref{fig:testing-changes-responses}.
+Another change is the addition of a maximum height for the response container.
+Its height is fixed to 50\% of the view height, and it automatically scrolls to the bottom, if not scrolled, as new messages arrive.
+This also helps with having too long message responses.
+
 
 \newpage
 
