@@ -289,6 +289,51 @@ The fourth tester is a software developer with a master's degree in computer sci
     The rest was done as expected.
 \end{enumerate}
 
+\subsubsection{Tester 5}
+The fourth tester is a software developer with a master's degree in computer science.
+
+\textbf{Pre-questionnaire answers:}
+\begin{enumerate}
+    \item Web engineering, fullstack with focus on backend development.
+    \item 6--7 years of experience in designing backend APIs, experience with REST, GraphQL, and GRPC APIs.
+    \item The most experience with Swagger UI than Apollo Studio.
+    Writing backend specifications, used these tools as a platform for team sharing.
+    \item Two years of usage on a larger production project.
+    Wrote a framework for Node.js and gRPC\@.
+    Worked a lot with the core library.
+\end{enumerate}
+
+\textbf{Post-questionnaire answers:}
+\begin{enumerate}
+    \item 1 -- Would like to have the reflection url directly, but all good.
+    \item 1 -- Similar to Swagger UI, so all was clear.
+    An idea is adding a badge to the metadata button to symbolize an authorization header set state.
+    \item 1 -- All good.
+    He has stressed the importance of being able to use the \verb|ctrl+F| (find text on page) shortcut.
+    He also appreciated the model preview in the input form while writing the JSON data.
+    \item 1 -- All good, similar to the Swagger UI\@.
+    He appreciated the instant response feedback.
+    \item All good.
+    A suggestion is to add a link to a user guide at the top of the page.
+\end{enumerate}
+
+\textbf{Individual scenarios:}
+\begin{enumerate}
+    \item All done as expected.
+    \item All done as expected.
+    \item He had first skipped the comment and told what the method does based on the input and output types, which was correct, but overlooks the comment message.
+    The rest was done as expected.
+    \item First confused the request with the response.
+    Then confusing headers with the response message.
+    The rest was done as expected.
+    \item Confused what the \textit{streaming} text in response title means, though did not have any effect on the expectations or actions.
+    The rest was done as expected.
+    Suggested scrollbar or collapse of the server responses as the server streaming requests are usually used for monitoring data.
+    \item All done as expected.
+    \item He has tried to set the authorization headers manually, which is fine and also works.
+    The rest was done as expected.
+\end{enumerate}
+
 \subsection{Found Issues and Their Solutions}\label{subsec:found-issues-and-their-solutions}
 The overall feedback was positive, and the testers found the website intuitive and straightforward.
 However, a few issues were found, and they are listed in the table~\ref{tab:user-testing-issues} with their respective solutions.
@@ -299,7 +344,8 @@ Then the figure~\ref{fig:testing-changes-response} shows added \enquote{OK} text
 The figure~\ref{fig:testing-changes-cancel} shows a dark border around the execute button to emphasize it, and also the cancel button to the right instead of being underneath.
 
 The metadata renaming to the \enquote{Metadata \& Authorization} with the larger space on the left and making the method input and the base gRPC URL input smaller, shown in the figure~\ref{fig:testing-changes-top-bar}, is there to prevent a submit button perception and to explain the authorization definition action.
-After clicking the metadata button, a modal dialog is opened. 
+Also, a count badge was added to the metadata button to show the number of set metadata and authorization headers.
+After clicking the metadata button, a modal dialog is opened.
 Changes to that dialog are shown in the figure~\ref{fig:testing-changes-metadata}.
 The colors for the set and close buttons have been switched to underline the primary actions, compared to the secondary close.
 Another change is in the authorization section, where additional types were added with the preview of the final metadata key-value pair that will be added when the authorization is set.
@@ -360,6 +406,11 @@ This also helps with having too long message responses.
             (\ref{fig:testing-changes-responses})
             & Fixed \\
             \hline
+            The responses are not distinguished from the headers.
+            & Added titles to each response and the total count.
+            (\ref{fig:testing-changes-responses})
+            & Fixed \\
+            \hline
             Not seeing the responses as they are coming, waiting for the loading on the executed button to end.
             & Relocated the cancel button to the right side of the execution button.
             Changed the responses to be shown in a fixed-height container.
@@ -372,7 +423,7 @@ This also helps with having too long message responses.
             & Fixed \\
             \hline
             The button for execution is too long, so it is mistaken for the heading.
-            & The button's width is designed based on the Swagger UI, but its color was changed to be more visible with a border.
+            & The button's width is designed based on the Swagger UI, but its color was changed, border and icon before the text were added to increase the visibility.
             (\ref{fig:testing-changes-cancel})
             & Fixed \\
             \hline
@@ -386,6 +437,18 @@ This also helps with having too long message responses.
             Otherwise, the use of authorization is optional, and the user can always use the metadata directly.
             (\ref{fig:testing-changes-metadata})
             & Fixed \\
+            \hline
+            Have the gRPC reflection URL directly on the website.
+            & That is not possible because of the gRPC browser limitations and the static website (backendless) hosting.
+            & Will not fix \\
+            \hline
+            Add authorization metadata set state badge.
+            & Added a badge of the set metadata headers count.
+            & Fixed \\
+            \hline
+            Add a user guide link at the top of the page.
+            & This might be added in the future if the solution is public (the user guide is part of the GitHub repository), but as of now, it will not be added.
+            & Will not fix \\
             \hline
         \end{tabular}
     }
