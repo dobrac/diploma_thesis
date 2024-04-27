@@ -1,6 +1,6 @@
-In this section, I am going to introduce Protocol Buffers.
+In this chapter, I am going to introduce Protocol Buffers.
 Then, I will analyze existing solutions for website documentation with the ability to call APIs for Protocol Buffers, GraphQL, and RESTful APIs.
-I will start with Protocol Buffers, then move and explore the solutions to GraphQL, and finally analyze RESTful API\@.
+I will start with Protocol Buffers, then move and explore the solutions for GraphQL, and finally analyze RESTful API\@.
 
 
 \section{Protocol Buffers}
@@ -47,7 +47,7 @@ Messages are used to define data structures.
 They are defined using the \textit{message} keyword followed by the name of the message and a block of fields.
 Each field has a name, a type, and a unique number across all fields in the \textit{message}.
 The type of a field can be a scalar type or another \textit{message} type.
-The possible scalar types are described in table~\ref{tab:protobuf-scalar-types} with their C++ counterparts.
+The possible scalar types are described in table~\ref{tab:protobuf-scalar-types} with their C\texttt{++} programming language counterparts.
 The unique number is used to identify the field in the binary encoding.
 Reusing the same number for different fields is therefore highly discouraged.
 To avoid this, there is a \textit{reserved} keyword, which I will describe later.
@@ -58,7 +58,7 @@ To avoid this, there is a \textit{reserved} keyword, which I will describe later
     \captionsetup{justification=centering}
     \begin{tabular}{|l|l|}
         \hline
-        .proto   & C++    \\ \hline
+        \textbf{.proto}   & \textbf{C++}    \\ \hline
         double   & double \\ \hline
         float    & float  \\ \hline
         int32    & int32  \\ \hline
@@ -103,19 +103,19 @@ The \textit{optional} keyword resolves this by providing a mechanism to explicit
 
 The \textit{repeated} keyword is used to define fields that can hold multiple values of the same type.
 This is analogous to arrays or lists in common programming languages.
-A repeated field allows you to represent collections of data within your message structure.
+A repeated field allows the representation of collections of data within the \textit{message} structure.
 For example, a \textit{message} representing an order might have a \textit{repeated} field for line items, allowing multiple products within a single order.
 Protocol Buffers offer efficient encoding mechanisms for repeated fields, making them suitable for representing ordered data lists.
 \cite{protobuf-proto3}
 
 The \textit{map} keyword is employed to define fields encompassing key-value pairs, akin to dictionaries or hashmaps in programming contexts.
 A \textit{map} field allows the flexible association of related data without the constraints of a rigid structure.
-For instance, a product attribute message could leverage a \textit{map} field where keys denote attribute names (``color'', ``size'') and their corresponding values provide the descriptions (``red'', ``large'').
+For instance, a product attribute message could leverage a \textit{map} field where keys denote attribute names (\enquote{color}, \enquote{size}) and their corresponding values provide the descriptions (\enquote{red}, \enquote{large}).
 \cite{protobuf-proto3}
 
-Finally, the \textit{oneof} keyword provides a mechanism to define a message field where only one of several sub-fields can be set at a time.
+Finally, the \textit{oneof} keyword provides a mechanism to define a \textit{message} field where only one of several sub-fields can be set at a time.
 This is valuable when the \textit{message} needs to represent mutually exclusive data variations.
-For example, a payment\_method field within a \textit{message} could use a \textit{oneof} to support different payment types like credit\_card, debit\_card, or PayPal.
+For example, a \texttt{payment\_method} field within a \textit{message} could use a \textit{oneof} to support different payment types like \texttt{credit\_card}, \texttt{debit\_card}, or \texttt{paypal}.
 Setting one of these sub-fields automatically clears any previously set values within the \textit{oneof}.
 This helps conserve memory and enforces a clear structure for alternative data representations.
 \cite{protobuf-proto3}
@@ -136,7 +136,7 @@ This is useful when the same value is used in different contexts.
 The \textit{service} defines a set of \textit{methods} that can be called remotely.
 It is defined using the \textit{service} keyword followed by the name of the \textit{service} and a block of \textit{methods}.
 Each \textit{method} has a name, request, and response \textit{message} type.
-The \textit{method} can also have a \textit{stream} keyword to define streaming of request, response, or both.
+The \textit{method} can also have a \textit{stream} keyword to define streaming of request, streaming of response, or both.
 \cite{protobuf-proto3}
 
 Streaming is a feature that allows the client and server to send a sequence of \textit{messages} back and forth until the stream is closed.
@@ -165,9 +165,9 @@ Both \textit{package} and nested types are used to avoid name conflicts and can 
 The \textit{options} are used to alter the behavior of the .proto file, \textit{message}, \textit{enum}, \textit{service}, \textit{method}, or fields.
 They are defined using the \textit{option} keyword followed by the name of the \textit{option} and its value.
 One of the most commonly used \textit{option} is a \textit{java\_package}.
-The \textit{java\_package} is used to define the package for the Java code generation.
+The \textit{java\_package} is used to define the package for the Java programming language code generation.
 It is defined at the file level.
-Other \textit{option} could be \textit{java\_multiple\_files} for altering Java code generation to generate multiple files, or \textit{optimize\_for} for selection of C++ and Java generated client size, and more.
+Other \textit{option} could be \textit{java\_multiple\_files} for altering Java code generation to generate multiple files, or \textit{optimize\_for} for selection of C\texttt{++} and Java generated client size, and more.
 \cite{protobuf-proto3}
 
 \subsection{Comments}
@@ -175,14 +175,14 @@ The .proto files can contain comments.
 The comments can be single-line or multi-line.
 The single-line comments are started with the \textit{//} characters.
 The multi-line comments start with the \textit{/*} characters and end with the \textit{*/} characters.
-The comments can be used to describe the purpose of the \textit{message}, \textit{enum}, \textit{service}, \textit{method} or \textit{field}.
+The comments can be used to describe the purpose of the \textit{message}, \textit{enum}, \textit{service}, \textit{method} or field.
 The comments can also describe the purpose of the \textit{package} or the whole file.
 \cite{protobuf-proto3}
 
 \subsection{Code Generation}
-The .proto files generate the code for the specific programming language.
+The .proto files are used as a source for generating a specific programming language code.
 Code generation can be done using various tools, the recommended one being the Protocol Compiler (protoc).
-It is used to generate the C++, C\#, Dart, Go, Java, Python, Ruby, and JavaScript code.
+It is used to generate the C\texttt{++}, C\#, Dart, Go, Java, Python, Ruby, and JavaScript code.
 An example usage is described in the code snippet~\ref{lst:protobuf-protoc}.
 Required classes and types are then generated, and the gRPC APIs can be called without extra coding work.
 \cite{protobuf-proto3}
@@ -203,7 +203,7 @@ The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecyc
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=0.4\textwidth]{images/grpc-metadata}
+    \includegraphics[width=0.45\textwidth]{images/grpc-metadata}
     \caption{gRPC Metadata}
     \label{fig:grpc-metadata}
 \end{figure}
@@ -211,7 +211,6 @@ The figure~\ref{fig:grpc-metadata} shows the gRPC headers in the request lifecyc
 Trailers are sent after the server gives the final response.
 They provide additional information about the response, such as the utilization or query cost.
 The figure~\ref{fig:grpc-metadata} shows the gRPC trailers in the response lifecycle.
-
 \cite{grpc-metadata}
 
 \subsection{gRPC-web}
@@ -236,7 +235,7 @@ The browser processes the response, and the communication is complete.
 
 The default proxy implementation is the Envoy\footnote{\url{https://www.envoyproxy.io/}} proxy.
 It supports the gRPC-Web protocol out of the box.
-Other options are, but not only, gRPC-web Go proxy\footnote{\url{https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy}}, APISIX\footnote{\url{https://apisix.apache.org/blog/2022/01/25/apisix-grpc-web-integration/}}, and Nginx\footnote{\url{https://www.nginx.com/}}.
+Other options are, but not only, gRPC-Web Go proxy\footnote{\url{https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy}}, APISIX\footnote{\url{https://apisix.apache.org/blog/2022/01/25/apisix-grpc-web-integration/}}, and Nginx\footnote{\url{https://www.nginx.com/}}.
 
 Because of the proxy and browser implementation, there are a few differences and current limitations of the gRPC-Web~\cite{grpc-web}.
 The most important one is streaming support.
@@ -247,7 +246,7 @@ It is planned for 2023+, but it has not been implemented yet~\cite{grpc-web-stre
 
 \subsection{gRPC Reflection}
 The gRPC protocol uses binary encoding.
-Therefore, it is impossible to query the server without knowing the protobuf definition of the service and both request and response messages before the request.
+Therefore, it is impossible to query the server without knowing the protobuf definition of the service and both request and response messages in advance of the request.
 The gRPC reflection is a way to get this information using a standardized gRPC service that allows other clients to query the server for the protobuf-defined APIs.
 It includes all necessary information about the services, methods, enums, and messages.
 This information can encode requests, query the server, and decode responses.
@@ -260,7 +259,7 @@ The support for it varies across different gRPC implementations in different pro
 \section{Existing Documentation Tools}
 This section examines popular tools for documenting gRPC, GraphQL, and RESTful APIs.
 I'll assess the capabilities and shortcomings of each solution, addressing gRPC first, then GraphQL, and lastly, RESTful APIs.
-The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static web generator.
+The section will culminate in a summary of findings, a discussion of issues, and a proposed solution for the static website generator.
 
 \subsection{Protocol Buffers}
 In the Protocol Buffers world, there are several tools for generating documentation or interactive calls from the .proto files.
@@ -413,7 +412,7 @@ The main disadvantages (compared to my task) are:
 \end{itemize}
 
 \subsubsection{letmegrpc}
-The gRPC UI is a website that supports calling gRPC services.
+The letmegrpc is a website that supports calling gRPC services.
 It allows service methods to call using forms, where each method has its separate URL (\url{http://localhost:8080/ServiceName/MethodName}).
 It is constructed from a .proto file.
 The UI is in the figure~\ref{fig:grpc-letmegrpc}.
@@ -453,15 +452,14 @@ The gRPC Swagger is a website.
 It is based on gRPC reflection and can list and call gRPC services.
 It uses Swagger UI design language (copy of the Swagger UI) but is not a part of the official Swagger.
 The UI is in the figure~\ref{fig:grpc-swagger}.
-The architecture is done using its server as a proxy.
-The website's server forwards all requests to the gRPC server and back to the website.
-\cite{grpc-letmegrpc}
+The architecture is done using its own server as a proxy.
+The website's server forwards all requests to the gRPC server and back to the website.~\cite{grpc-letmegrpc}
 
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=0.8\textwidth]{images/grpc/swagger-1}
-    \includegraphics[width=0.8\textwidth]{images/grpc/swagger-2}
+    \includegraphics[width=0.73\textwidth]{images/grpc/swagger-1}
+    \includegraphics[width=0.73\textwidth]{images/grpc/swagger-2}
     \caption{gRPC Swagger UI~\cite{grpc-swagger}}
     \label{fig:grpc-swagger}
 \end{figure}
@@ -587,7 +585,7 @@ And finally, it looks to be abandoned with the last commit more than two years a
 \cite{grpc-proto2asciidoc}
 
 \subsubsection{protoc-gen-doc}
-A documentation generator for the protoc compiler tool.
+The protoc-gen-doc is a documentation generator for the protoc compiler tool.
 It can generate HTML, JSON, DocBook, and Markdown documentation from comments in .proto files.
 The main advantages are that it can take comments from the .proto files and generate a static documentation website or JSON, keeping the original structure of the input .proto files.
 The website contains the documentation of the services, methods, and messages.
@@ -602,7 +600,7 @@ The disadvantage is that it does not allow the gRPC services to be called.
 In the GraphQL world, there are several tools for generating documentation or interactive calls.
 The most popular ones based on the state of GraphQL in 2022 and others I have found for documentation are in the following subsections~\cite{graphql-popularity}.
 
-\subsubsection{graphdoc}
+\subsubsection{GraphDoc}
 GraphDoc is a static website generator for GraphQL schemas.
 It supports live endpoint and .graphql definition files.
 The generated website contains the documentation of the queries, mutations, and types.
@@ -726,7 +724,7 @@ The main disadvantage (compared to my task) is that it is not self-hosted and is
 
 \subsection{RESTful API}
 In the RESTful API world, there are several tools for generating documentation or interactive calls.
-Swagger UI is one of the most popular ones, which I will mainly cover and compare with the gRPC options.
+Swagger UI is one of the most popular ones, which I will mainly cover and compare with the gRPC options~\cite{rest-swagger-ui-popularity}.
 
 \subsubsection{ReDoc}
 ReDoc is a tool for generating documentation based on the definition of OpenAPI.
@@ -763,7 +761,7 @@ The UI is in the figure~\ref{fig:rest-rapidoc}.
 \begin{figure}[hbt!]
     \centering
     \captionsetup{justification=centering}
-    \includegraphics[width=0.8\textwidth]{images/rest/rapidoc}
+    \includegraphics[width=0.75\textwidth]{images/rest/rapidoc}
     \caption{RapiDoc UI~\cite{rest-rapidoc}}
     \label{fig:rest-rapidoc}
 \end{figure}
@@ -816,6 +814,23 @@ For each tool, I have described the overall image and the main features and disa
 While many of them excel in certain areas, they often fail to provide an experience that combines documentation rendering and interactive API exploration.
 The comparison of the main features of the Protocol Buffers tools is in the table~\ref{tab:grpc-comparison-table}.
 
+
+For Protocol Buffers, the most dominant are desktop applications like Wombat, BloomRPC, and Postman, which facilitate the browsing and calling of gRPC services.
+However, these applications generally lack support for rendering documentation comments or determining gRPC schema via reflection.
+
+Web-based solutions like gRPC Docs, gRPC UI, letmegrpc, and gRPC-swagger offer interactive gRPC calling capabilities.
+Still, they encounter limitations like interactive streaming support, documentation comments integration, or special server setup requirements.
+This means developers must set up and maintain a server infrastructure specifically for API documentation and interaction.
+
+Additionally, static documentation generators like proto2asciidoc or protoc-gen-doc can render comments from .proto files as markup, but they do not allow direct interaction with the services.
+The gRPC-Gateway is a unique tool that generates a reverse proxy server for translating HTTP JSON APIs into gRPC\@.
+While it is not directly comparable to the other tools, it is worth mentioning due to its ability to generate OpenAPI definitions, which can be used with existing tools for HTTP APIs.
+
+Also, I think it is important to point out that maintenance of the tools is generally not good, with most of them being inactive for more than a year.
+Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
+
+Overall, the combination of having a static website with documenting comments and being able to call specific service methods interactively is lacking in current gRPC tools.
+
 \begin{landscape}
     \begin{table}
         \centering
@@ -841,20 +856,9 @@ The comparison of the main features of the Protocol Buffers tools is in the tabl
     \end{table}
 \end{landscape}
 
-For Protocol Buffers, the most dominant are desktop applications like Wombat, BloomRPC, and Postman, which facilitate the browsing and calling of gRPC services.
-However, these applications generally lack support for rendering documentation comments or determining gRPC schema via reflection.
-Web-based solutions like gRPC Docs, gRPC UI, letmegrpc, and gRPC-swagger offer interactive gRPC calling capabilities.
-Still, they frequently encounter limitations like interactive streaming support, documentation comments integration, or special server setup requirements.
-This means developers must set up and maintain a server infrastructure specifically for API documentation and interaction.
-Additionally, static documentation generators like proto2asciidoc or protoc-gen-doc can render comments from .proto files as markup, but they do not allow direct interaction with the services.
-The gRPC-Gateway is a unique tool that generates a reverse proxy server for translating HTTP JSON APIs into gRPC\@.
-While it is not directly comparable to the other tools, it is worth mentioning due to its ability to generate OpenAPI definitions, which can be used with existing tools for HTTP APIs.
-Also, I think it is important to point out that maintenance of the tools is generally not good, with most of them being inactive for more than a year.
-Only gRPC UI, gRPC-Gateway, protoc-gen-doc, and Postman are actively maintained.
-Overall, the combination of having a static website with documenting comments and being able to call specific service methods interactively is lacking in current gRPC tools.
-
 In the GraphQL realm, a documentation-focused tool graphdoc generates static documentation websites from schema definitions, providing a comprehensive view of the available queries, mutations, and types.
 However, this tool cannot execute queries and mutations, limiting its usefulness for interactive API exploration.
+
 On the other hand, GraphQL Playground and GraphiQL are powerful web IDEs that do not require a specific server to be running and excel in executing queries and mutations.
 Still, they struggle to integrate documentation seamlessly and comprehensively in their UI, where only GraphiQL includes the documentation comments but is not able to connect them with the queries directly.
 The most advanced tool is Apollo Studio, a cloud platform that offers a wide range of features for exploring and executing GraphQL APIs.
@@ -864,7 +868,8 @@ As a result, none of the most popular tools I have found combine comprehensive d
 In contrast, the RESTful API ecosystem is in a vastly different state.
 The ReDoc tool is a static website generator that renders documentation from OpenAPI definitions, providing a view of the available endpoints, request/response examples, and implementation examples.
 However, it does not support interactive API execution.
-On the other hand, solutions like Swagger UI and RapiDoc render documentation from OpenAPI definitions while allowing interactive API execution.
+
+Solutions like Swagger UI and RapiDoc render documentation from OpenAPI definitions while allowing interactive API execution.
 These tools provide a cohesive experience for developers working with RESTful APIs, blending documentation and interaction capabilities while being able to run as a static website.
 I have found no significant disadvantages to either of these tools.
 
@@ -931,8 +936,8 @@ Based on the issues and primary features described previously in the tools, I ha
 
     \item \functional{Request body message input}
     The website should allow request data input as a form or JSON\@.
-    It has to support all scalar types, including bytes and enums.
-    The input should also contain an example of the message structure.
+    It has to support all scalar types, including messages and enums.
+    The input should eventually also contain an example of the message structure.
 
     \item \functional{Input form validation for the correct message structure}
     The website should validate the input form for the correct message structure and show an error if the structure is incorrect.
@@ -1041,7 +1046,7 @@ The generator reads the .proto files.
 The generator generates the website's necessary files for these definitions.
 The website is ready for the gRPC Developer to be hosted.\\
 \textbf{Alternative Scenario 1:}
-The generator finds an error when parsing the .proto files.
+The generator finds an error while parsing the .proto files.
 So, it shows an error message to the gRPC Developer.
 The gRPC Developer has to fix the error in the .proto files and rerun the generator.\\
 \textbf{Alternative Scenario 2:}
@@ -1060,7 +1065,7 @@ After the Protocol Buffer definitions are created, the gRPC Developer runs the g
 The generator reads the definitions and generates the website's necessary files.
 The website is ready for the gRPC Developer to be hosted.\\
 \textbf{Alternative Scenario 1:}
-The generator finds an error when parsing the definitions file.
+The generator finds an error while parsing the definitions file.
 So, it shows an error message to the gRPC Developer.
 The gRPC Developer has to regenerate the definitions file and rerun the generator.\\
 \textbf{Alternative Scenario 2:}

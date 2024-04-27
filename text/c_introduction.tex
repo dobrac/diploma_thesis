@@ -1,48 +1,4 @@
-%The aim of the work is to design and implement a static web presentation generator for gRPC API documentation. The input files are proto files that carry a description of services, calls and types. The output is an HTML page with documentation and the ability to call the API (provided that the API supports gRPC-web).
-%1. Research existing solutions for Protocol Buffers and compare features with similar tools for GraphQL or RESTful APIs.
-%2. Design and implement a documentation generator with the ability to call an existing gRPC-web API.
-%3. Discuss and possibly implement an alternative data source using gRPC reflection.
-%4. Test the application with automated tests and perform user testing.
-
-
-%Having a client implementation and documentation for a server API helps with testing and development.
-%But implementing the client takes time and effort.
-%For this reason there are generic clients used for that.
-%In the RESTful API world, Swagger is a popular choice.
-%In the GraphQL world, popular might be GraphiQL\@.
-%Therefore, it is desired to have a similar tool for gRPC\@.
-%
-%The tools for gRPC exists, but they lack user-friendliness compared the ones for REST or GraphQL\@.
-%They require separate server to be run, and they don't always support documenting of services, calls and types.
-%
-%The aim of the work is to design and implement a static web presentation generator for gRPC API documentation.
-%The input files are Protobuf Buffer files that carry a description of services, calls and types.
-%The output is a static HTML page with documentation and the ability to call the API (provided that the API supports gRPC-web).
-%
-%I've chosen this topic because I believe I can offer a solution that will solve the troubles having documentation for gRPC services.
-%This applies especially for developers who are creating mainly RESTful APIs\@.
-%
-%The thesis is split into four main parts.
-%The first part is the analysis of existing solutions.
-%The following parts are design, implementation and testing.
-%
-%
-%In the first part, I analyze the features in existing solutions for gRPC and compare them with similar tools for RESTful and GraphQL APIs.
-%Based on the gained knowledge, I define the requirements and use cases for the website.
-%
-%In the design chapter, I present a new solution using a static web page and tools for conversion between gRPC API definition and the web page understood format.
-%I also discuss the options and limitations of using gRPC vs gRPC-web.
-%Finally, I discuss and design the possibility of getting the gRPC API definition using the gRPC reflection.
-%
-%In the implementation chapter, I discuss the choice of technology, the implementation of the designed solution and the architecture of the application.
-%I also discuss the problems that occurred during the implementation and their solutions.
-%The chapter ends with a discussion of the licenses of the used libraries.
-%
-%The testing chapter is about manual and automated testing.
-%The automated testing is done using unit tests.
-%The manual testing is done using user testing, which focuses on the user-friendliness of the application.
-
-Having a readily available client implementation and clear documentation for a server API significantly aids in testing and development.
+Having a readily available client implementation and documentation for a server API significantly aids in testing and development.
 However, implementing clients can be a time-consuming effort.
 To address this, generic clients are often employed.
 Swagger\footnote{\url{https://swagger.io/}} is a popular choice for RESTful APIs, while GraphiQL\footnote{\url{https://github.com/graphql/graphiql}} often serves this purpose in the GraphQL world.
