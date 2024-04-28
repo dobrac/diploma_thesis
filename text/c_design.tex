@@ -109,10 +109,6 @@ As previously mentioned, the website will use a common format for the gRPC defin
 In this section, I will discuss the possibilities of already existing common formats, and I will choose the most suitable one for the website.
 I will not consider the OpenAPI standard anymore, as I have discussed previously in the Swagger UI possibility.
 
-% TODO: Probably not even consider, because already discussed earlier
-%\subsection{OpenAPI}
-% Why not use OpenAPI -> It's made for REST, not gRPC. I would have to map it -> already existing solutions
-
 \subsection{grpc-protoc-gen-doc}
 The grpc-protoc-gen-doc\footnote{\url{https://github.com/pseudomuto/protoc-gen-doc}} allows JSON output generation, including comments.
 This is great for documentation, but it does not allow the generation of the necessary gRPC metadata used for constructing gRPC requests.
