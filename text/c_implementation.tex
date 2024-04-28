@@ -1,11 +1,11 @@
-In this section, I will describe the implementation of the website generator.
+In this chapter, I will describe the implementation of the website generator.
 I will start by discussing the choice of technology, followed by the project settings.
 Then, I will describe the code structure, user interface, and functionality.
 Finally, I will discuss the licensing of the libraries used in the project.
 
 
 \section{Choosing the Technology}
-The main factor in choosing the technology was the ability to generate a website that can be easily deployed and accessed by users.
+The main factor in choosing the technology is the ability to generate a website that can be easily deployed and accessed by users.
 In the design chapter, I concluded that I would use a common format with all gRPC definitions, and the website would be generated from this format in the browser.
 Therefore, I must choose a technology for the website and the common format generators.
 
@@ -65,8 +65,10 @@ This will allow me to have potential features in the future, fix the current one
 There are two more issues with this library that need to be addressed.
 The first one is that there is a bug in the library when parsing the value options for enums.
 I found the issue in the library's repository source code and fixed it locally using the package manager patch functionality.
-I have also reported the issue to the library's repository at \url{https://github.com/protobufjs/protobuf.js/issues/1961} with a way to fix it and a pull request.
+I have also reported the issue to the library's repository at \url{https://github.com/protobufjs/protobuf.js/issues/1961} with a way to fix it and created a pull request.
 The patch change is in the code snippet~\ref{lst:protobufjs-enum-value-options}.
+
+\newpage
 
 \begin{lstlisting}[style=JavaScript, caption={protobufjs library enum comments bug fix}, label={lst:protobufjs-enum-value-options}]
 Enum.fromJSON = function fromJSON(name, json) {
@@ -81,7 +83,7 @@ Enum.fromJSON = function fromJSON(name, json) {
 
 The second issue is that the protobufjs-cli library does not support comments.
 I have found an already existing issue (\url{https://github.com/protobufjs/protobuf.js/issues/1145}), which hints at how to patch the library locally until it is added to the library itself.
-To make the protobufjs-cli library support comments, I have slightly updated how JSON export works and created a local patch.
+To make the protobufjs-cli library support comments, I have slightly updated how JSON exports work and created a local patch.
 When this feature is added to the library, I can remove the patch and use the library as it is.
 The patch change is in the code snippet~\ref{lst:protobufjs-comments}.
 
@@ -115,7 +117,8 @@ The \textit{serverStreaming} method requires the same parameters, but the callba
 The code snippet~\ref{lst:grpc-web-client} shows an example of the method with parameters.
 The method name is a string with a full path to the method.
 The request message type is defined by the generated client and is required to contain specific attributes and methods.
-Because I am using the protobufjs library, I have found out I am able to supply only an empty object (\textit{\{\}}) here and do the rest of the work in other functions supplied in the method descriptor.
+Because I am using the protobufjs library, I have found out I am able to supply only an empty object (\textit{\{\}}) there and do the rest of the work in other functions supplied in the method descriptor.
+
 The method descriptor is an object containing the method name, the method type, the request message type, the response message type, and the request serialize and response deserialize functions.
 The method name is just the method name without a path.
 The method type is either unary or server streaming.
@@ -169,7 +172,7 @@ Again, I am choosing the most popular and maintained libraries for the long-term
 
 
 \section{Project Settings}
-The project is using the lerna\footnote{\url{https://lerna.js.org/}} and pNpM\footnote{\url{https://pnpm.io/}} package manager.
+The project is using the Lerna\footnote{\url{https://lerna.js.org/}} and pNpM\footnote{\url{https://pnpm.io/}} package manager.
 Lerna is a tool that optimizes the workflow around managing multi-package repositories~\cite{lerna}.
 And pNpM is a fast, disk-space efficient package manager with the support of workspaces and libraries patching~\cite{pnpm}.
 Both tools cooperate and are compatible with each other.
@@ -184,12 +187,12 @@ It is divided into three packages:
 The project also contains \textit{example} and \textit{patches} folders.
 
 The \textit{example} folder contains example proto and reflection files with a pre-generated common format, as well as Envoy proxy configuration and gRPC server implementation in JavaScript.
-The envoy proxy can then be started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
+The Envoy proxy can then be started using a Docker image \textit{envoyproxy/envoy} and the gRPC server using the \textit{node server.js} command.
 This setup can be used to test the website's functionality.
 
 The \textit{patches} folder contains the patches for the protobufjs library described in the~\ref{subsec:grpc-web-client}.
 They are split into two files, each containing the diff of a concrete package file.
-These files are generated using the \textit{pnpm patch <pkg name>} command and applied automatically when the package is installed.
+These files are generated using the \textit{pnpm patch \textless{}pkg name\textgreater{}} command and applied automatically when the package is installed.
 
 The generators from proto and reflection files are set up as NPM runnable packages.
 This means the packages can be installed globally and run from the command line.
@@ -207,7 +210,7 @@ The script uses the proto files from the command or recursively traverses the di
 The output can be then redirected to a file.
 
 The code snippet~\ref{lst:proto-to-json} shows an example of the command.
-The symbol \textit{\>} redirects the output to a file.
+The symbol \textit{\textgreater{}} redirects the output to a file.
 The \textit{SOURCE\_PROTO\_FILES} can be any number of proto files or folder combinations split by space.
 If invalid proto files are passed, an error will be thrown, which is then displayed in the console.
 
@@ -237,7 +240,7 @@ grpcurl -protoset-out ${BIN_FILE}.bin -plaintext ${GRPC_SERVER} describe
 \end{lstlisting}
 
 The code snippet~\ref{lst:reflection-to-json} shows an example of the command.
-The symbol \textit{\>} redirects the output to a file.
+The symbol \textit{\textgreater{}} redirects the output to a file.
 The \textit{SOURCE\_BIN\_FILE} is the bin file.
 If an invalid bin file is passed, an error will be thrown, which will then be displayed in the console.
 
@@ -269,9 +272,6 @@ The default definitions file is in the root of the directory and is called \text
 It is shown on the website page by default.
 Any other file can replace it with the same structure and name, or it is possible to host the file anywhere and specify the file URL in the \textit{url} query parameter of the website.
 
-\subsection{Protobufjs Data Structure}
-I am using the protobufjs library with its data structure.
-The data class diagram is shown in the figure~\ref{fig:protobufjs-class-diagram}.
 
 \begin{landscape}
     \begin{figure}
@@ -283,14 +283,18 @@ The data class diagram is shown in the figure~\ref{fig:protobufjs-class-diagram}
     \end{figure}
 \end{landscape}
 
+\subsection{Protobufjs Data Structure}
+I am using the protobufjs library with its data structure.
+The data class diagram is shown in the figure~\ref{fig:protobufjs-class-diagram}.
+
 The base is the \textit{Root} class, which is returned by parsing the common format.
 Other classes like service or type create a tree structure.
-For example, using the field nested (or nestedArray) from the \textit{NamespaceBase}, I can traverse the tree and find all services, message types, or enums.
+For example, using the field \textit{nested} (or \textit{nestedArray}) from the \textit{NamespaceBase}, I can traverse the tree and find all services, message types, or enums.
 This way, I find all the data I need for the website.
 
 Each class has fields related to the protobuf features.
-For example, the \textit{Service} class has a methods field containing all methods for that service, and the \textit{Method} class has a field of what type of streaming it is.
-Also, all classes have a comment field containing the proto file's comment.
+For example, the \textit{Service} class has a \textit{methods} field containing all methods for that service, and the \textit{Method} class has a field of what type of streaming it is.
+Also, all classes have a \textit{comment} field containing the proto file's comment.
 Using these fields, I can display the data on the website.
 
 \subsection{Design and Functionality}
@@ -347,8 +351,8 @@ In the figure~\ref{fig:implementation-screenshots-fullpage}, the user can also s
 The expanded method is shown in the figure~\ref{fig:implementation-screenshots-method}.
 Its design is based on the wireframes, where the user can see the request input form and the response message type.
 After executing the method, the response is shown as in the figure~\ref{fig:implementation-screenshots-response}.
-It contains the request JSON with the metadata, server URLs, and the response with headers and trailers.
-When the method type is server streaming, the response is shown as in the figure~\ref{fig:implementation-screenshots-responses-streaming} with all responses gradually showing as soon as they come.
+It contains the request JSON with the metadata, server URL, and the response with headers and trailers.
+When the method type is server streaming, the response is shown as in the figure~\ref{fig:implementation-screenshots-responses-streaming} with all responses gradually showing as soon as they arrive.
 If the user wants to cancel the method execution while it is still running, they can click the cancel button, which is shown in the figure~\ref{fig:implementation-screenshots-execution-pending}.
 If there is an error in the response, it is shown as in the figure~\ref{fig:implementation-screenshots-response-error} with the gRPC error code status, as well as the HTTP status (for gRPC-Web) and metadata.
 
@@ -519,11 +523,11 @@ All the functionality and design allow the user to navigate through the proto fi
 When the user selects a method, they can execute it with the input form and see the response.
 For streaming requests, the user can see the responses gradually.
 They can see the error message for errors.
-This way, the user can test the gRPC server without implementing any client.
+This way, the user can test the gRPC server without implementing any client and preview documentation.
 
 
 \section{Licensing}
-For the development, I have used libraries that use the following licenses:
+For the implementation, I have used libraries that use the following licenses:
 \begin{itemize}
     \item MIT\footnote{\url{https://choosealicense.com/licenses/mit/}},
     \item BSD-3-Clause\footnote{\url{https://opensource.org/license/bsd-3-clause}},
