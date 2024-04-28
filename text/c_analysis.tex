@@ -187,7 +187,7 @@ An example usage is described in the code snippet~\ref{lst:protobuf-protoc}.
 Required classes and types are then generated, and the gRPC APIs can be called without extra coding work.
 \cite{protobuf-proto3}
 
-\begin{lstlisting}[language=bash, caption={Protocol Buffers Code Generation~\cite{protobuf-proto3}}, label={lst:protobuf-protoc}]
+\begin{lstlisting}[language=bash, caption={Protocol Buffers code generation~\cite{protobuf-proto3}}, label={lst:protobuf-protoc}]
 protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto
 \end{lstlisting}
 
@@ -496,7 +496,7 @@ and an example of the configuration file is in the code snippet~\ref{lst:grpc-ga
 \cite{grpc-letmegrpc}
 
 
-\begin{lstlisting}[language=protobuf2, style=protobuf, caption={gRPC-Gateway Annotations~\cite{grpc-gateway}}, label={lst:grpc-gateway-annotations}]
+\begin{lstlisting}[language=protobuf2, style=protobuf, caption={gRPC-Gateway annotations~\cite{grpc-gateway}}, label={lst:grpc-gateway-annotations}]
 import "google/api/annotations.proto";
 
 rpc Echo(StringMessage) returns (StringMessage) {
@@ -507,7 +507,7 @@ rpc Echo(StringMessage) returns (StringMessage) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[style=yaml, caption={gRPC-Gateway Configuration File~\cite{grpc-gateway}}, label={lst:grpc-gateway-configuration}]
+\begin{lstlisting}[style=yaml, caption={gRPC-Gateway configuration file~\cite{grpc-gateway}}, label={lst:grpc-gateway-configuration}]
 type: google.api.Service
 config_version: 3
 
