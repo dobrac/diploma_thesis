@@ -48,7 +48,7 @@ Initial state: A folder with proto files\\
 Steps:
 \begin{enumerate}
     \item Open the terminal
-    \item Write a command for translating proto files to JSON \textit{gf-proto-to-json \. > common.json}
+    \item Write a command for translating proto files to JSON \textit{gf-proto-to-json ./ \textgreater{} common.json}
     \item Open the website (locally or hosted), change the input to file, and upload the JSON file
     \item Check if the data is correctly displayed, including the services, methods, and messages
     \item Check if the comments and options are present
@@ -61,7 +61,7 @@ Steps:
 \begin{enumerate}
     \item Open the terminal
     \item Write a command for getting the bin file from the gRPC server \textit{grpcurl -protoset-out descriptors.bin -plaintext \$\{GRPC\_SERVER\_URL\} describe}
-    \item Write a command for translating the bin descriptors file to JSON \textit{gf-reflection-to-json descriptors.bin > common.json}
+    \item Write a command for translating the bin descriptors file to JSON \textit{gf-reflection-to-json descriptors.bin \textgreater{} common.json}
     \item Open the website (locally or hosted), change the input to file, and upload the bin file
     \item Check if the data is correctly displayed, including the services, methods, and messages
     \item Check if the comments and options are present

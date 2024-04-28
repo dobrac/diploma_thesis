@@ -40,8 +40,8 @@ For the future development, I see several possibilities.
 One of them is to add support for more backends than just gRPC-Web.
 This could be done by creating a custom proxy to translate the requests from the UI to the gRPC server.
 The implementation could be done using Websockets or HTTP/2, as it has to support client streaming.
-This would allow the tool to be used with any gRPC server, not only the gRPC-Web server but also not limit the tool to using any specific backend.
+This would not only allow the website to be used with any gRPC server but also not limit its use to any specific backend.
 
 Another possibility is to add support for automatic generation from the gRPC API server source codes.
 This could be done by creating a Gradle or Maven plugin (for Java or Kotlin projects), which will generate the JSON file from the project proto files and then host the static website along the project server.
-This would allow the tool to be used without extensive deployment setup and would allow the tool to be used in the development phase—for example, the automatic JSON file pre-generating on each update.
+This would allow the website to be used without extensive deployment setup and would allow it to be used in the development phase — for example, the automatic JSON definition file re-generating on each update.
