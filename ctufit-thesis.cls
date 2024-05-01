@@ -58,7 +58,7 @@
 \ProcessOptions\relax
 
 % main declarations, loading files
-\LoadClass[a4paper,11pt]{book}[2020/04/10]
+\LoadClass[a4paper]{book}[2020/04/10]
 \RequirePackage{babel}[2021/03/03]
 \if@twoside
 \RequirePackage[bottom=4cm,footskip=4em]{geometry}[2020/01/02] %page layout
@@ -288,7 +288,7 @@
 \def\frontsubsubsectionfont{\bfseries}
 
 \setcounter{secnumdepth}{4} % numbering sections; 4: subsubsection
-\setcounter{tocdepth}{4} % table of content depth; 4: subsubsection
+\setcounter{tocdepth}{2} % table of content depth; 4: subsubsection
 % frontmatter headings end
 
 % frontmatter pseudochapters: named part without printing actual chapter heading
