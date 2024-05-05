@@ -324,13 +324,13 @@
 \pagestyle{fancy}
 \fancyhf{}
 \if@twoside
-\fancyhead[LE]{\leavevmode\smash{\llap{\color{headgray} \bfseries \thepage \hspace*{0em}}}}
+\fancyhead[LE]{\leavevmode\smash{\llap{\color{headgray} \bfseries \thepage \hspace*{4em}}}}
 \fancyhead[RE]{\color{headgray}\bfseries\nouppercase{\leftmark}}
 \else
 \fancyhead[L]{\leavevmode\smash{\llap{\color{headgray} \bfseries \thepage \hspace*{4em}}}}
 \fancyhead[R]{\color{headgray}\bfseries\nouppercase{\leftmark}}
 \fi
-\fancyhead[RO]{\leavevmode\smash{\rlap{\hspace*{0em}\color{headgray}\bfseries\thepage}}}
+\fancyhead[RO]{\leavevmode\smash{\rlap{\hspace*{4em}\color{headgray}\bfseries\thepage}}}
 \fancyhead[LO]{\color{headgray}\bfseries\nouppercase{\rightmark}}
 \renewcommand{\headrulewidth}{0pt}
 % headers and footers end
